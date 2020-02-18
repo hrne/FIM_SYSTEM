@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Message</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <script src="./jquery-ui-1.12.1/jquery-3.2.1.min.js"></script>
+        <script src="./jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+        <script src="./jquery-ui-1.12.1/jquery-ui.js"></script> 
+        <link rel="stylesheet" href="./jquery-ui-1.12.1/jquery-ui.css">    
+        
+        <script>
+            $( function() {
+                $( ".send button" ).click( function( event ) {
+                    var message = $("input[name='message']").val();
+                
+                    $.ajax({
+                        url: "./mysql.php",
+                        method: 'GET',
+                        data: 'message=' + message,    
+                        dataType: "json",
+                        success: function (data, status) {
+                            console.log(data);
+                            alert(data.message);
+                        }
+                    });                
+                });                
+            });
+        </script>
+    </head>
+    <body>
+        
+        <label class="send">
+            <input type="text" id="message" name="message">
+            <button>送出</button>
+        </label>    
+    </body>
+</html>

@@ -1,0 +1,1 @@
+insert into sen_mach(name,ip) values('印刷機','192.168.50.102'); 

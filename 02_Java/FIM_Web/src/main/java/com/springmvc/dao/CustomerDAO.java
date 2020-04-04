@@ -1,10 +1,12 @@
 package com.springmvc.dao;
 
+
 import java.util.List;
 
+import com.modle.dao.BaseDao;
 import com.springmvc.entity.Customer;
 
-public interface CustomerDAO {
+public interface CustomerDao {
 
     public List < Customer > getCustomers();
 

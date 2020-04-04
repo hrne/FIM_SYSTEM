@@ -19,6 +19,7 @@
 		<servlets.version>3.1.0</servlets.version>
 		<jsp.version>2.3.1</jsp.version>
 		<hsqldb.version>1.8.0.10</hsqldb.version>
+		<httpclient.version>4.5.6</httpclient.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -76,10 +77,17 @@
 			<version>${jsp.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- MySQL Dependency -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.47</version>
+		</dependency>
+		<!-- httpclient Dependency -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

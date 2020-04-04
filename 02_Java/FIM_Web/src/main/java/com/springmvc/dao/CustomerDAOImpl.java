@@ -12,10 +12,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.modle.dao.BaseDaoImpl;
 import com.springmvc.entity.Customer;
 
 @Repository
-public class CustomerDAOImpl implements CustomerDAO {
+public class CustomerDaoImpl implements CustomerDao {
 
     @Autowired
     private SessionFactory sessionFactory;

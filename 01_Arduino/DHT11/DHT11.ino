@@ -1,5 +1,5 @@
 #include "DHT.h"
-#define dhtPin 8      //讀取DHT11 Data
+#define dhtPin D8      //讀取DHT11 Data
 #define dhtType DHT11 //選用DHT11   
 
 DHT dht(dhtPin, dhtType); // Initialize DHT sensor

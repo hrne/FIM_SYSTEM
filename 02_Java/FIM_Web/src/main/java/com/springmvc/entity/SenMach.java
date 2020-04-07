@@ -1,18 +1,23 @@
 package com.springmvc.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.JoinColumn;
 
 /**
  * 工具機資料
+ * 
  * @author hrne
  *
  */
@@ -49,6 +54,16 @@ public class SenMach {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date",insertable = false, updatable = false)
     private Date updateDate;
+	
+	/**
+	 * 與感應模組的關聯
+	 */
+	@ManyToMany
+	@JoinTable(
+	  name = "sen_mach_mod_r", 
+	  joinColumns = @JoinColumn(name = "sen_mach_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "sen_mod_id"))
+	private Set<SenMod> senModSet;
 
 	public int getId() {
 		return id;
@@ -100,6 +115,17 @@ public class SenMach {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	/**
+	 * 與感應模組的關聯
+	 */
+	public Set<SenMod> getSenModSet() {
+		return senModSet;
+	}
+
+	public void setSenModSet(Set<SenMod> senModSet) {
+		this.senModSet = senModSet;
 	}
 
 }

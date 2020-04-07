@@ -35,10 +35,10 @@ public class SenRespLog {
     private boolean sucStatus = true;
 
     /**
-     * 失敗訊息
+     * 回傳訊息
      */
-    @Column(name = "error_log")
-    private String errorLog;
+    @Column(name = "resp_message")
+    private String respMessage;
     
     /**
      * 更新時間，透過SQL自動產生
@@ -70,14 +70,14 @@ public class SenRespLog {
 	}
 
     /**
-     * 失敗訊息
+     * 回傳訊息
      */
-	public String getErrorLog() {
-		return errorLog;
+	public String getRespMessage() {
+		return respMessage;
 	}
 
-	public void setErrorLog(String errorLog) {
-		this.errorLog = errorLog;
+	public void setRespMessage(String respMessage) {
+		this.respMessage = respMessage;
 	}
 
     /**

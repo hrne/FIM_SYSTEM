@@ -17,9 +17,14 @@ import com.springmvc.entity.Customer;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenDht11PK;
 import com.springmvc.entity.SenMach;
+import com.springmvc.entity.SenMod;
+import com.springmvc.entity.SenRespLog;
+import com.springmvc.entity.SenRespLogPK;
 import com.springmvc.service.CustomerService;
 import com.springmvc.service.SenDht11Service;
 import com.springmvc.service.SenMachService;
+import com.springmvc.service.SenModService;
+import com.springmvc.service.SenRespLogService;
 
 @Controller
 @RequestMapping("/customer")
@@ -33,6 +38,12 @@ public class CustomerController {
 	
 	@Autowired
 	private SenDht11Service senDht11PKService;
+	
+	@Autowired
+	private SenRespLogService senRespLogService;
+	
+	@Autowired
+	private SenModService senModService;
 
 	@GetMapping("/list")
 	public String listCustomers(Model theModel) {
@@ -40,21 +51,38 @@ public class CustomerController {
 		theModel.addAttribute("customers", theCustomers);
 		senMachService.findAll();
 		
-		/*SenMach entity = new SenMach();
+		SenMach entity = new SenMach();
 		entity.setIp("12421");
 		entity.setMachName("test");
 		senMachService.create(entity);
 		
+		SenMod senMod = new SenMod();
+		senMod.setMachCode("123");
+		senMod.setMachName("test");
+		senModService.create(senMod);
+		
 		SenDht11PK senDht11PK = new SenDht11PK();
 		senDht11PK.setSenMach(entity);
-
+		senDht11PKService.findAll();
 		SenDht11 senDht11 = new SenDht11();
 		senDht11.setHumidity(BigDecimal.ZERO);
 		senDht11.setTempCal(BigDecimal.ZERO);
 		senDht11.setTempFah(BigDecimal.ZERO);
 		senDht11.setSenDht11PK(senDht11PK);
 		
-		senDht11PKService.create(senDht11);*/
+		senDht11PKService.create(senDht11);
+		
+		SenRespLogPK senRespLogPK = new SenRespLogPK();
+		senRespLogPK.setSenMach(entity);
+		
+		//將資料寫入
+		SenRespLog senRespLog = new SenRespLog();
+		senRespLog.setSenRespLogPK(senRespLogPK);
+		senRespLog.setSucStatus(true);
+		senRespLog.setRespMessage("test");
+		senRespLogService.create(senRespLog);
+		
+		senRespLogService.createRespLog(entity, true, "test");
 		
 		return "list-customers";
 	}

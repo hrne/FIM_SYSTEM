@@ -27,5 +27,16 @@
 	<bean id="senMachService"
 		class="com.springmvc.service.SenMachServiceImpl" />
 
-	<bean id="customerDao" class="com.springmvc.dao.SenMachDaoImpl" />
+	<bean id="senMachDao" class="com.springmvc.dao.SenMachDaoImpl" />
+
+	<bean id="senRespLogService"
+		class="com.springmvc.service.SenRespLogServiceImpl" />
+
+	<bean id="senRespLogDao"
+		class="com.springmvc.dao.SenRespLogDaoImpl" />
+
+	<bean id="senDht11Service"
+		class="com.springmvc.service.SenDht11ServiceImpl" />
+
+	<bean id="senDht11Dao" class="com.springmvc.dao.SenDht11DaoImpl" />
 </beans>  

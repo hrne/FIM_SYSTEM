@@ -8,6 +8,12 @@ import com.modle.service.BaseServiceImpl;
 import com.springmvc.dao.SenMachDao;
 import com.springmvc.entity.SenMach;
 
+/**
+ * 工具機資料的Service實做
+ * 
+ * @author hrne
+ *
+ */
 @Service
 public class SenMachServiceImpl extends BaseServiceImpl<SenMach> implements SenMachService {
 	

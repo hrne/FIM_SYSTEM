@@ -14,6 +14,7 @@ create table Sen_Mach(
 create table Sen_Mod(
 	id int not null AUTO_INCREMENT comment 'key值',
 	mod_name varchar(100) not null comment '感應模組名稱',
+	mod_code varchar(40) not null comment '感應模組代號',
     update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
 	PRIMARY KEY(id)
 )comment '感應模組';
@@ -57,7 +58,7 @@ create table Sen_Mach_Log(
 create table Sen_Resp_Log(
 	sen_mach_id int not null comment '工具機資料id',
     suc_status boolean not null comment '查詢是否成功',
-    error_log varchar(1000) comment '失敗訊息',
+    resp_message varchar(2000) comment '回傳訊息',
     update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
     FOREIGN KEY (sen_mach_id) REFERENCES Sen_Mach (id)
 )comment '工具機感應紀錄';

@@ -5,6 +5,12 @@ import java.util.List;
 import com.modle.service.BaseService;
 import com.springmvc.entity.SenMach;
 
+/**
+ * 工具機資料的Service介面
+ * 
+ * @author hrne
+ *
+ */
 public interface SenMachService extends BaseService<SenMach> {
 	
 	/**

@@ -12,6 +12,9 @@ import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.modle.service.BaseService;
+import com.modle.util.GenericsUtils;
+
 /**
  * Data Access Object的基礎實做
  * 
@@ -32,8 +35,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	public BaseDaoImpl(SessionFactory sessionFactory) {
 		super.setSessionFactory(sessionFactory);
 		// 通過反射獲取泛型傳過來的類型
-		this.entityClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass())
-				.getActualTypeArguments()[0];
+		this.entityClass =  GenericsUtils.getSuperClassGenricType(BaseService.class, 0);
 	}
 
 	@Override

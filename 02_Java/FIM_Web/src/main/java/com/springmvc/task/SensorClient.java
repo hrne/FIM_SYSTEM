@@ -41,7 +41,7 @@ public class SensorClient {
 	SenDht11Service senDht11Service;
 
 	// 每5秒掃描一次
-	@Scheduled(cron = "0/5 * * * * ? ")
+	//@Scheduled(cron = "0/5 * * * * ? ")
 	public void startClient() {
 
 		senMachService = (SenMachService) ApplicationContextUtil.getBean("senMachService");

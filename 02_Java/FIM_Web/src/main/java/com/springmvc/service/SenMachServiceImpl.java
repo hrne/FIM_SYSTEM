@@ -14,7 +14,7 @@ import com.springmvc.entity.SenMach;
  * @author hrne
  *
  */
-@Service
+@Service("senMachService")
 public class SenMachServiceImpl extends BaseServiceImpl<SenMach> implements SenMachService {
 	
     @Autowired

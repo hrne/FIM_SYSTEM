@@ -1,4 +1,4 @@
-package com.modle.util;
+package com.springmvc.util;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

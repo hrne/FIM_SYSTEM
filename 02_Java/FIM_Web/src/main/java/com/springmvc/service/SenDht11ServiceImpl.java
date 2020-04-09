@@ -17,7 +17,7 @@ import com.springmvc.entity.SenMach;
  * @author hrne
  *
  */
-@Service
+@Service("senDht11Service")
 public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements SenDht11Service {
 
 	/**

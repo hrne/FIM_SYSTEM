@@ -10,7 +10,7 @@ import com.springmvc.entity.SenMod;
  * @author hrne
  *
  */
-@Service
+@Service("senModService")
 public class SenModServiceImpl extends BaseServiceImpl<SenMod> implements SenModService {
 
 

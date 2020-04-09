@@ -14,7 +14,7 @@ import com.springmvc.entity.SenRespLogPK;
  * @author hrne
  *
  */
-@Service
+@Service("senRespLogService")
 public class SenRespLogServiceImpl extends BaseServiceImpl<SenRespLog> implements SenRespLogService {
 	
 	/**

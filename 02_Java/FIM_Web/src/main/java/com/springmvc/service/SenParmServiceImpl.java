@@ -10,7 +10,7 @@ import com.springmvc.entity.SenParm;
  * @author hrne
  *
  */
-@Service
+@Service("senParmService")
 public class SenParmServiceImpl extends BaseServiceImpl<SenParm> implements SenParmService {
 
 

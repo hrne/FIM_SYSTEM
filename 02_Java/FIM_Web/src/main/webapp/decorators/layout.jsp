@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>FIM_System</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<c:url value='/vendor/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet">
@@ -89,7 +89,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<c:url value='/index'/>">SB Admin v2.0</a>
+                <a class="navbar-brand" href="<c:url value='/index'/>">FIM_SYSTEM</a>
             </div>
             <!-- /.navbar-header -->
 

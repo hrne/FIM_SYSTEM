@@ -35,7 +35,9 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	public BaseDaoImpl(SessionFactory sessionFactory) {
 		super.setSessionFactory(sessionFactory);
 		// 通過反射獲取泛型傳過來的類型
-		this.entityClass =  GenericsUtils.getSuperClassGenricType(BaseService.class, 0);
+		//this.entityClass =  GenericsUtils.getSuperClassGenricType(BaseService.class, 0);
+		this.entityClass = (Class<T>) ((ParameterizedType) this.getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import com.springmvc.entity.SenMachLog;
  * @author hrne
  *
  */
-@Service
+@Service("senMachLogService")
 public class SenMachLogServiceImpl extends BaseServiceImpl<SenMachLog> implements SenMachLogService {
 
 

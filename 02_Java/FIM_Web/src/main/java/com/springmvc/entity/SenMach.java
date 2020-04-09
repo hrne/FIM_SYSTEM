@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.JoinColumn;
 
 /**
@@ -64,6 +65,12 @@ public class SenMach {
 	  joinColumns = @JoinColumn(name = "sen_mach_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "sen_mod_id"))
 	private Set<SenMod> senModSet;
+	
+	/**
+	 * 依據machEnable顯示:啟用/關閉
+	 */
+	@Transient
+	private String shonEnableName;
 
 	public int getId() {
 		return id;
@@ -126,6 +133,21 @@ public class SenMach {
 
 	public void setSenModSet(Set<SenMod> senModSet) {
 		this.senModSet = senModSet;
+	}
+
+	/**
+	 * 依據machEnable顯示:啟用/關閉
+	 */
+	public String getShonEnableName() {
+		if(isMachEnable()) {
+			return "啟用";
+		}else {
+			return "關閉";
+		}
+	}
+
+	public void setShonEnableName(String shonEnableName) {
+		this.shonEnableName = shonEnableName;
 	}
 
 }

@@ -46,6 +46,16 @@ public class SenMachController {
 		model.addAttribute("senMachs", senMachs);
 		return "senMach/listSenMach";
 	}
+	
+	// show update user form
+	@RequestMapping(value = "/senMach/{id}/update", method = RequestMethod.GET)
+	public String showUpdateSenMachForm(@PathVariable("id") int id, Model model) {
+		SenMach senMach = senMachService.findByPK(id);
+		model.addAttribute("userForm", senMach);
+
+		createFormOptions(model);
+		return "users/userform";
+	}
 /*	
 	// show user
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)

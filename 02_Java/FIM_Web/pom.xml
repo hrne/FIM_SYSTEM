@@ -23,6 +23,7 @@
 		<json.version>20190722</json.version>
 		<ojdbc.version>11.2.0.1.0</ojdbc.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
+		<log4.version>1.2.17</log4.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -105,6 +106,12 @@
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>${sitemesh.version}</version>
+		</dependency>
+		<!-- log4 -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

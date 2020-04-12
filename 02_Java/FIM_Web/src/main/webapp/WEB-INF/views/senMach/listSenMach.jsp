@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page session="false"%>
-<%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -17,7 +16,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
-				<s:message code='senMachList' />
+				<spring:message code='senMachList' />
 			</h1>
 		</div>
 		<!-- /.col-lg-12 -->
@@ -48,6 +47,7 @@
 								<th><spring:message code='name' /></th>
 								<th><spring:message code='ipAddress' /></th>
 								<th><spring:message code='enabled' /></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -56,7 +56,13 @@
 									<td>${senMach.id}</td>
 									<td>${senMach.machName}</td>
 									<td>${senMach.ip}</td>
-									<td>${senMach.shonEnableName}</td>							
+									<td>${senMach.shonEnableName}</td>
+									<td>
+
+										<spring:url value="/senMach/${user.id}/update" var="updateUrl" />
+
+										<button onclick="location.href='${updateUrl}'" class="btn btn-primary">Update</button>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

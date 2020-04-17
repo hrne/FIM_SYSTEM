@@ -1,4 +1,4 @@
-package com.springmvc.entity;
+package com.modle.entity;
 
 import java.util.List;
 

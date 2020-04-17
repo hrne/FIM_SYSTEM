@@ -1,4 +1,4 @@
-package com.springmvc.controller;
+package com.modle.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.springmvc.entity.User;
-import com.springmvc.service.UserService;
-import com.springmvc.validator.UserFormValidator;
+import com.modle.entity.User;
+import com.modle.service.UserService;
+import com.modle.validator.UserFormValidator;
 
 @Controller
 public class UserController {

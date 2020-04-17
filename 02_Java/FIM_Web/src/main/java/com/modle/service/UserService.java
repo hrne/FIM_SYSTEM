@@ -1,8 +1,8 @@
-package com.springmvc.service;
+package com.modle.service;
 
 import java.util.List;
 
-import com.springmvc.entity.User;
+import com.modle.entity.User;
 
 public interface UserService {
 

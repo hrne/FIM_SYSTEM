@@ -1,6 +1,8 @@
 package com.springmvc.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -134,20 +136,43 @@ public class SenMach {
 	public void setSenModSet(Set<SenMod> senModSet) {
 		this.senModSet = senModSet;
 	}
+	
+	// 頁面使用
 
 	/**
 	 * 依據machEnable顯示:啟用/關閉
 	 */
 	public String getShonEnableName() {
-		if(isMachEnable()) {
+		if (isMachEnable()) {
 			return "啟用";
-		}else {
+		} else {
 			return "關閉";
 		}
 	}
 
-	public void setShonEnableName(String shonEnableName) {
-		this.shonEnableName = shonEnableName;
+	public boolean isNew() {
+		return (this.id == 0);
+	}
+	
+	public List<String> getShonSenMod() {
+		List<String> senModList = new ArrayList<String>();
+		for(SenMod bo:getSenModSet()) {
+			senModList.add(bo.getMachName());
+		}
+		return senModList;
+	}
+	
+
+	// <sf:checkboxes path="framework" />
+	@Transient
+	private List<Integer> senModsID;
+
+	public List<Integer> getSenModsID() {
+		return senModsID;
+	}
+
+	public void setSenModsID(List<Integer> senModsID) {
+		this.senModsID = senModsID;
 	}
 
 }

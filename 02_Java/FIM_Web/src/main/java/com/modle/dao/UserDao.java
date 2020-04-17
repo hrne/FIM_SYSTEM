@@ -1,8 +1,8 @@
-package com.springmvc.dao;
+package com.modle.dao;
 
 import java.util.List;
 
-import com.springmvc.entity.User;
+import com.modle.entity.User;
 
 public interface UserDao {
 

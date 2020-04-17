@@ -35,7 +35,7 @@ public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements Se
 		JSONObject obj = new JSONObject(respJSON);
 		
 		SenDht11 senDht11 = new SenDht11();
-		senDht11.setSenDht11PK(senDht11PK);
+		//senDht11.setSenDht11PK(senDht11PK);
 	
 		//取出濕度
 		BigDecimal humidity = obj.getBigDecimal("humidity");

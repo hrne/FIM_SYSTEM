@@ -3,15 +3,17 @@
 <%@page session="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
-
+ <% response.setHeader("refresh", "10");%> 
 <script>
 	$(document).ready(function() {
-		$('#dataTables-senMachs').DataTable({
+		$('#dataTables-senMods').DataTable({
 			responsive : true
 		});
 	});
 </script>
-<!-- 感應器清單 -->
+
+
+<!-- 感應裝置清單 -->
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
@@ -40,31 +42,18 @@
 				<div class="panel-body">
 					<table width="100%"
 						class="table table-striped table-bordered table-hover"
-						id="dataTables-senMachs">
+						id="dataTables-senMods">
 						<thead>
 							<tr>
-								<th><s:message code='id' /></th>
-								<th><s:message code='name' /></th>
-								<th><s:message code='ipAddress' /></th>
-								<th><s:message code='enabled' /></th>
-								<th>感應裝置</th>
+								<th>溫度</th>
+								<th>時間</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="senMach" items="${senMachs}">
+							<c:forEach var="senMod" items="${senMods}">
 								<tr>
-									<td>${senMach.id}</td>
-									<td>${senMach.machName}</td>
-									<td>${senMach.ip}</td>
-									<td>${senMach.shonEnableName}</td>
-									<td><c:forEach var="shonSenMod" items="${senMach.shonSenMod}"
-											varStatus="loop">
-												${shonSenMod} <c:if test="${not loop.last}">,</c:if>
-										</c:forEach></td>
-									<td><s:url value="/senMach/${senMach.id}/update"
-											var="updateUrl" />
-										<button onclick="location.href='${updateUrl}'"
-											class="btn btn-primary">Update</button></td>
+									<td>${senMod.tempCal}</td>
+									<td>${senMod.updateDate}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

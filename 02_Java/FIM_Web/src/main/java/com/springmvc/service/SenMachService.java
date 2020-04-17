@@ -17,5 +17,11 @@ public interface SenMachService extends BaseService<SenMach> {
 	 * 查詢所有啟用的工具機
 	 */
 	List<SenMach> findByMachEnable();
+	
+	/**
+	 * 儲存工具機資料
+	 * @param senMach
+	 */
+	void saveSenMachForm(SenMach senMach);
 
 }

@@ -1,12 +1,12 @@
-package com.springmvc.service;
+package com.modle.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springmvc.dao.UserDao;
-import com.springmvc.entity.User;
+import com.modle.dao.UserDao;
+import com.modle.entity.User;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {

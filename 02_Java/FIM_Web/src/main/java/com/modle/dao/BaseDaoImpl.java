@@ -73,8 +73,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
      */
 	@Override
 	public void saveOrUpdate(T entity) {
-		Session currentSession = sessionFactory.getCurrentSession();
-		currentSession.saveOrUpdate(entity);
+		this.getHibernateTemplate().saveOrUpdate(entity);
 	}
 
     /**

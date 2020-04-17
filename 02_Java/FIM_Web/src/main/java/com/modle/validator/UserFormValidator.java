@@ -1,4 +1,4 @@
-package com.springmvc.validator;
+package com.modle.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,8 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.springmvc.entity.User;
-import com.springmvc.service.UserService;
+import com.modle.entity.User;
+import com.modle.service.UserService;
 
 @Component
 public class UserFormValidator implements Validator {

@@ -2,11 +2,13 @@ package com.springmvc.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,141 +21,134 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.modle.entity.User;
 import com.springmvc.entity.SenMach;
-import com.springmvc.entity.User;
+import com.springmvc.entity.SenMod;
 import com.springmvc.service.SenMachService;
-import com.springmvc.service.UserService;
-import com.springmvc.validator.UserFormValidator;
+import com.springmvc.service.SenModService;
+import com.springmvc.validator.SenMachFormValidator;
 
 @Controller
 public class SenMachController {
 
 	@Autowired
-	UserFormValidator userFormValidator;
+	SenMachFormValidator senMachFormValidator;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		binder.setValidator(userFormValidator);
+		binder.setValidator(senMachFormValidator);
 	}
 
 	@Autowired
 	private SenMachService senMachService;
-	
-	// list users
+
+	@Autowired
+	private SenModService senModService;
+
+	@Autowired
+	private ResourceBundleMessageSource messageSource;
+
+	/**
+	 * 查詢所有感應器
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/senMach/list", method = RequestMethod.GET)
 	public String showAllSenMach(Model model) {
 		List<SenMach> senMachs = senMachService.findAll();
 		model.addAttribute("senMachs", senMachs);
 		return "senMach/listSenMach";
 	}
-	
-	// show update user form
+
+	/**
+	 * 新增感應器
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/senMach/add", method = RequestMethod.GET)
+	public String showAddUserForm(Model model) {
+		SenMach senMach = new SenMach();
+
+		model.addAttribute("senMachForm", senMach);
+
+		createFormOptions(model);
+		return "senMach/senMachForm";
+	}
+
+	/**
+	 * 修改感應器
+	 * 
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/senMach/{id}/update", method = RequestMethod.GET)
 	public String showUpdateSenMachForm(@PathVariable("id") int id, Model model) {
 		SenMach senMach = senMachService.findByPK(id);
-		model.addAttribute("userForm", senMach);
-
-		createFormOptions(model);
-		return "users/userform";
-	}
-/*	
-	// show user
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public String showUser(@PathVariable("id") int id, Model model) {
-		User user = userService.findById(id);
-		model.addAttribute("user", user);
-		if (user == null) {
-			model.addAttribute("css", "danger");
-			model.addAttribute("msg", "User not found!");
+		List<Integer> senModIDs = new ArrayList<Integer>();
+		// 將現有的感應裝置放入顯示
+		for (SenMod senMod : senMach.getSenModSet()) {
+			senModIDs.add(senMod.getId());
 		}
-		return "users/show";
-	}
-	
-	// show add user form
-	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
-	public String showAddUserForm(Model model) {
-		User user = createModelDefaultValues();
-	//	User user = new User();
-		model.addAttribute("userForm", user);
-		
-		createFormOptions(model);
-		return "users/userform";
-	}
-
-	// show update user form
-	@RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
-	public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
-		User user = userService.findById(id);
-		model.addAttribute("userForm", user);
+		senMach.setSenModsID(senModIDs);
+		model.addAttribute("senMachForm", senMach);
 
 		createFormOptions(model);
-		return "users/userform";
+		return "senMach/senMachForm";
 	}
 
-	// save(insert) or update user
-	@RequestMapping(value = "/user/save", method = RequestMethod.POST)
-	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated User user, BindingResult result, Model model,
-			final RedirectAttributes redirectAttributes) {
+	/**
+	 * 儲存感應器 from add or update
+	 * 
+	 * @param user
+	 * @param result
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
+	@RequestMapping(value = "/senMach/save", method = RequestMethod.POST)
+	public String saveOrUpdateUser(@ModelAttribute("senMachForm") @Validated SenMach senMach, BindingResult result,
+			Model model, final RedirectAttributes redirectAttributes, Locale locale) {
 		if (result.hasErrors()) {
 			createFormOptions(model);
-			return "users/userform";
+			return "senMach/senMachForm";
 		} else {
-			userService.saveOrUpdate(user);
+			senMachService.saveSenMachForm(senMach);
 
 			redirectAttributes.addFlashAttribute("css", "success");
-			if (user.isNew()) {
+			if (senMach.isNew()) {
 				redirectAttributes.addFlashAttribute("msg", "User added successfully!");
 			} else {
-				redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
+				redirectAttributes.addFlashAttribute("msg",
+						messageSource.getMessage("welcome", new Object[] { "John Doe" }, locale));
 			}
-			return "redirect:/user/" + user.getId();
+			return "redirect:/senMach/list";
 		}
 	}
 
-	// delete user
-	@RequestMapping(value = "/user/{id}/delete", method = RequestMethod.POST)
-	public String deleteUser(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
-		userService.delete(id);
-		redirectAttributes.addFlashAttribute("css", "success");
-		redirectAttributes.addFlashAttribute("msg", "User is deleted!");
-		return "redirect:/users";
-	}
-
+	/**
+	 * 產生頁面資訊
+	 * 
+	 * @param model
+	 */
 	private void createFormOptions(Model model) {
-		List<String> javaMvcList = new ArrayList<String>();
-		javaMvcList.add("Spring MVC");
-		javaMvcList.add("JSF");
-		javaMvcList.add("Google Web Toolkit");
-		javaMvcList.add("Vert");
-		javaMvcList.add("Dropwizard");
-		javaMvcList.add("Struts");
-		model.addAttribute("javaMvcList", javaMvcList);
+		// 查詢所有感應裝置
+		List<SenMod> senMods = senModService.findAll();
 
-		Map<String, String> skill = new LinkedHashMap<String, String>();
-		skill.put("HTML", "HTML");
-		skill.put("CSS", "CSS");
-		skill.put("JavaScript", "JavaScript");
-		skill.put("JQuery", "JQuery");
-		skill.put("Bootstrap", "Bootstrap");
-		model.addAttribute("webSkillList", skill);
+		Map<Integer, String> senModList = new HashMap<>();
+		// 感應裝置選單
+		for (SenMod bo : senMods) {
+			senModList.put(bo.getId(), bo.getMachName());
+		}
 
-		List<Integer> heightList = new ArrayList<Integer>();
-		heightList.add(150);
-		heightList.add(160);
-		heightList.add(170);
-		heightList.add(180);
-		heightList.add(190);
-		model.addAttribute("heightList", heightList);
+		model.addAttribute("senModList", senModList);
 
-		Map<String, String> country = new LinkedHashMap<String, String>();
-		country.put("TW", "Taiwan");
-		country.put("CN", "China");
-		country.put("US", "United Stated");		
-		model.addAttribute("countryList", country);
 	}
-	
+
 	private User createModelDefaultValues() {
-		User user = new User();		
+		User user = new User();
 		// set default value
 		user.setName("Jim");
 		user.setEmail("test@gmail.com");
@@ -168,5 +163,5 @@ public class SenMachController {
 		user.setHeight(170);
 		return user;
 	}
-	*/
+
 }

@@ -1,4 +1,4 @@
-package com.springmvc.validator;
+package com.modle.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package com.springmvc.dao;
+package com.modle.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import com.springmvc.entity.User;
+import com.modle.entity.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {

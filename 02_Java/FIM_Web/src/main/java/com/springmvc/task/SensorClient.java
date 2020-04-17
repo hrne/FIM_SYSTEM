@@ -15,12 +15,12 @@ import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.modle.util.ApplicationContextUtil;
 import com.springmvc.entity.SenMach;
 import com.springmvc.entity.SenMod;
 import com.springmvc.service.SenDht11Service;
 import com.springmvc.service.SenMachService;
 import com.springmvc.service.SenRespLogService;
-import com.springmvc.util.ApplicationContextUtil;
 
 /**
  * 掃描工具機

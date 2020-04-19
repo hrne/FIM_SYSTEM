@@ -1,12 +1,11 @@
 package com.springmvc.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,11 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.persistence.JoinColumn;
 
 /**
- * 工具機資料
+ * 感應器資料
  * 
  * @author hrne
  *
@@ -34,7 +32,7 @@ public class SenMach {
     private int id;
     
     /**
-     * 工具機名稱
+     * 感應器名稱
      */
     @Column(name = "mach_name")
     private String machName;
@@ -46,7 +44,7 @@ public class SenMach {
     private String ip;
     
     /**
-     * 工具機是否啟用
+     * 感應器是否啟用
      */
     @Column(name = "mach_enable", nullable = false)
     private boolean machEnable = true;
@@ -61,19 +59,13 @@ public class SenMach {
 	/**
 	 * 與感應模組的關聯
 	 */
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 	  name = "sen_mach_mod_r", 
 	  joinColumns = @JoinColumn(name = "sen_mach_id"), 
 	  inverseJoinColumns = @JoinColumn(name = "sen_mod_id"))
 	private Set<SenMod> senModSet;
 	
-	/**
-	 * 依據machEnable顯示:啟用/關閉
-	 */
-	@Transient
-	private String shonEnableName;
-
 	public int getId() {
 		return id;
 	}
@@ -83,7 +75,7 @@ public class SenMach {
 	}
 
     /**
-     * 工具機名稱
+     * 感應器名稱
      */
 	public String getMachName() {
 		return machName;
@@ -105,7 +97,7 @@ public class SenMach {
 	}
 
     /**
-     * 工具機是否啟用
+     * 感應器是否啟用
      */
 	public boolean isMachEnable() {
 		return machEnable;
@@ -137,42 +129,4 @@ public class SenMach {
 		this.senModSet = senModSet;
 	}
 	
-	// 頁面使用
-
-	/**
-	 * 依據machEnable顯示:啟用/關閉
-	 */
-	public String getShonEnableName() {
-		if (isMachEnable()) {
-			return "啟用";
-		} else {
-			return "關閉";
-		}
-	}
-
-	public boolean isNew() {
-		return (this.id == 0);
-	}
-	
-	public List<String> getShonSenMod() {
-		List<String> senModList = new ArrayList<String>();
-		for(SenMod bo:getSenModSet()) {
-			senModList.add(bo.getMachName());
-		}
-		return senModList;
-	}
-	
-
-	// <sf:checkboxes path="framework" />
-	@Transient
-	private List<Integer> senModsID;
-
-	public List<Integer> getSenModsID() {
-		return senModsID;
-	}
-
-	public void setSenModsID(List<Integer> senModsID) {
-		this.senModsID = senModsID;
-	}
-
 }

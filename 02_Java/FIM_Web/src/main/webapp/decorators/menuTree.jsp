@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 
 <ul class="nav" id="side-menu">
 
@@ -63,24 +63,15 @@
 
 	</c:if>
 
-	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <spring:message
-				code='userModule' /><span class="fa arrow"></span></a>
-		<ul class="nav nav-second-level collapse">
-			<li><a href="<c:url value='/user/add'/>"><spring:message
-						code='addUser' /></a></li>
-			<li><a href="<c:url value='/users'/>"><spring:message
-						code='listUser' /></a></li>
-		</ul></li>
-
 	<!-- 感應器設定 -->
-	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <spring:message
+	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <s:message
 				code='senMachModule' /><span class="fa arrow"></span></a>
 		<ul class="nav nav-second-level collapse">
 			<!-- 新增感應器 -->
-			<li><a href="<c:url value='/user/add'/>"><spring:message
+			<li><a href="<c:url value='/senMach/add'/>"><s:message
 						code='senMachAdd' /></a></li>
 			<!-- 感應器清單 -->
-			<li><a href="<c:url value='/senMach/list'/>"><spring:message
+			<li><a href="<c:url value='/senMach/list'/>"><s:message
 						code='senMachList' /></a></li>
 		</ul></li>
 

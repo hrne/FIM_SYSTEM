@@ -3,10 +3,11 @@ package com.springmvc.service;
 import java.util.List;
 
 import com.modle.service.BaseService;
+import com.springmvc.dto.SenMachDto;
 import com.springmvc.entity.SenMach;
 
 /**
- * 工具機資料的Service介面
+ * 感應器資料的Service介面
  * 
  * @author hrne
  *
@@ -14,14 +15,14 @@ import com.springmvc.entity.SenMach;
 public interface SenMachService extends BaseService<SenMach> {
 	
 	/**
-	 * 查詢所有啟用的工具機
+	 * 查詢所有啟用的感應器
 	 */
 	List<SenMach> findByMachEnable();
 	
 	/**
-	 * 儲存工具機資料
-	 * @param senMach
+	 * 儲存感應器資料
+	 * @param senMachDto
 	 */
-	void saveSenMachForm(SenMach senMach);
+	void saveSenMachForm(SenMachDto senMachDto);
 
 }

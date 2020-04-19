@@ -3,7 +3,6 @@ package com.springmvc.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 工具機感應紀錄
+ * 感應器感應紀錄
  * 
  * @author hrne
  *
@@ -22,11 +21,16 @@ import javax.persistence.TemporalType;
 @Table(name = "Sen_Resp_Log")
 public class SenRespLog {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
 	/**
-	 * 工具機資料id
-	 */
-	@EmbeddedId
-	private SenRespLogPK senRespLogPK;
+     * 感應器資料id
+     */
+    @Column(name = "sen_mach_id")
+    private int senMachId;
     
     /**
      * 查詢是否成功
@@ -47,15 +51,23 @@ public class SenRespLog {
 	@Column(name = "update_date",insertable = false, updatable = false)
     private Date updateDate;
 
-	/**
-	 * 工具機資料id
-	 */
-	public SenRespLogPK getSenRespLogPK() {
-		return senRespLogPK;
+	public int getId() {
+		return id;
 	}
 
-	public void setSenRespLogPK(SenRespLogPK senRespLogPK) {
-		this.senRespLogPK = senRespLogPK;
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	/**
+     * 感應器資料id
+     */
+    public int getSenMachId() {
+		return senMachId;
+	}
+
+	public void setSenMachId(int senMachId) {
+		this.senMachId = senMachId;
 	}
 
 	/**

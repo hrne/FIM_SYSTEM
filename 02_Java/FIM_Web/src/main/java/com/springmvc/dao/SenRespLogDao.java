@@ -4,7 +4,7 @@ import com.modle.dao.BaseDao;
 import com.springmvc.entity.SenRespLog;
 
 /**
- * 工具機感應紀錄的Dao介面
+ * 感應器感應紀錄的Dao介面
  * 
  * @author hrne
  *

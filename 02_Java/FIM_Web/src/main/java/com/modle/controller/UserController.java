@@ -15,8 +15,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.modle.entity.User;
@@ -38,7 +36,7 @@ public class UserController {
 	private UserService userService;
 	
 	// list users
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	//@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String showAllUsers(Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
@@ -46,7 +44,7 @@ public class UserController {
 	}
 	
 	// show user
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	//@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
 	public String showUser(@PathVariable("id") int id, Model model) {
 		User user = userService.findById(id);
 		model.addAttribute("user", user);
@@ -58,7 +56,7 @@ public class UserController {
 	}
 	
 	// show add user form
-	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
+	//@RequestMapping(value = "/user/add", method = RequestMethod.GET)
 	public String showAddUserForm(Model model) {
 		User user = createModelDefaultValues();
 	//	User user = new User();
@@ -69,7 +67,7 @@ public class UserController {
 	}
 
 	// show update user form
-	@RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
+	//@RequestMapping(value = "/user/{id}/update", method = RequestMethod.GET)
 	public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
 		User user = userService.findById(id);
 		model.addAttribute("userForm", user);
@@ -79,7 +77,7 @@ public class UserController {
 	}
 
 	// save(insert) or update user
-	@RequestMapping(value = "/user/save", method = RequestMethod.POST)
+	//@RequestMapping(value = "/user/save", method = RequestMethod.POST)
 	public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated User user, BindingResult result, Model model,
 			final RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
@@ -99,7 +97,7 @@ public class UserController {
 	}
 
 	// delete user
-	@RequestMapping(value = "/user/{id}/delete", method = RequestMethod.POST)
+	//@RequestMapping(value = "/user/{id}/delete", method = RequestMethod.POST)
 	public String deleteUser(@PathVariable("id") int id, final RedirectAttributes redirectAttributes) {
 		userService.delete(id);
 		redirectAttributes.addFlashAttribute("css", "success");

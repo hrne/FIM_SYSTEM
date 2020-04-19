@@ -3,19 +3,14 @@ package com.springmvc.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  * 溫濕度dht11感應資料
@@ -27,11 +22,16 @@ import javax.persistence.Transient;
 @Table(name = "Sen_Dht11")
 public class SenDht11 {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    
 	/**
-	 * 工具機資料id
-	 */
-	@EmbeddedId
-	private SenDht11PK senDht11PK;
+     * 感應器資料id
+     */
+    @Column(name = "sen_mach_id")
+    private int senMachId;
 
 	/**
 	 * 濕度
@@ -57,18 +57,26 @@ public class SenDht11 {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date",insertable = false, updatable = false)
     private Date updateDate;
-	
-	/**
-	 * 工具機資料id
-	 */
-	public SenDht11PK getSenDht11PK() {
-		return senDht11PK;
+		
+	public int getId() {
+		return id;
 	}
 
-	public void setSenDht11PK(SenDht11PK senDht11PK) {
-		this.senDht11PK = senDht11PK;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
+	/**
+     * 感應器資料id
+     */
+    public int getSenMachId() {
+		return senMachId;
+	}
+
+	public void setSenMachId(int senMachId) {
+		this.senMachId = senMachId;
+	}
+
 	/**
 	 * 濕度
 	 */

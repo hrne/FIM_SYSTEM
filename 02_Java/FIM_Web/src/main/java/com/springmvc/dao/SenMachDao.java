@@ -6,7 +6,7 @@ import com.modle.dao.BaseDao;
 import com.springmvc.entity.SenMach;
 
 /**
- * 工具機資料的Dao介面
+ * 感應器資料的Dao介面
  * 
  * @author hrne
  *
@@ -14,7 +14,7 @@ import com.springmvc.entity.SenMach;
 public interface SenMachDao extends BaseDao<SenMach> {
 	
 	/**
-	 * 查詢所有啟用的工具機
+	 * 查詢所有啟用的感應器
 	 */
 	List<SenMach> findByMachEnable();
 

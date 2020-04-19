@@ -14,7 +14,7 @@ public interface SenDht11Service extends BaseService<SenDht11>{
 
 	/**
 	 * 儲存溫濕度dht11感應資料
-	 * @param senMach 工具機資料
+	 * @param senMach 感應器資料
 	 * @param respJSON 回傳JSON
 	 */
 	void createDht11(SenMach senMach, String respJSON);

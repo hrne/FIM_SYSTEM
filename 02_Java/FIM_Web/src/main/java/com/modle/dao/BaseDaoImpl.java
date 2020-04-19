@@ -4,16 +4,10 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import org.hibernate.FlushMode;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.modle.service.BaseService;
 
 /**
  * Data Access Object的基礎實做
@@ -83,11 +77,12 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
      */
 	@Override
 	public void create(T entity) {
-		Session currentSession = this.getHibernateTemplate().getSessionFactory().openSession();
-		Transaction tran = currentSession.beginTransaction();
-		currentSession.save(entity);
-		tran.commit();
-		currentSession.close();
+//		Session currentSession = this.getHibernateTemplate().getSessionFactory().openSession();
+//		Transaction tran = currentSession.beginTransaction();
+//		currentSession.save(entity);
+//		tran.commit();
+//		currentSession.close();
+		this.getHibernateTemplate().save(entity);
 	}
 
     /**

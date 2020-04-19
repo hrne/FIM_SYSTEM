@@ -5,26 +5,25 @@
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!-- 新增/修改感應器 -->
 <div id="page-wrapper">
-
 	<div class="row">
 		<div class="col-lg-12">
 			<c:choose>
-				<c:when test="${userForm['new']}">
+				<c:when test="${senMachDto['new']}">
 					<h1 class="page-header">
-						<s:message code='addUser' />
+						<s:message code='senMachAdd' />
 					</h1>
 				</c:when>
 				<c:otherwise>
 					<h1 class="page-header">
-						<s:message code='updateUser' />
+						<s:message code='senMachUpdate' />
 					</h1>
 				</c:otherwise>
 			</c:choose>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
-	
 	<!-- /.row -->
 	<div class="row">
 		<div class="col-lg-12">
@@ -33,148 +32,68 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-6">
-
-							<s:url value="/user/save" var="userActionUrl" />
-
+							<s:url value="/senMach/save" var="senMachActionUrl" />
 							<sf:form class="form-horizontal" method="post"
-								modelAttribute="userForm" action="${userActionUrl}">
-
+								modelAttribute="senMachDto" action="${senMachActionUrl}">
 								<sf:hidden path="id" />
-
-								<s:bind path="name">
+								<!-- 感應器名稱 -->
+								<s:bind path="machName">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Name</label>
+										<label class="col-sm-2 control-label"><s:message
+												code='name' /></label>
 										<div class="col-sm-10">
-											<sf:input path="name" class="form-control " placeholder="Name" />
-											<sf:errors path="name" class="control-label" />
+											<sf:input path="machName" class="form-control "
+												placeholder="machName" />
+											<sf:errors path="machName" class="control-label" />
 										</div>
 									</div>
 								</s:bind>
-
-								<s:bind path="email">
+								<!-- ip位址 -->
+								<s:bind path="ip">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Email</label>
+										<label class="col-sm-2 control-label"><s:message
+												code='ipAddress' /></label>
 										<div class="col-sm-10">
-											<sf:input path="email" class="form-control" placeholder="Email" />
-											<sf:errors path="email" class="control-label" />
+											<sf:input path="ip" class="form-control " placeholder="ip" />
+											<sf:errors path="ip" class="control-label" />
 										</div>
 									</div>
 								</s:bind>
-
-								<s:bind path="password">
+								<!-- 是否啟用 -->
+								<s:bind path="machEnable">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Password</label>
+										<label class="col-sm-2 control-label">是否啟用</label>
 										<div class="col-sm-10">
-											<sf:password path="password" class="form-control" placeholder="password" />
-											<sf:errors path="password" class="control-label" />
+											<label class="radio-inline"> <sf:radiobutton
+													path="machEnable" value="true" /> 是
+											</label> <label class="radio-inline"> <sf:radiobutton
+													path="machEnable" value="false" /> 否
+											</label> <br />
+											<sf:errors path="machEnable" class="control-label" />
 										</div>
 									</div>
 								</s:bind>
-
-								<s:bind path="confirmPassword">
+								<!-- 感應裝置 -->
+								<s:bind path="senModsID">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">confirm Password</label>
+										<label class="col-sm-2 control-label">感應裝置</label>
 										<div class="col-sm-10">
-											<sf:password path="confirmPassword" class="form-control" placeholder="password" />
-											<sf:errors path="confirmPassword" class="control-label" />
-										</div>
-									</div>
-								</s:bind>
-
-								<s:bind path="address">
-									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Address</label>
-										<div class="col-sm-10">
-											<sf:textarea path="address" rows="5" class="form-control" placeholder="address" />
-											<sf:errors path="address" class="control-label" />
-										</div>
-									</div>
-								</s:bind>
-
-								<s:bind path="newsletter">
-									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Newsletter</label>
-										<div class="col-sm-10">
-											<div class="checkbox">
-												<label> <sf:checkbox path="newsletter" /></label>
-												<sf:errors path="newsletter" class="control-label" />
-											</div>
-										</div>
-									</div>
-								</s:bind>
-
-								<s:bind path="framework">
-									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Web Frameworks</label>
-										<div class="col-sm-10">
-											<sf:checkboxes path="framework" items="${javaMvcList}" element="label class='checkbox-inline'" />
+											<sf:checkboxes path="senModsID" items="${senModList}"
+												element="label class='checkbox-inline'" />
 											<br />
-											<sf:errors path="framework" class="control-label" />
+											<sf:errors path="senModsID" class="control-label" />
 										</div>
 									</div>
 								</s:bind>
-
-								<s:bind path="sex">
-									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Sex</label>
-										<div class="col-sm-10">
-											<label class="radio-inline"> <sf:radiobutton path="sex" value="M" /> Male </label> 
-											<label class="radio-inline"> <sf:radiobutton path="sex" value="F" /> Female </label> <br />
-											<sf:errors path="sex" class="control-label" />
-										</div>
-									</div>
-								</s:bind>
-
-								<s:bind path="height">
-									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Height(cm)</label>
-										<div class="col-sm-10">
-											<sf:radiobuttons path="height" items="${heightList}" element="label class='radio-inline'" />
-											<br />
-											<sf:errors path="height" class="control-label" />
-										</div>
-									</div>
-								</s:bind>
-
-								<s:bind path="country">
-									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Country</label>
-										<div class="col-sm-5">
-											<sf:select path="country" class="form-control">
-												<sf:option value="NONE" label="--- Select ---" />
-												<sf:options items="${countryList}" />
-											</sf:select>
-											<sf:errors path="country" class="control-label" />
-										</div>
-										<div class="col-sm-5"></div>
-									</div>
-								</s:bind>
-
-								<s:bind path="skill">
-									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">Web Skills</label>
-										<div class="col-sm-5">
-											<sf:select path="skill" items="${webSkillList}" multiple="true" size="5" class="form-control" />
-											<sf:errors path="skill" class="control-label" />
-										</div>
-										<div class="col-sm-5"></div>
-									</div>
-								</s:bind>
-
+								<!-- 儲存按鈕 -->
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
-										<c:choose>
-											<c:when test="${userForm['new']}">
-												<button type="submit" class="btn-lg btn-primary pull-right">Add</button>
-											</c:when>
-											<c:otherwise>
-												<button type="submit" class="btn-lg btn-primary pull-right">Update</button>
-											</c:otherwise>
-										</c:choose>
+										<button type="submit" class="btn-lg btn-primary pull-right">
+											<s:message code='save' />
+										</button>
 									</div>
 								</div>
 							</sf:form>
-
 						</div>
 					</div>
 					<!-- /.row (nested) -->

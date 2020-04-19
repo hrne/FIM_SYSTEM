@@ -24,6 +24,7 @@
 		<ojdbc.version>11.2.0.1.0</ojdbc.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<log4.version>2.13.1</log4.version>
+		<modelmapper.version>2.3.7</modelmapper.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -112,6 +113,12 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>${log4.version}</version>
+		</dependency>
+		<!-- modelmapper -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${modelmapper.version}</version>
 		</dependency>
 	</dependencies>
 	<build>

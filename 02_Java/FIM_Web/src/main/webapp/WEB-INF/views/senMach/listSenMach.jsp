@@ -6,7 +6,7 @@
 
 <script>
 	$(document).ready(function() {
-		$('#dataTables-senMachs').DataTable({
+		$('#dataTables-listSenMachDto').DataTable({
 			responsive : true
 		});
 	});
@@ -40,7 +40,7 @@
 				<div class="panel-body">
 					<table width="100%"
 						class="table table-striped table-bordered table-hover"
-						id="dataTables-senMachs">
+						id="dataTables-listSenMachDto">
 						<thead>
 							<tr>
 								<th><s:message code='id' /></th>
@@ -51,20 +51,28 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="senMach" items="${senMachs}">
+							<c:forEach var="senMachDto" items="${listSenMachDto}">
 								<tr>
-									<td>${senMach.id}</td>
-									<td>${senMach.machName}</td>
-									<td>${senMach.ip}</td>
-									<td>${senMach.shonEnableName}</td>
-									<td><c:forEach var="shonSenMod" items="${senMach.shonSenMod}"
-											varStatus="loop">
-												${shonSenMod} <c:if test="${not loop.last}">,</c:if>
+									<!-- 編號 -->
+									<td>${senMachDto.id}</td>
+									<!-- 名稱 -->
+									<td>${senMachDto.machName}</td>
+									<!-- ip位址 -->
+									<td>${senMachDto.ip}</td>
+									<!-- 是否啟用 -->
+									<td>${senMachDto.shonEnableName}</td>
+									<!-- 感應裝置 -->
+									<td><c:forEach var="shonSenMods"
+											items="${senMachDto.shonSenModList}" varStatus="loop">
+												${shonSenMods} <c:if test="${not loop.last}">,</c:if>
 										</c:forEach></td>
-									<td><s:url value="/senMach/${senMach.id}/update"
+									<!-- 修改 按鈕 -->
+									<td><s:url value="/senMach/${senMachDto.id}/update"
 											var="updateUrl" />
 										<button onclick="location.href='${updateUrl}'"
-											class="btn btn-primary">Update</button></td>
+											class="btn btn-primary">
+											<s:message code='update' />
+										</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>

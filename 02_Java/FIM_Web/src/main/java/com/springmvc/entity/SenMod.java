@@ -48,7 +48,7 @@ public class SenMod {
     private Date updateDate;
 	
 	/**
-	 * 與工具機資料的關聯
+	 * 與感應器資料的關聯
 	 */
 	@ManyToMany(mappedBy = "senModSet")
 	Set<SenMach> senMachSet;
@@ -96,7 +96,7 @@ public class SenMod {
 
 	
 	/**
-	 * 與工具機資料的關聯
+	 * 與感應器資料的關聯
 	 */
 	public Set<SenMach> getSenMachSet() {
 		return senMachSet;

@@ -2,8 +2,6 @@ package com.modle.dao;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 /**
  * Data Access Object的基礎介面
  * 

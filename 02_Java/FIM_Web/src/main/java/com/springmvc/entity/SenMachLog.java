@@ -3,7 +3,6 @@ package com.springmvc.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 工具機資料更新紀錄
+ * 感應器資料更新紀錄
  * 
  * @author hrne
  *
@@ -22,21 +21,19 @@ import javax.persistence.TemporalType;
 @Table(name = "Sen_Mach_Log")
 public class SenMachLog {
 
-
-	/**
-	 * 工具機資料id
-	 */
-	@EmbeddedId
-	private SenMachLogPK senMachLogPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 	
     /**
-     * 修改前工具機名稱
+     * 修改前感應器名稱
      */
     @Column(name = "bef_mach_name")
     private String befMachName;
     
     /**
-     * 修改後工具機名稱
+     * 修改後感應器名稱
      */
     @Column(name = "aft_mach_name")
     private String aftMachName;
@@ -72,19 +69,16 @@ public class SenMachLog {
 	@Column(name = "update_date",insertable = false, updatable = false)
     private Date updateDate;
 
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	/**
-	 * 工具機資料id
-	 */
-	public SenMachLogPK getSenMachLogPK() {
-		return senMachLogPK;
-	}
-
-	public void setSenMachLogPK(SenMachLogPK senMachLogPK) {
-		this.senMachLogPK = senMachLogPK;
-	}
-
-    /**
-     * 修改前工具機名稱
+     * 修改前感應器名稱
      */
 	public String getBefMachName() {
 		return befMachName;
@@ -95,7 +89,7 @@ public class SenMachLog {
 	}
 
     /**
-     * 修改後工具機名稱
+     * 修改後感應器名稱
      */
 	public String getAftMachName() {
 		return aftMachName;

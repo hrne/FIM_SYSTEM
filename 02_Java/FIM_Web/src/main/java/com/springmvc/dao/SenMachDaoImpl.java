@@ -7,13 +7,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.modle.dao.BaseDaoImpl;
 import com.springmvc.entity.SenMach;
 
 /**
- * 工具機資料的Dao實做
+ * 感應器資料的Dao實做
  * 
  * @author hrne
  *
@@ -29,7 +27,7 @@ public class SenMachDaoImpl extends BaseDaoImpl<SenMach> implements SenMachDao {
 	}
 	
 	/**
-	 * 查詢所有啟用的工具機
+	 * 查詢所有啟用的感應器
 	 */
 	public List<SenMach> findByMachEnable() {
 		Session session = sessionFactory.openSession();

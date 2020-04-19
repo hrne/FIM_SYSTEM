@@ -4,7 +4,7 @@ import com.modle.service.BaseService;
 import com.springmvc.entity.SenMachLog;
 
 /**
- * 工具機資料更新紀錄的Service介面
+ * 感應器資料更新紀錄的Service介面
  * 
  * @author hrne
  *

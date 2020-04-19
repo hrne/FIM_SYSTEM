@@ -1,35 +1,29 @@
 package com.springmvc.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.modle.validator.EmailValidator;
-import com.springmvc.entity.SenMach;
+import com.springmvc.dto.SenMachDto;
 import com.springmvc.service.SenMachService;
 
 @Component
 public class SenMachFormValidator implements Validator {
 
 	@Autowired
-	@Qualifier("emailValidator")
-	EmailValidator emailValidator;
-
-	@Autowired
 	SenMachService senMachService;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return SenMach.class.equals(clazz);
+		return SenMachDto.class.equals(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
 
-		SenMach senMach = (SenMach) target;
+		SenMachDto senMachDto = (SenMachDto) target;
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "machName", "userForm.name.notEmpty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ip", "userForm.email.notEmpty");

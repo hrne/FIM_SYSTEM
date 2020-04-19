@@ -1,7 +1,6 @@
 package com.springmvc.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -21,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.modle.entity.User;
+import com.modle.util.ObjectMapperUtils;
+import com.springmvc.dto.SenMachDto;
 import com.springmvc.entity.SenMach;
 import com.springmvc.entity.SenMod;
 import com.springmvc.service.SenMachService;
@@ -56,8 +56,13 @@ public class SenMachController {
 	 */
 	@RequestMapping(value = "/senMach/list", method = RequestMethod.GET)
 	public String showAllSenMach(Model model) {
+
+		// 查詢所有感應器資料
 		List<SenMach> senMachs = senMachService.findAll();
-		model.addAttribute("senMachs", senMachs);
+
+		// 將感應器map到dto上供頁面顯示
+		List<SenMachDto> listSenMachDto = ObjectMapperUtils.mapAll(senMachs, SenMachDto.class);
+		model.addAttribute("listSenMachDto", listSenMachDto);
 		return "senMach/listSenMach";
 	}
 
@@ -69,10 +74,8 @@ public class SenMachController {
 	 */
 	@RequestMapping(value = "/senMach/add", method = RequestMethod.GET)
 	public String showAddUserForm(Model model) {
-		SenMach senMach = new SenMach();
-
-		model.addAttribute("senMachForm", senMach);
-
+		SenMachDto senMachDto = new SenMachDto();
+		model.addAttribute("senMachDto", senMachDto);
 		createFormOptions(model);
 		return "senMach/senMachForm";
 	}
@@ -86,14 +89,21 @@ public class SenMachController {
 	 */
 	@RequestMapping(value = "/senMach/{id}/update", method = RequestMethod.GET)
 	public String showUpdateSenMachForm(@PathVariable("id") int id, Model model) {
+
+		// 查詢感應器資料
 		SenMach senMach = senMachService.findByPK(id);
+
+		// 將感應器map到dto上
+		SenMachDto senMachDto = ObjectMapperUtils.map(senMach, SenMachDto.class);
+
 		List<Integer> senModIDs = new ArrayList<Integer>();
+
 		// 將現有的感應裝置放入顯示
 		for (SenMod senMod : senMach.getSenModSet()) {
 			senModIDs.add(senMod.getId());
 		}
-		senMach.setSenModsID(senModIDs);
-		model.addAttribute("senMachForm", senMach);
+		senMachDto.setSenModsID(senModIDs);
+		model.addAttribute("senMachDto", senMachDto);
 
 		createFormOptions(model);
 		return "senMach/senMachForm";
@@ -109,20 +119,19 @@ public class SenMachController {
 	 * @return
 	 */
 	@RequestMapping(value = "/senMach/save", method = RequestMethod.POST)
-	public String saveOrUpdateUser(@ModelAttribute("senMachForm") @Validated SenMach senMach, BindingResult result,
+	public String saveOrUpdateUser(@ModelAttribute("senMachForm") @Validated SenMachDto senMachDto, BindingResult result,
 			Model model, final RedirectAttributes redirectAttributes, Locale locale) {
 		if (result.hasErrors()) {
 			createFormOptions(model);
 			return "senMach/senMachForm";
 		} else {
-			senMachService.saveSenMachForm(senMach);
+			senMachService.saveSenMachForm(senMachDto);
 
 			redirectAttributes.addFlashAttribute("css", "success");
-			if (senMach.isNew()) {
-				redirectAttributes.addFlashAttribute("msg", "User added successfully!");
+			if (senMachDto.isNew()) {
+				redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("senMachAddSucess", new Object[] { }, locale));
 			} else {
-				redirectAttributes.addFlashAttribute("msg",
-						messageSource.getMessage("welcome", new Object[] { "John Doe" }, locale));
+				redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("senMachUpdateSucess", new Object[] { }, locale));
 			}
 			return "redirect:/senMach/list";
 		}
@@ -145,23 +154,6 @@ public class SenMachController {
 
 		model.addAttribute("senModList", senModList);
 
-	}
-
-	private User createModelDefaultValues() {
-		User user = new User();
-		// set default value
-		user.setName("Jim");
-		user.setEmail("test@gmail.com");
-		user.setAddress("台灣");
-		// user.setPassword("test@1111");
-		// user.setConfirmPassword("test@1111");
-		user.setNewsletter(true);
-		user.setSex("M");
-		user.setFramework(new ArrayList<String>(Arrays.asList("Spring MVC", "Struts")));
-		user.setSkill(new ArrayList<String>(Arrays.asList("HTML", "CSS", "JavaScript")));
-		user.setCountry("TW");
-		user.setHeight(170);
-		return user;
 	}
 
 }

@@ -11,8 +11,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.modle.util.ApplicationContextUtil;
@@ -23,7 +21,7 @@ import com.springmvc.service.SenMachService;
 import com.springmvc.service.SenRespLogService;
 
 /**
- * 掃描工具機
+ * 掃描感應器
  * 
  * @author hrne
  *
@@ -31,10 +29,10 @@ import com.springmvc.service.SenRespLogService;
 @Component
 public class SensorClient {
 
-	// 工具機service
+	// 感應器service
 	SenMachService senMachService;
 
-	// 工具機感應紀錄serivce
+	// 感應器感應紀錄serivce
 	SenRespLogService senRespLogService;
 
 	// 溫濕度dht11感應資料serivce
@@ -50,12 +48,12 @@ public class SensorClient {
 
 		System.out.println("start scan");
 
-		// 查詢所有啟用工具機
+		// 查詢所有啟用感應器
 		List<SenMach> scanMachList = senMachService.findByMachEnable();
-		//掃描每一台工具機
+		//掃描每一台感應器
 		for (SenMach scanMach : scanMachList) {
 			for (SenMod scanMod : scanMach.getSenModSet()) {
-				// 連線工具機
+				// 連線感應器
 				String str = getMachData(scanMach, scanMod.getMachCode());
 				if (str != null) {
 					//儲存dht11資料
@@ -67,10 +65,10 @@ public class SensorClient {
 	}
 
 	/**
-	 * 連線工具機讀取資料
+	 * 連線感應器讀取資料
 	 * 
-	 * @param scanMach 要掃描工具機
-	 * @param modCode  感應器代號
+	 * @param scanMach 要掃描感應器
+	 * @param modCode  感應裝置代號
 	 * @return 回傳json格式資料
 	 */
 	public String getMachData(SenMach scanMach, String modCode) {
@@ -87,12 +85,12 @@ public class SensorClient {
 		String respJsonStr = null;
 		try {
 
-			// 讀取工具機資料
+			// 讀取感應器資料
 			HttpResponse httpResponse = httpCilent.execute(httpGet);
 
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 
-			// 接受工具機回傳資料
+			// 接受感應器回傳資料
 			// status code:200 代表成功
 			if (statusCode == 200) {
 				// 轉換格式

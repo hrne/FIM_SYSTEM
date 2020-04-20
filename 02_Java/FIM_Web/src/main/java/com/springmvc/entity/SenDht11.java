@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,9 +33,9 @@ public class SenDht11 {
 	/**
      * 感應器資料id
      */
-    @Column(name = "sen_mach_id")
-    private int senMachId;
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sen_mach_id")
+    private SenMach senMach;
 	/**
 	 * 濕度
 	 */
@@ -69,12 +72,12 @@ public class SenDht11 {
 	/**
      * 感應器資料id
      */
-    public int getSenMachId() {
-		return senMachId;
+	public SenMach getSenMach() {
+		return senMach;
 	}
 
-	public void setSenMachId(int senMachId) {
-		this.senMachId = senMachId;
+	public void setSenMach(SenMach senMach) {
+		this.senMach = senMach;
 	}
 
 	/**

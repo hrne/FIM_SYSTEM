@@ -43,7 +43,7 @@
 						id="dataTables-listSenMachDto">
 						<thead>
 							<tr>
-								<th><s:message code='id' /></th>
+								<th><s:message code='id'/></th>
 								<th><s:message code='name' /></th>
 								<th><s:message code='ipAddress' /></th>
 								<th><s:message code='enabled' /></th>

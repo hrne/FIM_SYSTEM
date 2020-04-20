@@ -3,6 +3,8 @@
 <decorators defaultdir="/decorators">
 	<excludes>
 		<pattern>/login</pattern>
+		<!-- 排除透過ajax更新的頁面 -->
+		<pattern>/senMod/listSenDht11Data</pattern>
 	</excludes>
 	<decorator name="layout" page="layout.jsp">
 		<pattern>*</pattern>

@@ -75,6 +75,15 @@
 						code='senMachList' /></a></li>
 		</ul></li>
 
+	<!-- 感應裝置 -->
+	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <s:message
+				code='senModList' /><span class="fa arrow"></span></a>
+		<ul class="nav nav-second-level collapse">
+			<!-- 溫濕度 -->
+			<li><a href="<c:url value='/senMod/listSenDht11'/>"> <s:message
+						code='senDht11' /></a></li>
+		</ul></li>
+
 </ul>
 
 

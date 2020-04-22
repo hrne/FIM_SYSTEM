@@ -228,7 +228,7 @@ void setup() {
   config.pixel_format = PIXFORMAT_JPEG; 
   
   if(psramFound()){
-    config.frame_size = FRAMESIZE_UXGA;
+    config.frame_size = FRAMESIZE_SVGA;
     config.jpeg_quality = 10;
     config.fb_count = 2;
   } else {
@@ -260,5 +260,5 @@ void setup() {
 }
 
 void loop() {
-  delay(1);
+  delay(1000);
 }

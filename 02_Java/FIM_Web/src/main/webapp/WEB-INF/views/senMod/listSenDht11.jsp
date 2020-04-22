@@ -6,7 +6,7 @@
 
 <script type="text/javascript">
 	$(function() {
-		setInterval(refresh, 3000); //每3秒刷新一次
+		//setInterval(refresh, 3000); //每3秒刷新一次
 		function refresh() {
 			$.ajax({
 				url : 'listSenDht11Data',

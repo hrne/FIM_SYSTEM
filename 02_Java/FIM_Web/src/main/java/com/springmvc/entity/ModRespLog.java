@@ -1,6 +1,5 @@
 package com.springmvc.entity;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,14 +15,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 溫濕度dht11感應資料
+ * 感應紀錄
  * 
  * @author hrne
  *
  */
 @Entity
-@Table(name = "Sen_Dht11")
-public class SenDht11 {
+@Table(name = "Mod_Resp_Log")
+public class ModRespLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,31 +36,25 @@ public class SenDht11 {
     @JoinColumn(name = "mod_data_id")
     private ModData modData;
     
-	/**
-	 * 濕度
-	 */
-	@Column(name = "humidity", precision = 5, scale = 2)
-	private BigDecimal humidity;
+    /**
+     * 查詢是否成功
+     */
+    @Column(name = "suc_status", nullable = false)
+    private boolean sucStatus = true;
 
-	/**
-	 * 溫度(攝氏H)
-	 */
-	@Column(name = "temp_cal", precision = 5, scale = 2)
-	private BigDecimal tempCal;
-
-	/**
-	 * 溫度(華氏C)
-	 */
-	@Column(name = "temp_fah", precision = 5, scale = 2)
-	private BigDecimal tempFah;
-
+    /**
+     * 回傳訊息
+     */
+    @Column(name = "resp_message")
+    private String respMessage;
+    
     /**
      * 更新時間，透過SQL自動產生
      */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date",insertable = false, updatable = false)
     private Date updateDate;
-		
+
 	public int getId() {
 		return id;
 	}
@@ -82,38 +75,27 @@ public class SenDht11 {
 	}
 
 	/**
-	 * 濕度
-	 */
-	public BigDecimal getHumidity() {
-		return humidity;
+     * 查詢是否成功
+     */
+	public boolean isSucStatus() {
+		return sucStatus;
 	}
 
-	public void setHumidity(BigDecimal humidity) {
-		this.humidity = humidity;
+	public void setSucStatus(boolean sucStatus) {
+		this.sucStatus = sucStatus;
 	}
 
-	/**
-	 * 溫度(攝氏H)
-	 */
-	public BigDecimal getTempCal() {
-		return tempCal;
+    /**
+     * 回傳訊息
+     */
+	public String getRespMessage() {
+		return respMessage;
 	}
 
-	public void setTempCal(BigDecimal tempCal) {
-		this.tempCal = tempCal;
+	public void setRespMessage(String respMessage) {
+		this.respMessage = respMessage;
 	}
 
-	/**
-	 * 溫度(華氏C)
-	 */
-	public BigDecimal getTempFah() {
-		return tempFah;
-	}
-
-	public void setTempFah(BigDecimal tempFah) {
-		this.tempFah = tempFah;
-	}
-	
     /**
      * 更新時間，透過SQL自動產生
      */

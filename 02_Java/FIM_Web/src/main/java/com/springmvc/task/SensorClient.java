@@ -14,14 +14,14 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
 import com.modle.util.ApplicationContextUtil;
-import com.springmvc.entity.SenMach;
-import com.springmvc.entity.SenMod;
+import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModSen;
 import com.springmvc.service.SenDht11Service;
-import com.springmvc.service.SenMachService;
-import com.springmvc.service.SenRespLogService;
+import com.springmvc.service.ModDataService;
+import com.springmvc.service.ModRespLogService;
 
 /**
- * 掃描感應器
+ * 掃描感應裝置
  * 
  * @author hrne
  *
@@ -29,11 +29,11 @@ import com.springmvc.service.SenRespLogService;
 @Component
 public class SensorClient {
 
-	// 感應器service
-	SenMachService senMachService;
+	// 感應裝置service
+	ModDataService modDataService;
 
-	// 感應器感應紀錄serivce
-	SenRespLogService senRespLogService;
+	// 感應裝置更新紀錄serivce
+	ModRespLogService modRespLogService;
 
 	// 溫濕度dht11感應資料serivce
 	SenDht11Service senDht11Service;
@@ -42,19 +42,20 @@ public class SensorClient {
 	//@Scheduled(cron = "0/5 * * * * ? ")
 	public void startClient() {
 
-		senMachService = (SenMachService) ApplicationContextUtil.getBean("senMachService");
-		senRespLogService = (SenRespLogService) ApplicationContextUtil.getBean("senRespLogService");
+		modDataService = (ModDataService) ApplicationContextUtil.getBean("modDataService");
+		modRespLogService = (ModRespLogService) ApplicationContextUtil.getBean("modRespLogService");
 		senDht11Service = (SenDht11Service) ApplicationContextUtil.getBean("senDht11Service");
 
 		System.out.println("start scan");
 
-		// 查詢所有啟用感應器
-		List<SenMach> scanMachList = senMachService.findByMachEnable();
-		//掃描每一台感應器
-		for (SenMach scanMach : scanMachList) {
-			for (SenMod scanMod : scanMach.getSenModSet()) {
+		// 查詢所有啟用感應裝置
+		List<ModData> scanMachList = modDataService.findByModEnable();
+		
+		//掃描每一台感應裝置
+		for (ModData modData : scanMachList) {
+			for (ModSen modSen : modData.getModSenSet()) {
 				// 連線感應器
-				String str = getMachData(scanMach, scanMod.getMachCode());
+				String str = getModData(modSen, modSen.getSenCode());
 				if (str != null) {
 					//儲存dht11資料
 					senDht11Service.createDht11(scanMach, str);
@@ -65,13 +66,13 @@ public class SensorClient {
 	}
 
 	/**
-	 * 連線感應器讀取資料
+	 * 連線感應裝置讀取資料
 	 * 
-	 * @param scanMach 要掃描感應器
-	 * @param modCode  感應裝置代號
+	 * @param scanMach 要掃描感應裝置
+	 * @param modCode  感應模組代號
 	 * @return 回傳json格式資料
 	 */
-	public String getMachData(SenMach scanMach, String modCode) {
+	public String getModData(ModData scanMach, String modCode) {
 
 		CloseableHttpClient httpCilent = HttpClients.createDefault();
 
@@ -85,7 +86,7 @@ public class SensorClient {
 		String respJsonStr = null;
 		try {
 
-			// 讀取感應器資料
+			// 讀取感應裝置
 			HttpResponse httpResponse = httpCilent.execute(httpGet);
 
 			int statusCode = httpResponse.getStatusLine().getStatusCode();

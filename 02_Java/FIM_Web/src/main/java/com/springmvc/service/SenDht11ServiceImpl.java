@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import com.modle.service.BaseServiceImpl;
 import com.springmvc.entity.SenDht11;
-import com.springmvc.entity.SenMach;
+import com.springmvc.entity.ModData;
 
 /**
  * 溫濕度dht11感應資料的Service實做
@@ -17,13 +17,7 @@ import com.springmvc.entity.SenMach;
 @Service("senDht11Service")
 public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements SenDht11Service {
 
-	/**
-	 * 儲存溫濕度dht11感應資料
-	 * @param senMach 感應器資料
-	 * @param respJSON 回傳JSON
-	 */
-	public void createDht11(SenMach senMach, String respJSON) {
-		
+	public void createDht11(ModData modData, String respJSON) {
 		
 		//將回傳資料轉成json
 		JSONObject obj = new JSONObject(respJSON);
@@ -31,7 +25,7 @@ public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements Se
 		SenDht11 senDht11 = new SenDht11();
 		
 		//寫入感應器ID
-		senDht11.setSenMach(senMach);
+		senDht11.setModData(modData);
 	
 		//取出濕度
 		BigDecimal humidity = obj.getBigDecimal("humidity");

@@ -76,9 +76,30 @@ create table Sen_Dht11(
 	PRIMARY KEY(id),
 	FOREIGN KEY (sen_mach_id) REFERENCES sen_mach (id)
 )comment '溫濕度dht11感應資料';
+
+
+-- Sen_Hx711 重量hx711感應資料
+create table Sen_Hx711(
+	id int not null AUTO_INCREMENT comment 'key值',
+	sen_mach_id int not null comment '感應器資料id',
+	weight decimal(5,2) not null comment '重量',
+	update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
+	PRIMARY KEY(id),
+	FOREIGN KEY (sen_mach_id) REFERENCES sen_mach (id)
+)comment '重量hx711感應資料';
+
+-- Sen_Acs712 電流acs712感應資料
+create table Sen_Acs712(
+	id int not null AUTO_INCREMENT comment 'key值',
+	sen_mach_id int not null comment '感應器資料id',
+	ampere decimal(5,2) not null comment '安培',
+	update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
+	PRIMARY KEY(id),
+	FOREIGN KEY (sen_mach_id) REFERENCES sen_mach (id)
+)comment '電流acs712感應資料';
+
+
 --drop table
-
-
 drop table sen_dht11;
 drop table Sen_Resp_Log;
 drop table Sen_Mach_Log;

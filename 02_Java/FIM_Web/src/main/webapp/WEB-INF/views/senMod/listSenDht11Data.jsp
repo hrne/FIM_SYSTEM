@@ -18,7 +18,7 @@
 		<c:forEach var="senDht11" items="${senDht11List}">
 			<tr>
 				<!-- 感應器名稱 -->
-				<td>${senDht11.senMach.machName}</td>
+				<td>${senDht11.modData.modName}</td>
 				<!-- 溫度(攝氏H) -->
 				<td>${senDht11.tempCal}</td>
 				<!-- 濕度 -->

@@ -25,8 +25,8 @@ public class ModDataFormValidator implements Validator {
 
 		ModDataDto senMachDto = (ModDataDto) target;
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "machName", "userForm.name.notEmpty");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ip", "userForm.email.notEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "modName", "userForm.name.notEmpty");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ipAddress", "userForm.email.notEmpty");
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "userForm.address.notEmpty");
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "userForm.password.notEmpty");
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword", "userForm.confirmPassword.notEmpty");

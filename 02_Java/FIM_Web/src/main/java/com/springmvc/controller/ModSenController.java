@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.service.SenDht11Service;
 
+/**
+ * 感應模組controller
+ * 
+ * @author hrne
+ *
+ */
 @Controller
 public class ModSenController {
 
@@ -24,7 +30,7 @@ public class ModSenController {
 	 */
 	@RequestMapping(value = "/senMod/listSenDht11", method = RequestMethod.GET)
 	public String showAllSenMod(Model model) {
-		List<SenDht11> senDht11List = senDht11Service.findAll();
+		List<SenDht11> senDht11List = senDht11Service.findLatestDht11Data();
 		model.addAttribute("senDht11List", senDht11List);
 		return "senMod/listSenDht11";
 	}
@@ -36,7 +42,7 @@ public class ModSenController {
 	 */
 	@RequestMapping(value = "/senMod/listSenDht11Data", method = RequestMethod.GET)
 	public String getTime(Model model) {
-		List<SenDht11> senDht11List = senDht11Service.findAll();
+		List<SenDht11> senDht11List = senDht11Service.findLatestDht11Data();
 		model.addAttribute("senDht11List", senDht11List);
 		System.out.println("test");
 		return "senMod/listSenDht11Data";

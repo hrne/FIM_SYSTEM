@@ -15,7 +15,7 @@ import com.springmvc.entity.ModData;
 public interface ModDataService extends BaseService<ModData> {
 	
 	/**
-	 * 查詢所有啟用的感應器
+	 * 查詢所有啟用的感應裝置
 	 * 
 	 * @return ModData list
 	 */

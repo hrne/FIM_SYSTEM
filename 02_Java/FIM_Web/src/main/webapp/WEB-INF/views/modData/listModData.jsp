@@ -17,7 +17,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header">
-				<s:message code='senMachList' />
+				<s:message code='modDataList' />
 			</h1>
 		</div>
 		<!-- /.col-lg-12 -->
@@ -26,7 +26,6 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-
 				<c:if test="${not empty msg}">
 					<div class="alert alert-${css} alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"
@@ -48,7 +47,8 @@
 								<th><s:message code='name' /></th>
 								<th><s:message code='ipAddress' /></th>
 								<th><s:message code='enabled' /></th>
-								<th>感應裝置</th>
+								<th><s:message code='modSen' /></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -62,10 +62,10 @@
 									<td>${modDataDto.ipAddress}</td>
 									<!-- 是否啟用 -->
 									<td>${modDataDto.shonEnableName}</td>
-									<!-- 感應裝置 -->
-									<td><c:forEach var="shonSenMods"
-											items="${modDataDto.shonModSenList}" varStatus="loop">
-												${shonSenMods} <c:if test="${not loop.last}">,</c:if>
+									<!-- 感應模組 -->
+									<td><c:forEach var="showModSens"
+											items="${modDataDto.showModSenList}" varStatus="loop">
+												${showModSens} <c:if test="${not loop.last}">,</c:if>
 										</c:forEach></td>
 									<!-- 修改 按鈕 -->
 									<td><s:url value="/modData/${modDataDto.id}/update"

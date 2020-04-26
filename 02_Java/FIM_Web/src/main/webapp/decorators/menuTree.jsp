@@ -63,21 +63,21 @@
 
 	</c:if>
 
-	<!-- 感應器設定 -->
+	<!-- 感應裝置設定 -->
 	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <s:message
-				code='senMachModule' /><span class="fa arrow"></span></a>
+				code='modData' /><span class="fa arrow"></span></a>
 		<ul class="nav nav-second-level collapse">
 			<!-- 新增感應器 -->
-			<li><a href="<c:url value='/senMach/add'/>"><s:message
-						code='senMachAdd' /></a></li>
+			<li><a href="<c:url value='/modData/add'/>"><s:message
+						code='modDataAdd' /></a></li>
 			<!-- 感應器清單 -->
-			<li><a href="<c:url value='/senMach/list'/>"><s:message
-						code='senMachList' /></a></li>
+			<li><a href="<c:url value='/modData/list'/>"><s:message
+						code='modDataList' /></a></li>
 		</ul></li>
 
-	<!-- 感應裝置 -->
+	<!-- 感應模組 -->
 	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <s:message
-				code='senModList' /><span class="fa arrow"></span></a>
+				code='modSen' /><span class="fa arrow"></span></a>
 		<ul class="nav nav-second-level collapse">
 			<!-- 溫濕度 -->
 			<li><a href="<c:url value='/senMod/listSenDht11'/>"> <s:message

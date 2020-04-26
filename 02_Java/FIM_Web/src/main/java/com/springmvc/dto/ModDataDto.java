@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
 import com.springmvc.entity.ModSen;
 
 /**
@@ -128,7 +122,7 @@ public class ModDataDto {
 	 * 
 	 * @return modSen list
 	 */
-	public List<String> getShonModSenList() {
+	public List<String> getShowModSenList() {
 		List<String> modSenList = new ArrayList<String>();
 		for (ModSen modSen : getModSenSet()) {
 			modSenList.add(modSen.getSenName());

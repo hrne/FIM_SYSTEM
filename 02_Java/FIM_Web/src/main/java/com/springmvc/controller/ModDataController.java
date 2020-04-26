@@ -154,9 +154,9 @@ public class ModDataController {
 			//顯示回傳訊息
 			redirectAttributes.addFlashAttribute("css", "success");
 			if (modDataDto.isNew()) {
-				redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("senMachAddSucess", new Object[] { }, locale));
+				redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("modDataAddSuc", new Object[] { }, locale));
 			} else {
-				redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("senMachUpdateSucess", new Object[] { }, locale));
+				redirectAttributes.addFlashAttribute("msg", messageSource.getMessage("modDataUpdateSuc", new Object[] { }, locale));
 			}
 			return "redirect:/modData/list";
 		}

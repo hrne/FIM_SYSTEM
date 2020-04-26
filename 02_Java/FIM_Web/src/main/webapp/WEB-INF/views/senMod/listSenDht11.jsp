@@ -9,7 +9,7 @@
 		setInterval(refresh, 3000); //每3秒刷新一次
 		function refresh() {
 			$.ajax({
-				url : 'listSenDht11Data',
+				url : 'listDht11',
 				success : function(data) {
 					console.log('sucess');
 					$('#dht11').html(data);
@@ -35,7 +35,7 @@
 			<div class="panel panel-default">
 				<!-- /.panel-heading -->
 				<div class="panel-body" id="dht11">
-					<%@include file="listSenDht11Data.jsp"%>
+					<%@include file="tableDht11.jsp"%>
 				</div>
 				<!-- /.panel-body -->
 			</div>

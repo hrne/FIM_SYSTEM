@@ -59,7 +59,7 @@ create table Mod_Resp_Log(
 	id int not null AUTO_INCREMENT comment 'key值',
 	mod_data_id int not null comment '感應裝置id',
     suc_status boolean not null comment '查詢是否成功',
-    resp_message varchar(2000) comment '回傳訊息',
+    resp_message TEXT comment '回傳訊息',
     update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
 	PRIMARY KEY(id),
     FOREIGN KEY (mod_data_id) REFERENCES Mod_Data (id)
@@ -92,7 +92,7 @@ create table Sen_Hx711(
 create table Sen_Acs712(
 	id int not null AUTO_INCREMENT comment 'key值',
 	mod_data_id int not null comment '感應裝置id',
-	ampere decimal(5,2) not null comment '安培',
+	ampere decimal(5,2) not null comment '電流(安培)',
 	update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
 	PRIMARY KEY(id),
 	FOREIGN KEY (mod_data_id) REFERENCES Mod_Data (id)

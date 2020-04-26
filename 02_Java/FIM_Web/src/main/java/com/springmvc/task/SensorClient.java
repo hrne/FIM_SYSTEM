@@ -3,14 +3,20 @@ package com.springmvc.task;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.modle.util.ApplicationContextUtil;
@@ -39,7 +45,7 @@ public class SensorClient {
 	SenDht11Service senDht11Service;
 
 	// 每5秒掃描一次
-	// @Scheduled(cron = "0/5 * * * * ? ")
+	@Scheduled(cron = "0/5 * * * * ? ")
 	public void startClient() {
 
 		modDataService = (ModDataService) ApplicationContextUtil.getBean("modDataService");
@@ -80,14 +86,17 @@ public class SensorClient {
 				.setConnectionRequestTimeout(5000).setSocketTimeout(5000).setRedirectsEnabled(true).build();
 
 		// 傳送ip+感應裝置代號
-		HttpGet httpGet = new HttpGet("http://" + modData.getIpAddress() + "/" + senCode);
-		httpGet.setConfig(requestConfig);
-
+		HttpPost httpPost = new HttpPost("http://" + modData.getIpAddress() + "/sensor");
+		httpPost.setConfig(requestConfig);
+		
 		String respJsonStr = null;
 		try {
 
+			StringEntity entity = new StringEntity(getMess());
+			httpPost.setEntity(entity);
+			
 			// 讀取感應裝置
-			HttpResponse httpResponse = httpCilent.execute(httpGet);
+			HttpResponse httpResponse = httpCilent.execute(httpPost);
 
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 
@@ -104,6 +113,7 @@ public class SensorClient {
 			}
 
 			System.out.println("status code:    " + statusCode + "   content:   " + respJsonStr);
+			
 
 		} catch (IOException e) {
 			// 連線意外失敗:紀錄錯誤訊息
@@ -118,6 +128,14 @@ public class SensorClient {
 			}
 		}
 		return respJsonStr;
+	}
+	
+	public String getMess() {
+		
+	      JSONObject obj = new JSONObject();
+
+	      obj.put("dht11", "1");
+		return obj.toString();
 	}
 
 }

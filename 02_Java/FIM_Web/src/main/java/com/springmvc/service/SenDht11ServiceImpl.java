@@ -25,10 +25,10 @@ import com.springmvc.entity.ModData;
 public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements SenDht11Service {
 	
 	@Autowired
-	private SenDht11Dao senDht11Dao;
+	private ModDataDao modDataDao;
 	
 	@Autowired
-	private ModDataDao modDataDao;
+	private SenDht11Dao senDht11Dao;
 
 	public void createDht11(ModData modData, String respJSON) {
 		

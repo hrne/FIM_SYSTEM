@@ -12,12 +12,12 @@
 			<c:choose>
 				<c:when test="${modDataDto['new']}">
 					<h1 class="page-header">
-						<s:message code='senMachAdd' />
+						<s:message code='modDataAdd' />
 					</h1>
 				</c:when>
 				<c:otherwise>
 					<h1 class="page-header">
-						<s:message code='senMachUpdate' />
+						<s:message code='modDataUpdate' />
 					</h1>
 				</c:otherwise>
 			</c:choose>
@@ -28,7 +28,6 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-6">
@@ -54,7 +53,8 @@
 										<label class="col-sm-2 control-label"><s:message
 												code='ipAddress' /></label>
 										<div class="col-sm-10">
-											<sf:input path="ipAddress" class="form-control " placeholder="ipAddress" />
+											<sf:input path="ipAddress" class="form-control "
+												placeholder="ipAddress" />
 											<sf:errors path="ipAddress" class="control-label" />
 										</div>
 									</div>
@@ -62,21 +62,25 @@
 								<!-- 是否啟用 -->
 								<s:bind path="modEnable">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">是否啟用</label>
+										<label class="col-sm-2 control-label"><s:message
+												code='enabled' /></label>
 										<div class="col-sm-10">
 											<label class="radio-inline"> <sf:radiobutton
-													path="modEnable" value="true" /> 是
+													path="modEnable" value="true" /> <s:message
+													code='enable_Y' />
 											</label> <label class="radio-inline"> <sf:radiobutton
-													path="modEnable" value="false" /> 否
+													path="modEnable" value="false" /> <s:message
+													code='enable_N' />
 											</label> <br />
 											<sf:errors path="modEnable" class="control-label" />
 										</div>
 									</div>
 								</s:bind>
-								<!-- 感應裝置 -->
+								<!-- 感應模組 -->
 								<s:bind path="modSenIDs">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
-										<label class="col-sm-2 control-label">感應裝置</label>
+										<label class="col-sm-2 control-label"><s:message
+												code='modSen' /></label>
 										<div class="col-sm-10">
 											<sf:checkboxes path="modSenIDs" items="${senList}"
 												element="label class='checkbox-inline'" />

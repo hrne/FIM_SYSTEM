@@ -25,6 +25,8 @@ create table Mod_Parm(
     mod_sen_id int not null comment '感應模組id',
 	parm_name varchar(100) not null comment '參數名稱',
     parm_code varchar(40) not null comment '參數代號',
+	upper_limit decimal(5,2) default 0 comment '上限警示值',
+	lower_limit decimal(5,2) default 0 comment '下限警示值',
     update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
 	PRIMARY KEY(id),
     FOREIGN KEY (mod_sen_id) REFERENCES Mod_Sen (id)

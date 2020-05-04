@@ -46,6 +46,6 @@
 </div>
 
 <div id="page-wrapper">
-<!-- 
-	<iframe src="http://192.168.50.238/"  width="1024px" height="768px"> </iframe> -->
+
+	<iframe src="http://10.11.50.12/login.aspx"  width="1024px" height="768px"> </iframe> 
 </div>

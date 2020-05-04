@@ -3,3 +3,4 @@ https://blog.csdn.net/u011781521/article/details/82284449
 https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/stock/demo/dynamic-update/
 https://blog.csdn.net/chunchun1230/article/details/85111531
 https://blog.csdn.net/yiifaa/article/details/51917882
+https://stackoverflow.com/questions/50521874/httpmessagenotwritableexception-no-converter-found-for-return-value-of-type-cl/50522502

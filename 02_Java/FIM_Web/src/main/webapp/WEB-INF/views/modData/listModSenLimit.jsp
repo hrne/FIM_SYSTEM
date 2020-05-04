@@ -9,22 +9,20 @@
 		$("#display_result").bootstrapTable({
 			url : 'listModSen',
 			method : 'get',
-			dataType: "json",
-            pagination: true,    // 显示页码等信息 
-            showColumns: false,  // 选择显示的列 
-            clickToSelect: true, //在点击行时，自动选择rediobox 和 checkbox
-            pageNumber: 1,         //首页页码
-            pageSize: 10,           // 当前分页值 
-            pageList: [10, 20],  // 分页选页 
-            cache: false, // 不缓存
-            striped: true, // 隔行加亮
+			dataType : "json",
+			detailView : true,//父子表
+			striped : true, // 隔行加亮
 			columns : [ {
 				field : 'senName',
-				title : '感應模組名稱',
+				title : '感應模組名稱'
 			}, {
 				field : 'senCode',
-				title : '感應模組代號',
-			} ]
+				title : '感應模組代號'
+			} ],
+			//无线循环取子表，直到子表里面没有记录
+			onExpandRow : function(index, row, $Subdetail) {
+				initSubTable(index, row, $Subdetail);
+			}
 		});
 		//初始化子表格(无线循环)
 		initSubTable = function(index, row, $detail) {
@@ -41,7 +39,7 @@
 				},
 				uniqueId : "id",
 				striped : true, //是否显示行间隔色
-				pagination : false,//显示分页
+
 
 				columns : [ {
 					field : 'parmName',
@@ -49,7 +47,13 @@
 				}, {
 					field : 'parmCode',
 					title : '參數代號'
-				}],
+				}, {
+					field : 'upperLimit',
+					title : '上限警示值'
+				}, {
+					field : 'lowerLimit',
+					title : '下限警示值'
+				} ],
 				//无线循环取子表，直到子表里面没有记录
 				onExpandRow : function(index, row, $Subdetail) {
 					initSubTable(index, row, $Subdetail);

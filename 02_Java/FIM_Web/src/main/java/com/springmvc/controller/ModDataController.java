@@ -233,10 +233,10 @@ public class ModDataController {
 	 */
 	@RequestMapping(value = "/modData/listParm", method = RequestMethod.GET)
 	@ResponseBody
-	public List<ModParm> showModParm(String id) {
+	public List<ModParm> showModParm(Integer id) {
 
 		// 查詢所有感應裝置
-		List<ModParm> listModParm = modParmService.findAll();
+		List<ModParm> listModParm = modParmService.findModParmBySen(id);
 
 		return listModParm;
 	}

@@ -1,13 +1,15 @@
 #include <ESP8266WiFi.h>      // 提供Wi-Fi功能的程式庫
 #include <ESP8266WebServer.h>  // 提供網站伺服器功能的程式庫
-#include <ArduinoJson.h>
-#include "DHT.h"
-#include <HX711.h>
+#include <ArduinoJson.h>  //json使用
+#include "DHT.h"   //dht11
+#include <HX711.h> //hx711
 
 
 /**
+   接腳:
    Dht11   Data:D3
    Hx711   Data:D4、D5
+
 */
 
 //wifi ssid

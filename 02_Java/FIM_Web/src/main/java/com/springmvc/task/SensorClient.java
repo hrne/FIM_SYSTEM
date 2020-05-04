@@ -23,6 +23,7 @@ import com.modle.util.ApplicationContextUtil;
 import com.springmvc.entity.ModData;
 import com.springmvc.entity.ModSen;
 import com.springmvc.service.SenDht11Service;
+import com.springmvc.service.SenHx711Service;
 import com.springmvc.service.ModDataService;
 import com.springmvc.service.ModRespLogService;
 
@@ -43,6 +44,9 @@ public class SensorClient {
 
 	// 溫濕度dht11感應資料serivce
 	SenDht11Service senDht11Service;
+	
+	//重量hx711感應資料的Service
+	SenHx711Service senHx711Service;
 
 	// 每5秒掃描一次
 	@Scheduled(cron = "0/5 * * * * ? ")
@@ -51,6 +55,7 @@ public class SensorClient {
 		modDataService = (ModDataService) ApplicationContextUtil.getBean("modDataService");
 		modRespLogService = (ModRespLogService) ApplicationContextUtil.getBean("modRespLogService");
 		senDht11Service = (SenDht11Service) ApplicationContextUtil.getBean("senDht11Service");
+		senHx711Service = (SenHx711Service) ApplicationContextUtil.getBean("senHx711Service");
 
 		System.out.println("start scan");
 
@@ -59,14 +64,27 @@ public class SensorClient {
 
 		// 掃描每一台感應裝置
 		for (ModData modData : scanMachList) {
-			for (ModSen modSen : modData.getModSenSet()) {
-				// 連線arduino
-				String str = getArduinoData(modData, modSen.getSenCode());
-				if (str != null) {
-					// 儲存dht11資料
-					senDht11Service.createDht11(modData, str);
-				}
+			// 連線arduino
+			String str = getArduinoData(modData);
 
+			if (str != null) {
+				for (ModSen modSen : modData.getModSenSet()) {
+					// 將讀取的資料依不同感應模組寫入
+					switch (modSen.getSenCode()) {
+					case "dht11":
+						// 儲存溫濕度dht11感應資料資料
+						senDht11Service.createDht11(modData, str);
+						break;
+					case "hx711":
+						// 儲存重量感應hx711資料
+						senHx711Service.createHx711(modData, str);
+						break;
+					case "acs712":
+						// 儲存電源控制/監控acs712資料
+						senDht11Service.createDht11(modData, str);
+						break;
+					}
+				}
 			}
 		}
 	}
@@ -75,10 +93,9 @@ public class SensorClient {
 	 * 連線Arduino讀取資料
 	 * 
 	 * @param modData 要掃描感應裝置
-	 * @param senCode感應模組代號
 	 * @return 回傳json格式資料
 	 */
-	public String getArduinoData(ModData modData, String senCode) {
+	public String getArduinoData(ModData modData) {
 
 		CloseableHttpClient httpCilent = HttpClients.createDefault();
 
@@ -87,15 +104,17 @@ public class SensorClient {
 
 		// 傳送ip+感應裝置代號
 		HttpPost httpPost = new HttpPost("http://" + modData.getIpAddress() + "/sensor");
+
 		httpPost.setConfig(requestConfig);
-		
+
 		String respJsonStr = null;
 		try {
 
-			StringEntity entity = new StringEntity(getMess());
+			// 設定要查詢的感應模組
+			StringEntity entity = new StringEntity(getSenJson(modData));
 			httpPost.setEntity(entity);
-			
-			// 讀取感應裝置
+
+			// 讀取Arduino資料
 			HttpResponse httpResponse = httpCilent.execute(httpPost);
 
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
@@ -113,7 +132,6 @@ public class SensorClient {
 			}
 
 			System.out.println("status code:    " + statusCode + "   content:   " + respJsonStr);
-			
 
 		} catch (IOException e) {
 			// 連線意外失敗:紀錄錯誤訊息
@@ -129,12 +147,22 @@ public class SensorClient {
 		}
 		return respJsonStr;
 	}
-	
-	public String getMess() {
-		
-	      JSONObject obj = new JSONObject();
 
-	      obj.put("dht11", "1");
+	/**
+	 * 將感應裝置設定的感應模組轉換成json格式
+	 * 
+	 * @return Json String
+	 */
+	public String getSenJson(ModData modData) {
+
+		JSONObject obj = new JSONObject();
+
+		for (ModSen modSen : modData.getModSenSet()) {
+			// 將要讀取資料的感應模組設為1
+			obj.put(modSen.getSenCode(), "1");
+		}
+
+		System.out.println(obj.toString());
 		return obj.toString();
 	}
 

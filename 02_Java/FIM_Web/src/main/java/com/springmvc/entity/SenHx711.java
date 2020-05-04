@@ -37,7 +37,7 @@ public class SenHx711 {
     private ModData modData;
     
 	/**
-	 * 重量
+	 * 重量(g)
 	 */
 	@Column(name = "weight", precision = 5, scale = 2)
 	private BigDecimal weight;

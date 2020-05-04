@@ -1,5 +1,6 @@
 package com.springmvc.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -47,6 +48,18 @@ public class ModParm {
      */
     @Column(name = "parm_code")
     private String parmCode;
+    
+	/**
+	 * 上限警示值
+	 */
+	@Column(name = "upper_limit", precision = 5, scale = 2)
+	private BigDecimal upperLimit;
+	
+	/**
+	 * 下限警示值
+	 */
+	@Column(name = "lower_limit", precision = 5, scale = 2)
+	private BigDecimal lowerLimit;
 
     /**
      * 更新時間，透過SQL自動產生
@@ -94,6 +107,28 @@ public class ModParm {
 
 	public void setParmCode(String parmCode) {
 		this.parmCode = parmCode;
+	}
+	
+	/**
+	 * 上限警示值
+	 */
+    public BigDecimal getUpperLimit() {
+		return upperLimit;
+	}
+
+	public void setUpperLimit(BigDecimal upperLimit) {
+		this.upperLimit = upperLimit;
+	}
+
+	/**
+	 * 下限警示值
+	 */
+	public BigDecimal getLowerLimit() {
+		return lowerLimit;
+	}
+
+	public void setLowerLimit(BigDecimal lowerLimit) {
+		this.lowerLimit = lowerLimit;
 	}
 
     /**

@@ -50,7 +50,7 @@ public class ModSen {
 	/**
 	 * 感應裝置使用模組
 	 */
-	@ManyToMany(mappedBy = "modSenSet")
+	@ManyToMany(mappedBy = "modSenSet" )
 	Set<ModData> modDataSet;
 
 	public int getId() {

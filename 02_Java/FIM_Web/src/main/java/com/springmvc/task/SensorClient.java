@@ -49,7 +49,7 @@ public class SensorClient {
 	SenHx711Service senHx711Service;
 
 	// 每5秒掃描一次
-	@Scheduled(cron = "0/5 * * * * ? ")
+	//@Scheduled(cron = "0/5 * * * * ? ")
 	public void startClient() {
 
 		modDataService = (ModDataService) ApplicationContextUtil.getBean("modDataService");

@@ -7,10 +7,10 @@
 <script type="text/javascript">
 	$(function() {
 		$("#display_result").bootstrapTable({
-			url : 'listModSen',
+			url : 'showModSen',
 			method : 'get',
 			dataType : "json",
-			detailView : true,//父子表
+			detailView : true,//啟用父子表
 			striped : true, // 隔行加亮
 			columns : [ {
 				field : 'senName',
@@ -19,17 +19,17 @@
 				field : 'senCode',
 				title : '感應模組代號'
 			} ],
-			//无线循环取子表，直到子表里面没有记录
+			//無限讀取子表，直到沒有資料
 			onExpandRow : function(index, row, $Subdetail) {
 				initSubTable(index, row, $Subdetail);
 			}
 		});
-		//初始化子表格(无线循环)
+		//初始化子表(無限循環)
 		initSubTable = function(index, row, $detail) {
 			var parentid = row.id;
 			var cur_table = $detail.html('<table></table>').find('table');
 			$(cur_table).bootstrapTable({
-				url : 'listParm',
+				url : 'showModParm',
 				method : 'get',
 				queryParams : {
 					id : parentid
@@ -38,9 +38,7 @@
 					id : parentid
 				},
 				uniqueId : "id",
-				striped : true, //是否显示行间隔色
-
-
+				striped : true, // 隔行加亮
 				columns : [ {
 					field : 'parmName',
 					title : '參數名稱'
@@ -54,7 +52,7 @@
 					field : 'lowerLimit',
 					title : '下限警示值'
 				} ],
-				//无线循环取子表，直到子表里面没有记录
+				//無限讀取子表，直到沒有資料
 				onExpandRow : function(index, row, $Subdetail) {
 					initSubTable(index, row, $Subdetail);
 				}
@@ -66,7 +64,9 @@
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">參數修改</h1>
+			<h1 class="page-header">
+				<s:message code='modSenLimit' />
+			</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -89,8 +89,6 @@
 					<table width="100%"
 						class="table table-striped table-bordered table-hover"
 						id="display_result">
-
-
 					</table>
 				</div>
 				<!-- /.panel-body -->

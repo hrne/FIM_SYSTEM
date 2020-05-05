@@ -5,6 +5,23 @@
 <%@taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<script>
+	$(function() {
+		$('#toggle-event').change(function() {
+			$('#console-event').val($(this).prop('checked'))
+		})
+	})
+
+	$(document).ready(function() {
+		var btnFlag = $
+		{
+			modDataDto.modEnable
+		}
+		;
+		$('#toggle-event').prop('checked', btnFlag).change();
+	});
+</script>
+
 <!-- 新增/修改感應裝置 -->
 <div id="page-wrapper">
 	<div class="row">
@@ -31,7 +48,7 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-6">
-							<s:url value="/modData/save" var="modDataActionUrl" />
+							<s:url value="/modData/saveModData" var="modDataActionUrl" />
 							<sf:form class="form-horizontal" method="post"
 								modelAttribute="modDataDto" action="${modDataActionUrl}">
 								<sf:hidden path="id" />
@@ -60,19 +77,14 @@
 									</div>
 								</s:bind>
 								<!-- 是否啟用 -->
+								<sf:hidden id="console-event" path="modEnable" />
 								<s:bind path="modEnable">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
 										<label class="col-sm-2 control-label"><s:message
 												code='enabled' /></label>
 										<div class="col-sm-10">
-											<label class="radio-inline"> <sf:radiobutton
-													path="modEnable" value="true" /> <s:message
-													code='enable_Y' />
-											</label> <label class="radio-inline"> <sf:radiobutton
-													path="modEnable" value="false" /> <s:message
-													code='enable_N' />
-											</label> <br />
-											<sf:errors path="modEnable" class="control-label" />
+											<input id="toggle-event" type="checkbox" data-toggle="toggle"
+												data-size="small">
 										</div>
 									</div>
 								</s:bind>

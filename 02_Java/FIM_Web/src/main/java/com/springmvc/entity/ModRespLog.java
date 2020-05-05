@@ -2,6 +2,7 @@ package com.springmvc.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,6 +36,13 @@ public class ModRespLog {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mod_data_id")
     private ModData modData;
+    
+	/**
+	 * 感應模組id
+	 */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "mod_sen_id")
+	private ModSen modSen;
     
     /**
      * 查詢是否成功
@@ -72,6 +80,17 @@ public class ModRespLog {
 
 	public void setModData(ModData modData) {
 		this.modData = modData;
+	}
+	
+	/**
+	 * 感應模組id
+	 */
+	public ModSen getModSen() {
+		return modSen;
+	}
+
+	public void setModSen(ModSen modSen) {
+		this.modSen = modSen;
 	}
 
 	/**

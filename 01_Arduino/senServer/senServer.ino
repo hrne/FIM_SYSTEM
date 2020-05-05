@@ -1,14 +1,19 @@
 #include <ESP8266WiFi.h>      // 提供Wi-Fi功能的程式庫
 #include <ESP8266WebServer.h>  // 提供網站伺服器功能的程式庫
 #include <ArduinoJson.h>  //json使用
-#include "DHT.h"   //dht11
+#include "DHT.h"   //dht11 
 #include <HX711.h> //hx711
 
-
 /**
+   感應器說明:
+   Dht11:溫濕度
+   Hx711:重量感應
+   switch:電源開關(繼電器)
+
    接腳:
-   Dht11   Data:D3
-   Hx711   Data:D4、D5
+   Dht11   D3
+   Hx711   D4、D5
+   switch  D7(開關)、A0(電池電力)
 
 */
 
@@ -32,6 +37,11 @@ DHT dht(dhtPin, dhtType); // Initialize DHT sensor
 const int scale_factor = 378; //比例參數，從校正程式中取得
 HX711 scale; // Initialize load cell amplifire
 
+//電源開關(繼電器)設定
+#define relayPin D7          //設定接線腳位
+#define turnon true
+#define turnoff false
+
 //sensor變數
 //dht11
 float humidity = 0; //濕度
@@ -40,6 +50,10 @@ float tempFah = 0; //溫度(華氏C)
 
 //hx711
 float weight = 0;//重量
+
+//電源開關(繼電器)
+float batteryVolt = 0; //電池電力
+int powStatus = 1; //電源狀態 1:啟用 0:關閉
 
 //sensor回傳值
 String respJsonMes = ""; //回傳json值
@@ -57,6 +71,10 @@ void setup() {
   scale.set_scale(scale_factor);       // 設定比例參數
   scale.tare();               // 歸零
   scale.get_units(5);
+
+  //設定電源開關
+  pinMode(relayPin, OUTPUT) ;
+  digitalWrite(relayPin, turnon) ;//一開始打開
 
   //若要指定IP位址，請自行在此加入WiFi.config()敘述。
   //WiFi.config(IPAddress(192,168,0,105),    // IP位址
@@ -81,6 +99,8 @@ void setup() {
 
     String stateDht11 = rootGet["dht11"];
     String stateHx711 = rootGet["hx711"];
+    String stateSwitch = rootGet["switch"];
+    String statePowEnabled = rootGet["pow_enabled"];
 
     //回傳Json
     DynamicJsonDocument rootResp(1024);
@@ -97,6 +117,22 @@ void setup() {
     if (stateHx711 == "1") {
       getHx711();
       rootResp["weight"] = weight;
+    }
+
+    //判斷需要感應電源開關時，讀取資料
+    if (stateSwitch == "1") {
+      getSwitchBatteryVolt();
+      rootResp["battery_volt"] = batteryVolt;
+      rootResp["pow_status"] = powStatus;
+    }
+
+    //判斷是否需要關閉電源
+    if (statePowEnabled !="") {
+      if (statePowEnabled == "1") {
+        digitalWrite(relayPin, turnon) ;//打開
+      } else if (statePowEnabled == "0") {
+        digitalWrite(relayPin, turnoff) ;//關閉
+      }
     }
 
     //將回傳Json放入
@@ -125,8 +161,15 @@ void getDht11() {
   tempFah = dht.readTemperature(true);//讀取華氏溫度
 }
 
+//讀取重量hx711資料
 void getHx711() {
   weight = scale.get_units(10);
   scale.power_down();             // 進入睡眠模式
   scale.power_up();               // 結束睡眠模式
+}
+
+//讀取電源開關資料
+void getSwitchBatteryVolt() {
+  batteryVolt = (analogRead(A0) / 1023 * 3.3) * 4.9;
+  powStatus = digitalRead(D7);
 }

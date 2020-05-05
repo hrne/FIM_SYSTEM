@@ -9,16 +9,21 @@
 			$.ajax({
 				url : 'senMod/listDht11',
 				success : function(data) {
-					console.log('sucess');
 					$('#dht11').html(data);
+				}
+			});
+
+			$.ajax({
+				url : 'senMod/listHx711',
+				success : function(data) {
+					$('#hx711').html(data);
 				}
 			});
 			
 			$.ajax({
-				url : 'senMod/listHx711',
+				url : 'senMod/listSwitch',
 				success : function(data) {
-					console.log('sucess');
-					$('#hx711').html(data);
+					$('#switch').html(data);
 				}
 			});
 		}
@@ -73,6 +78,46 @@
 					<div class="table-responsive" id="hx711">
 						<%@include file="tableHx711.jsp"%>
 					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-6 -->
+	</div>
+
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<!-- 電源開關資料 -->
+				<div class="panel-heading ">
+					<h4 class="text-info">
+						<s:message code='senSwitch' />
+					</h4>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div class="table-responsive" id="switch">
+						<%@include file="tableSwitch.jsp"%>
+					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-6 -->
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<!-- -->
+				<div class="panel-heading">
+
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+
 					<!-- /.table-responsive -->
 				</div>
 				<!-- /.panel-body -->

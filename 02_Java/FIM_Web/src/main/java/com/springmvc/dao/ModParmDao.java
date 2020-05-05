@@ -17,12 +17,12 @@ import com.springmvc.entity.SenDht11;
 public interface ModParmDao extends BaseDao<ModParm>{
 	
 	/**
-	 * 依據感應裝置查詢溫濕度資料，依照更新日期新到舊排序
+	 * 依據感應模組ID查詢參數，排除不顯示
 	 * 
-	 * @param modData 感應裝置
-	 * @return SenDht11 list 溫濕度列表
+	 * @param modSen_id
+	 * @return
 	 */
-	List<ModParm> findModParmBySen(Integer modSen_id);
+	List<ModParm> findModParmBySenId(Integer modSen_id);
 
 
 }

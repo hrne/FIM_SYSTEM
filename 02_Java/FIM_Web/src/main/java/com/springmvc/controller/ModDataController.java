@@ -23,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.modle.util.ObjectMapperUtils;
 import com.springmvc.dto.ModDataDto;
+import com.springmvc.dto.ModParmDto;
+import com.springmvc.dto.ModSenDto;
 import com.springmvc.entity.ModData;
 import com.springmvc.entity.ModParm;
 import com.springmvc.entity.ModSen;
@@ -66,7 +68,7 @@ public class ModDataController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/modData/showListModData", method = RequestMethod.GET)
 	public String showAllModData(Model model) {
 
 		// 查詢所有感應裝置
@@ -88,7 +90,7 @@ public class ModDataController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/modData/addModData", method = RequestMethod.GET)
 	public String showAddModDataForm(Model model) {
 		ModDataDto modDataDto = new ModDataDto();
 
@@ -109,7 +111,7 @@ public class ModDataController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/{id}/update", method = RequestMethod.GET)
+	@RequestMapping(value = "/modData/{id}/updateModData", method = RequestMethod.GET)
 	public String showUpdateModDataForm(@PathVariable("id") int id, Model model) {
 
 		// 查詢感應裝置
@@ -146,7 +148,7 @@ public class ModDataController {
 	 * @param locale
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/save", method = RequestMethod.POST)
+	@RequestMapping(value = "/modData/saveModData", method = RequestMethod.POST)
 	public String saveOrUpdateModData(@ModelAttribute("senMachForm") @Validated ModDataDto modDataDto,
 			BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale) {
 		if (result.hasErrors()) {
@@ -166,7 +168,7 @@ public class ModDataController {
 				redirectAttributes.addFlashAttribute("msg",
 						messageSource.getMessage("modDataUpdateSuc", new Object[] {}, locale));
 			}
-			return "redirect:/modData/list";
+			return "redirect:/modData/showListModData";
 		}
 	}
 
@@ -190,55 +192,55 @@ public class ModDataController {
 		model.addAttribute("senList", senList);
 
 	}
-	
+
 	/**
 	 * 感應模組警示值
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/modSenLimit", method = RequestMethod.GET)
+	@RequestMapping(value = "/modData/showModSenLimit", method = RequestMethod.GET)
 	public String showAllMod() {
 
-		System.out.println("sucess222");
 		// 導頁至感應模組警示值
 		return "modData/listModSenLimit";
 	}
 
 	/**
-	 * 感應裝置列表
+	 * 列出所有感應模組
 	 * 
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/listModSen")
+	@RequestMapping(value = "/modData/showModSen")
 	@ResponseBody
-	public List<ModSen> showAllModDa() {
+	public List<ModSenDto> showModParm() {
 
-		// 查詢所有感應裝置
+		// 查詢所有感應模組
 		List<ModSen> listModSen = modSenService.findAll();
-		System.out.println("sucess");
 
-//		Map<String, List<ModSen>> resultMap = new HashMap<>();
-//
-//		resultMap.put("listModSen", listModSen);
+		// 將感應模組map到DTO上供頁面顯示
+		List<ModSenDto> listModSenDto = ObjectMapperUtils.mapAll(listModSen, ModSenDto.class);
 
-		return listModSen;
+		return listModSenDto;
 	}
 
 	/**
-	 * 感應裝置列表
+	 * 感應模組參數
 	 * 
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/listParm", method = RequestMethod.GET)
+	@RequestMapping(value = "/modData/showModParm", method = RequestMethod.GET)
 	@ResponseBody
-	public List<ModParm> showModParm(Integer id) {
+	public List<ModParmDto> showModParm(Integer id) {
 
-		// 查詢所有感應裝置
-		List<ModParm> listModParm = modParmService.findModParmBySen(id);
+		// 產生感應模組對應的參數
+		List<ModParm> listModParm = modParmService.findModParmBySenId(id);
 
-		return listModParm;
+		// 將參數map到DTO上供頁面顯示
+		List<ModParmDto> listModParmDto = ObjectMapperUtils.mapAll(listModParm, ModParmDto.class);
+
+		return listModParmDto;
 	}
 
 }

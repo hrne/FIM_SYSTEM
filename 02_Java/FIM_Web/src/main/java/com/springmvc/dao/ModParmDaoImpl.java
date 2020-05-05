@@ -19,7 +19,7 @@ import com.springmvc.entity.SenDht11;
  * @author hrne
  *
  */
-@Repository 
+@Repository
 public class ModParmDaoImpl extends BaseDaoImpl<ModParm> implements ModParmDao {
 
 	@Autowired
@@ -28,10 +28,10 @@ public class ModParmDaoImpl extends BaseDaoImpl<ModParm> implements ModParmDao {
 	public ModParmDaoImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
-	
-	public List<ModParm> findModParmBySen(Integer modSen_id) {
+
+	public List<ModParm> findModParmBySenId(Integer modSen_id) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("from ModParm where modSen.id =:modSen_id ");
+		Query query = session.createQuery("from ModParm where modSen.id =:modSen_id and showEnabled=1");
 		query.setParameter("modSen_id", modSen_id);
 		return query.list();
 	}

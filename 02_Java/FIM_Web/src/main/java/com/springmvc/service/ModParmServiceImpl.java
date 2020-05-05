@@ -21,13 +21,7 @@ public class ModParmServiceImpl extends BaseServiceImpl<ModParm> implements ModP
 	@Autowired
 	private ModParmDao modParmDao;
 
-	/**
-	 * 依據感應裝置查詢溫濕度資料，依照更新日期新到舊排序
-	 * 
-	 * @param modData 感應裝置
-	 * @return SenDht11 list 溫濕度列表
-	 */
-	public List<ModParm> findModParmBySen(Integer modSen_id) {
-		return modParmDao.findModParmBySen(modSen_id);
+	public List<ModParm> findModParmBySenId(Integer modSen_id) {
+		return modParmDao.findModParmBySenId(modSen_id);
 	}
 }

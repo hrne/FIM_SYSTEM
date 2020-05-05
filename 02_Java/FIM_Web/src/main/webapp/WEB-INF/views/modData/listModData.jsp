@@ -68,7 +68,7 @@
 												${showModSens} <c:if test="${not loop.last}">,</c:if>
 										</c:forEach></td>
 									<!-- 修改 按鈕 -->
-									<td><s:url value="/modData/${modDataDto.id}/update"
+									<td><s:url value="/modData/${modDataDto.id}/updateModData"
 											var="updateUrl" />
 										<button onclick="location.href='${updateUrl}'"
 											class="btn btn-primary">

@@ -68,13 +68,13 @@
 				code='modData' /><span class="fa arrow"></span></a>
 		<ul class="nav nav-second-level collapse">
 			<!-- 新增感應裝置 -->
-			<li><a href="<c:url value='/modData/add'/>"><s:message
+			<li><a href="<c:url value='/modData/addModData'/>"><s:message
 						code='modDataAdd' /></a></li>
 			<!-- 感應裝置清單 -->
-			<li><a href="<c:url value='/modData/list'/>"><s:message
+			<li><a href="<c:url value='/modData/showListModData'/>"><s:message
 						code='modDataList' /></a></li>
 			<!-- 感應模組警示值 -->
-			<li><a href="<c:url value='/modData/modSenLimit'/>"><s:message
+			<li><a href="<c:url value='/modData/showModSenLimit'/>"><s:message
 						code='modSenLimit' /></a></li>
 		</ul></li>
 

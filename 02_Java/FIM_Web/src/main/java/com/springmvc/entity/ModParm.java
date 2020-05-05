@@ -25,48 +25,60 @@ import javax.persistence.TemporalType;
 @Table(name = "Mod_Parm")
 public class ModParm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+
 	/**
 	 * 感應模組id
 	 */
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="mod_sen_id")
-    private ModSen modSen;
-    
-    /**
-     * 參數名稱
-     */
-    @Column(name = "parm_name")
-    private String parmName;
-    
-    /**
-     * 參數代號
-     */
-    @Column(name = "parm_code")
-    private String parmCode;
-    
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "mod_sen_id")
+	private ModSen modSen;
+
+	/**
+	 * 參數名稱
+	 */
+	@Column(name = "parm_name")
+	private String parmName;
+
+	/**
+	 * 參數代號
+	 */
+	@Column(name = "parm_code")
+	private String parmCode;
+
 	/**
 	 * 上限警示值
 	 */
 	@Column(name = "upper_limit", precision = 5, scale = 2)
 	private BigDecimal upperLimit;
-	
+
 	/**
 	 * 下限警示值
 	 */
 	@Column(name = "lower_limit", precision = 5, scale = 2)
 	private BigDecimal lowerLimit;
 
-    /**
-     * 更新時間，透過SQL自動產生
-     */
+	/**
+	 * 是否啟用警示,1啟用、0關閉
+	 */
+	@Column(name = "limit_enabled", nullable = false)
+	private boolean limitEnabled = false;
+	
+	/**
+	 * 是否於畫面顯示，只能從DB修正，無法從畫面修改,1是、0否
+	 */
+	@Column(name = "show_enabled", nullable = false)
+	private boolean showEnabled = true;
+
+	/**
+	 * 更新時間，透過SQL自動產生
+	 */
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date",insertable = false, updatable = false)
-    private Date updateDate;
+	@Column(name = "update_date", insertable = false, updatable = false)
+	private Date updateDate;
 
 	public int getId() {
 		return id;
@@ -87,9 +99,9 @@ public class ModParm {
 		this.modSen = modSen;
 	}
 
-    /**
-     * 參數名稱
-     */
+	/**
+	 * 參數名稱
+	 */
 	public String getParmName() {
 		return parmName;
 	}
@@ -98,9 +110,9 @@ public class ModParm {
 		this.parmName = parmName;
 	}
 
-    /**
-     * 參數代號
-     */
+	/**
+	 * 參數代號
+	 */
 	public String getParmCode() {
 		return parmCode;
 	}
@@ -108,11 +120,11 @@ public class ModParm {
 	public void setParmCode(String parmCode) {
 		this.parmCode = parmCode;
 	}
-	
+
 	/**
 	 * 上限警示值
 	 */
-    public BigDecimal getUpperLimit() {
+	public BigDecimal getUpperLimit() {
 		return upperLimit;
 	}
 
@@ -131,9 +143,31 @@ public class ModParm {
 		this.lowerLimit = lowerLimit;
 	}
 
-    /**
-     * 更新時間，透過SQL自動產生
-     */
+	/**
+	 * 是否啟用警示,1啟用、0關閉
+	 */
+	public boolean isLimitEnabled() {
+		return limitEnabled;
+	}
+
+	public void setLimitEnabled(boolean limitEnabled) {
+		this.limitEnabled = limitEnabled;
+	}
+
+	/**
+	 * 是否於畫面顯示，只能從DB修正，無法從畫面修改,1是、0否
+	 */
+	public boolean isShowEnabled() {
+		return showEnabled;
+	}
+
+	public void setShowEnabled(boolean showEnabled) {
+		this.showEnabled = showEnabled;
+	}
+
+	/**
+	 * 更新時間，透過SQL自動產生
+	 */
 	public Date getUpdateDate() {
 		return updateDate;
 	}

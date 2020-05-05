@@ -6,6 +6,7 @@
 		<!-- 排除透過ajax更新的頁面 controller @RequestMapping value -->
 		<pattern>/senMod/listDht11</pattern>
 		<pattern>/senMod/listHx711</pattern>
+		<pattern>/senMod/listSwitch</pattern>
 	</excludes>
 	<decorator name="layout" page="layout.jsp">
 		<pattern>*</pattern>

@@ -27,6 +27,8 @@ create table Mod_Parm(
     parm_code varchar(40) not null comment '參數代號',
 	upper_limit decimal(5,2) default 0 comment '上限警示值',
 	lower_limit decimal(5,2) default 0 comment '下限警示值',
+	limit_enabled boolean not null default false comment '是否啟用警示,1啟用、0關閉',
+	show_enabled boolean not null default true comment '是否於畫面顯示，只能從DB修正，無法從畫面修改,1是、0否',
     update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
 	PRIMARY KEY(id),
     FOREIGN KEY (mod_sen_id) REFERENCES Mod_Sen (id)
@@ -60,6 +62,7 @@ create table Mod_Data_Log(
 create table Mod_Resp_Log(
 	id int not null AUTO_INCREMENT comment 'key值',
 	mod_data_id int not null comment '感應裝置id',
+	mod_sen_id int not null comment '感應模組id',
     suc_status boolean not null comment '查詢是否成功',
     resp_message TEXT comment '回傳訊息',
     update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
@@ -90,19 +93,20 @@ create table Sen_Hx711(
 	FOREIGN KEY (mod_data_id) REFERENCES Mod_Data (id)
 )comment '重量hx711感應資料';
 
--- Sen_Acs712 電流acs712感應資料
-create table Sen_Acs712(
+-- Sen_Switch 電源開關感應資料
+create table Sen_Switch(
 	id int not null AUTO_INCREMENT comment 'key值',
 	mod_data_id int not null comment '感應裝置id',
-	ampere decimal(5,2) not null comment '電流(安培)',
+	pow_status int not null comment '電源開關狀態，1:通電、0:關閉',
+	battery_volt decimal(5,2) not null comment '電池電力(v)',
 	update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
 	PRIMARY KEY(id),
 	FOREIGN KEY (mod_data_id) REFERENCES Mod_Data (id)
-)comment '電流acs712感應資料';
+)comment '電源開關感應資料';
 
 
 -- drop table
-drop table Sen_Acs712;
+drop table Sen_Switch;
 drop table Sen_Hx711;
 drop table sen_dht11;
 drop table Mod_Resp_Log;

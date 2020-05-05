@@ -48,6 +48,10 @@
 <link href="<c:url value='/vendor/bootstrap-table/dist/bootstrap-table.min.css'/>"
 	rel="stylesheet">
 
+<!-- bootstrap-toggle CSS -->
+<link href="<c:url value='/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css'/>"
+	rel="stylesheet">	
+
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -92,6 +96,9 @@
 
 <!-- Bootstrap-table.min JavaScript -->
 <script src="<c:url value='/vendor/bootstrap-table/dist/bootstrap-table.min.js'/>"></script>
+
+<!-- Bootstrap-toggle.min JavaScript -->
+<script src="<c:url value='/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js'/>"></script>
 
 </head>
 

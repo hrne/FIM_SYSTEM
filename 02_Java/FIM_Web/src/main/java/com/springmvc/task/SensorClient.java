@@ -24,6 +24,7 @@ import com.springmvc.entity.ModData;
 import com.springmvc.entity.ModSen;
 import com.springmvc.service.SenDht11Service;
 import com.springmvc.service.SenHx711Service;
+import com.springmvc.service.SenSwitchService;
 import com.springmvc.service.ModDataService;
 import com.springmvc.service.ModRespLogService;
 
@@ -47,6 +48,9 @@ public class SensorClient {
 	
 	//重量hx711感應資料的Service
 	SenHx711Service senHx711Service;
+	
+	//電源開關感應資料的Service
+	SenSwitchService senSwitchService;
 
 	// 每5秒掃描一次
 	//@Scheduled(cron = "0/5 * * * * ? ")
@@ -56,6 +60,7 @@ public class SensorClient {
 		modRespLogService = (ModRespLogService) ApplicationContextUtil.getBean("modRespLogService");
 		senDht11Service = (SenDht11Service) ApplicationContextUtil.getBean("senDht11Service");
 		senHx711Service = (SenHx711Service) ApplicationContextUtil.getBean("senHx711Service");
+		senSwitchService = (SenSwitchService) ApplicationContextUtil.getBean("senSwitchService");
 
 		System.out.println("start scan");
 
@@ -79,9 +84,9 @@ public class SensorClient {
 						// 儲存重量感應hx711資料
 						senHx711Service.createHx711(modData, str);
 						break;
-					case "acs712":
-						// 儲存電源控制/監控acs712資料
-						senDht11Service.createDht11(modData, str);
+					case "switch":
+						// 電源開關感應資料
+						senSwitchService.createSwitch(modData, str);
 						break;
 					}
 				}

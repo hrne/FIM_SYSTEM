@@ -25,43 +25,47 @@ import javax.persistence.TemporalType;
 @Table(name = "Mod_Resp_Log")
 public class ModRespLog {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+
 	/**
-     * 感應裝置id
-     */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mod_data_id")
-    private ModData modData;
-    
+	 * 感應裝置id
+	 */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "mod_data_id")
+	private ModData modData;
+
 	/**
 	 * 感應模組id
 	 */
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "mod_sen_id")
 	private ModSen modSen;
-    
-    /**
-     * 查詢是否成功
-     */
-    @Column(name = "suc_status", nullable = false)
-    private boolean sucStatus = true;
 
-    /**
-     * 回傳訊息
-     */
-    @Column(name = "resp_message")
-    private String respMessage;
-    
-    /**
-     * 更新時間，透過SQL自動產生
-     */
+	/**
+	 * 回傳狀態 <br/> 
+	 * 00:成功 <br/>
+	 * 01:感應裝置連線失敗 <br/>
+	 * 02:讀取不到感應模組資料 <br/>
+	 * 99:未知原因
+	 */
+	@Column(name = "status_code")
+	private String statusCode;
+
+	/**
+	 * 回傳訊息
+	 */
+	@Column(name = "resp_message")
+	private String respMessage;
+
+	/**
+	 * 更新時間，透過SQL自動產生
+	 */
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date",insertable = false, updatable = false)
-    private Date updateDate;
+	@Column(name = "update_date", insertable = false, updatable = false)
+	private Date updateDate;
 
 	public int getId() {
 		return id;
@@ -70,10 +74,10 @@ public class ModRespLog {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
-     * 感應裝置id
-     */
+	 * 感應裝置id
+	 */
 	public ModData getModData() {
 		return modData;
 	}
@@ -81,7 +85,7 @@ public class ModRespLog {
 	public void setModData(ModData modData) {
 		this.modData = modData;
 	}
-	
+
 	/**
 	 * 感應模組id
 	 */
@@ -94,19 +98,23 @@ public class ModRespLog {
 	}
 
 	/**
-     * 查詢是否成功
-     */
-	public boolean isSucStatus() {
-		return sucStatus;
+	 * 回傳狀態 <br/> 
+	 * 00:成功 <br/>
+	 * 01:感應裝置連線失敗 <br/>
+	 * 02:讀取不到感應模組資料 <br/>
+	 * 99:未知原因
+	 */
+	public String getStatusCode() {
+		return statusCode;
 	}
 
-	public void setSucStatus(boolean sucStatus) {
-		this.sucStatus = sucStatus;
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
 	}
 
-    /**
-     * 回傳訊息
-     */
+	/**
+	 * 回傳訊息
+	 */
 	public String getRespMessage() {
 		return respMessage;
 	}
@@ -115,9 +123,9 @@ public class ModRespLog {
 		this.respMessage = respMessage;
 	}
 
-    /**
-     * 更新時間，透過SQL自動產生
-     */
+	/**
+	 * 更新時間，透過SQL自動產生
+	 */
 	public Date getUpdateDate() {
 		return updateDate;
 	}

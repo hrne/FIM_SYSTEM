@@ -208,12 +208,11 @@ public class ModDataController {
 	/**
 	 * 列出所有感應模組
 	 * 
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/modData/showModSen")
 	@ResponseBody
-	public List<ModSenDto> showModParm() {
+	public List<ModSenDto> showModSen() {
 
 		// 查詢所有感應模組
 		List<ModSen> listModSen = modSenService.findAll();
@@ -227,7 +226,7 @@ public class ModDataController {
 	/**
 	 * 感應模組參數
 	 * 
-	 * @param model
+	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/modData/showModParm", method = RequestMethod.GET)

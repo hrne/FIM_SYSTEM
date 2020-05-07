@@ -22,7 +22,8 @@
 				<!-- 電池電力(v) -->
 				<td>${senSwitch.batteryVolt}</td>
 				<!-- 電源開關狀態 -->
-				<td>${senSwitch.powStatus}</td>
+				<td><input id="toggle-event" type="checkbox"
+					data-toggle="toggle" data-size="small"></td>
 			</tr>
 		</c:forEach>
 	</tbody>

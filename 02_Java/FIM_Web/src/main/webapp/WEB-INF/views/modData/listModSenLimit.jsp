@@ -6,6 +6,18 @@
 
 <script type="text/javascript">
 	$(function() {
+		//這段須放在表格初始化之前
+		function addFunctionAlty(value, row, index) {
+			return [
+					'<button type="button" class="RoleOfedit btn btn-primary  btn-sm" style="margin-right:15px;">修改</button>', ]
+					.join('');
+		}
+		window.operateEvents = {
+			'click .RoleOfedit' : function(e, value, row, index) {
+				alert(row.id);
+			}
+		};
+
 		$("#display_result").bootstrapTable({
 			url : 'showModSen',
 			method : 'get',
@@ -13,11 +25,20 @@
 			detailView : true,//啟用父子表
 			striped : true, // 隔行加亮
 			columns : [ {
+				title : '感應模組名稱',
+				align : "center",
 				field : 'senName',
-				title : '感應模組名稱'
 			}, {
-				field : 'senCode',
-				title : '感應模組代號'
+				title : '感應模組代號',
+				align : "center",
+				field : 'senCode'
+			}, {//表格中增加按钮  
+				field : 'operate',
+				title : '操作',
+				align : 'center',
+				events : operateEvents,//按鈕事件
+				formatter : addFunctionAlty //按鈕格式
+			
 			} ],
 			//無限讀取子表，直到沒有資料
 			onExpandRow : function(index, row, $Subdetail) {
@@ -31,6 +52,7 @@
 			$(cur_table).bootstrapTable({
 				url : 'showModParm',
 				method : 'get',
+				striped : true, // 隔行加亮
 				queryParams : {
 					id : parentid
 				},
@@ -38,19 +60,26 @@
 					id : parentid
 				},
 				uniqueId : "id",
-				striped : true, // 隔行加亮
 				columns : [ {
-					field : 'parmName',
-					title : '參數名稱'
+					title : '參數名稱',
+					align : "center",
+					field : 'parmName'
 				}, {
-					field : 'parmCode',
-					title : '參數代號'
+					title : '參數代號',
+					align : "center",
+					field : 'parmCode'
 				}, {
-					field : 'upperLimit',
-					title : '上限警示值'
+					title : '上限警示值',
+					align : "center",
+					field : 'upperLimit'
 				}, {
-					field : 'lowerLimit',
-					title : '下限警示值'
+					title : '下限警示值',
+					align : "center",
+					field : 'lowerLimit'
+				}, {
+					title : '狀態',
+					align : "center",
+					field : 'shonEnableName'
 				} ],
 				//無限讀取子表，直到沒有資料
 				onExpandRow : function(index, row, $Subdetail) {

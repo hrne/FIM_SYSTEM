@@ -45,11 +45,11 @@ public class SensorClient {
 
 	// 溫濕度dht11感應資料serivce
 	SenDht11Service senDht11Service;
-	
-	//重量hx711感應資料的Service
+
+	// 重量hx711感應資料的Service
 	SenHx711Service senHx711Service;
-	
-	//電源開關感應資料的Service
+
+	// 電源開關感應資料的Service
 	SenSwitchService senSwitchService;
 
 	// 每5秒掃描一次
@@ -78,15 +78,15 @@ public class SensorClient {
 					switch (modSen.getSenCode()) {
 					case "dht11":
 						// 儲存溫濕度dht11感應資料資料
-						senDht11Service.createDht11(modData, str);
+						senDht11Service.createDht11(modData, modSen, str);
 						break;
 					case "hx711":
 						// 儲存重量感應hx711資料
-						senHx711Service.createHx711(modData, str);
+						senHx711Service.createHx711(modData, modSen, str);
 						break;
 					case "switch":
 						// 電源開關感應資料
-						senSwitchService.createSwitch(modData, str);
+						senSwitchService.createSwitch(modData, modSen, str);
 						break;
 					}
 				}
@@ -129,11 +129,9 @@ public class SensorClient {
 			if (statusCode == 200) {
 				// 轉換格式
 				respJsonStr = EntityUtils.toString(httpResponse.getEntity());
-				// 成功:訊息紀錄收到資料
-				modRespLogService.createRespLog(modData, true, respJsonStr);
 			} else {
 				// 失敗:訊息紀錄錯誤代碼
-				modRespLogService.createRespLog(modData, false, String.valueOf(statusCode));
+				modRespLogService.createRespLogByModData(modData, "01", String.valueOf(statusCode));
 			}
 
 			System.out.println("status code:    " + statusCode + "   content:   " + respJsonStr);
@@ -142,7 +140,7 @@ public class SensorClient {
 			// 連線意外失敗:紀錄錯誤訊息
 			StringWriter errors = new StringWriter();
 			e.printStackTrace(new PrintWriter(errors));
-			modRespLogService.createRespLog(modData, false, "連線意外失敗:" + errors.toString());
+			modRespLogService.createRespLogByModData(modData, "99", "連線意外失敗:" + errors.toString());
 		} finally {
 			try {
 				httpCilent.close();

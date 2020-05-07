@@ -63,7 +63,7 @@ create table Mod_Resp_Log(
 	id int not null AUTO_INCREMENT comment 'key值',
 	mod_data_id int not null comment '感應裝置id',
 	mod_sen_id int not null comment '感應模組id',
-    suc_status boolean not null comment '查詢是否成功',
+    status_code varchar(2) not null comment '回傳狀態',
     resp_message TEXT comment '回傳訊息',
     update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
 	PRIMARY KEY(id),

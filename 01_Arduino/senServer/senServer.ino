@@ -96,7 +96,9 @@ void setup() {
     //接受Json
     DynamicJsonDocument rootGet(1024);
     deserializeJson(rootGet, server.arg("plain"));
-
+    for (uint8_t i = 0; i < server.args(); i++) {
+      rootGet[server.argName(i)] = server.arg(i);
+    }  
     String stateDht11 = rootGet["dht11"];
     String stateHx711 = rootGet["hx711"];
     String stateSwitch = rootGet["switch"];

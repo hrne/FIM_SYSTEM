@@ -28,11 +28,6 @@ public class ModParmDto {
 
     private int id;
     
-	/**
-	 * 感應模組id
-	 */
-    private ModSen modSen;
-    
     /**
      * 參數名稱
      */
@@ -64,17 +59,6 @@ public class ModParmDto {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	/**
-	 * 感應模組id
-	 */
-	public ModSen getModSen() {
-		return modSen;
-	}
-
-	public void setModSen(ModSen modSen) {
-		this.modSen = modSen;
 	}
 
     /**

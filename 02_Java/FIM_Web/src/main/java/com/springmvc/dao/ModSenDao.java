@@ -3,7 +3,7 @@ package com.springmvc.dao;
 import java.util.List;
 
 import com.modle.dao.BaseDao;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
 /**
@@ -17,8 +17,8 @@ public interface ModSenDao extends BaseDao<ModSen>{
 	/**
 	 * 依據感應模組代碼查詢
 	 * 
-	 * @param senCode
-	 * @return
+	 * @param senCode 感應模組代碼
+	 * @return ModSen
 	 */
 	ModSen findBySenCode(String senCode);
 

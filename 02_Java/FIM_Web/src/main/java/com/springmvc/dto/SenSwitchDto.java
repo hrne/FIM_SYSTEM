@@ -18,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
 /**
@@ -35,7 +35,7 @@ public class SenSwitchDto {
      * 感應裝置id
      */
 	@JsonIgnore
-    private ModData modData;
+    private ModMain modData;
 
 	/**
 	 * 電源開關狀態，1:通電、0:關閉
@@ -63,11 +63,11 @@ public class SenSwitchDto {
 	/**
      * 感應裝置id
      */
-	public ModData getModData() {
+	public ModMain getModData() {
 		return modData;
 	}
 
-	public void setModData(ModData modData) {
+	public void setModData(ModMain modData) {
 		this.modData = modData;
 	}
 

@@ -31,11 +31,11 @@ public class ModRespLog {
 	private int id;
 
 	/**
-	 * 感應裝置id
+	 * 感應裝置主檔id
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "mod_data_id")
-	private ModData modData;
+	@JoinColumn(name = "mod_main_id")
+	private ModMain modMain;
 
 	/**
 	 * 感應模組id
@@ -45,14 +45,11 @@ public class ModRespLog {
 	private ModSen modSen;
 
 	/**
-	 * 回傳狀態 <br/> 
-	 * 00:成功 <br/>
-	 * 01:感應裝置連線失敗 <br/>
-	 * 02:讀取不到感應模組資料 <br/>
-	 * 99:未知原因
+	 * 回傳狀態代碼檔id
 	 */
-	@Column(name = "status_code")
-	private String statusCode;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "sys_resp_status_id")
+	private SysRespStatus sysRespStatus;
 
 	/**
 	 * 回傳訊息
@@ -76,14 +73,14 @@ public class ModRespLog {
 	}
 
 	/**
-	 * 感應裝置id
+	 * 感應裝置主檔id
 	 */
-	public ModData getModData() {
-		return modData;
+	public ModMain getModMain() {
+		return modMain;
 	}
 
-	public void setModData(ModData modData) {
-		this.modData = modData;
+	public void setModMain(ModMain modMain) {
+		this.modMain = modMain;
 	}
 
 	/**
@@ -98,18 +95,14 @@ public class ModRespLog {
 	}
 
 	/**
-	 * 回傳狀態 <br/> 
-	 * 00:成功 <br/>
-	 * 01:感應裝置連線失敗 <br/>
-	 * 02:讀取不到感應模組資料 <br/>
-	 * 99:未知原因
+	 * 回傳狀態代碼檔id
 	 */
-	public String getStatusCode() {
-		return statusCode;
+	public SysRespStatus getSysRespStatus() {
+		return sysRespStatus;
 	}
 
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
+	public void setSysRespStatus(SysRespStatus sysRespStatus) {
+		this.sysRespStatus = sysRespStatus;
 	}
 
 	/**

@@ -8,7 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.modle.dao.BaseDaoImpl;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.SenHx711;
 
 /**
@@ -27,7 +27,7 @@ public class SenHx711DaoImpl extends BaseDaoImpl<SenHx711> implements SenHx711Da
 		super(sessionFactory);
 	}
 
-	public List<SenHx711> findHx711OrderData(ModData modData) {
+	public List<SenHx711> findHx711OrderData(ModMain modData) {
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("from SenHx711 where modData.id =:modData_id order by updateDate desc");
 		query.setParameter("modData_id", modData.getId());

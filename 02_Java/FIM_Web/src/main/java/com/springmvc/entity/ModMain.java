@@ -17,14 +17,14 @@ import javax.persistence.TemporalType;
 import javax.persistence.JoinColumn;
 
 /**
- * 感應裝置
+ * 感應裝置主檔
  * 
  * @author hrne
  *
  */
 @Entity
-@Table(name = "Mod_Data")
-public class ModData {
+@Table(name = "Mod_Main")
+public class ModMain {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,10 +44,10 @@ public class ModData {
 	private String ipAddress;
 
 	/**
-	 * 感應裝置是否啟用,1啟用、0關閉
+	 * 是否啟用:1:啟用、0:停用
 	 */
-	@Column(name = "mod_enable", nullable = false)
-	private boolean modEnable = true;
+	@Column(name = "mod_enabled")
+	private String modEnabled;
 
 	/**
 	 * 更新時間，透過SQL自動產生
@@ -60,7 +60,7 @@ public class ModData {
 	 * 感應裝置使用模組
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "Mod_Data_Sen_R", joinColumns = @JoinColumn(name = "mod_data_id"), inverseJoinColumns = @JoinColumn(name = "mod_sen_id"))
+	@JoinTable(name = "Mod_Main_Sen_R", joinColumns = @JoinColumn(name = "mod_main_id"), inverseJoinColumns = @JoinColumn(name = "mod_sen_id"))
 	private Set<ModSen> modSenSet;
 
 	public int getId() {
@@ -94,14 +94,14 @@ public class ModData {
 	}
 
 	/**
-	 * 感應裝置是否啟用,1啟用、0關閉
+	 * 是否啟用:1:啟用、0:停用
 	 */
-	public boolean isModEnable() {
-		return modEnable;
+	public String getModEnabled() {
+		return modEnabled;
 	}
 
-	public void setModEnable(boolean modEnable) {
-		this.modEnable = modEnable;
+	public void setModEnabled(String modEnabled) {
+		this.modEnabled = modEnabled;
 	}
 
 	/**

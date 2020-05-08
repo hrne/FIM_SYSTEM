@@ -20,7 +20,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.modle.util.ApplicationContextUtil;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 import com.springmvc.service.SenDht11Service;
 import com.springmvc.service.SenHx711Service;
@@ -65,10 +65,10 @@ public class SensorClient {
 		System.out.println("start scan");
 
 		// 查詢所有啟用感應裝置
-		List<ModData> scanMachList = modDataService.findByModEnable();
+		List<ModMain> scanMachList = modDataService.findByModEnable();
 
 		// 掃描每一台感應裝置
-		for (ModData modData : scanMachList) {
+		for (ModMain modData : scanMachList) {
 			// 連線arduino
 			String str = getArduinoData(modData);
 
@@ -100,7 +100,7 @@ public class SensorClient {
 	 * @param modData 要掃描感應裝置
 	 * @return 回傳json格式資料
 	 */
-	public String getArduinoData(ModData modData) {
+	public String getArduinoData(ModMain modData) {
 
 		CloseableHttpClient httpCilent = HttpClients.createDefault();
 
@@ -156,7 +156,7 @@ public class SensorClient {
 	 * 
 	 * @return Json String
 	 */
-	public String getSenJson(ModData modData) {
+	public String getSenJson(ModMain modData) {
 
 		JSONObject obj = new JSONObject();
 

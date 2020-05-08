@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.modle.util.ObjectMapperUtils;
 import com.springmvc.dto.ModSenDto;
 import com.springmvc.dto.SenSwitchDto;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenHx711;

@@ -12,10 +12,10 @@ import org.springframework.util.CollectionUtils;
 
 import com.modle.service.BaseServiceImpl;
 import com.springmvc.entity.SenDht11;
-import com.springmvc.dao.ModDataDao;
+import com.springmvc.dao.ModMainDao;
 import com.springmvc.dao.ModSenDao;
 import com.springmvc.dao.SenDht11Dao;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
 /**
@@ -31,12 +31,12 @@ public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements Se
 	private ModRespLogService modRespLogService;
 
 	@Autowired
-	private ModDataDao modDataDao;
+	private ModMainDao modDataDao;
 
 	@Autowired
 	private SenDht11Dao senDht11Dao;
 
-	public void createDht11(ModData modData, ModSen modSen, String respJSON) {
+	public void createDht11(ModMain modData, ModSen modSen, String respJSON) {
 
 		// 將回傳資料轉成json
 		JSONObject obj = new JSONObject(respJSON);
@@ -72,13 +72,13 @@ public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements Se
 	public List<SenDht11> findLatestDht11Data() {
 
 		// 查詢所有啟用的感應裝置
-		List<ModData> listModData = modDataDao.findByModEnable();
+		List<ModMain> listModData = modDataDao.findByModEnable();
 
 		List<SenDht11> listDht11 = new ArrayList<SenDht11>();
 
 		List<SenDht11> results = new ArrayList<SenDht11>();
 
-		for (ModData modData : listModData) {
+		for (ModMain modData : listModData) {
 			// 查詢感應裝置溫濕度列表，依據更新日期排序
 			listDht11 = senDht11Dao.findDht11OrderData(modData);
 			// 若有資料則放入

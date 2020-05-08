@@ -29,17 +29,17 @@ public class ModSen {
     private int id;
     
     /**
-     * 感應模組名稱
-     */
-    @Column(name = "sen_name")
-    private String senName;
-    
-    /**
      * 感應模組代號
      */
     @Column(name = "sen_code")
     private String senCode;
     
+    /**
+     * 感應模組名稱
+     */
+    @Column(name = "sen_name")
+    private String senName;    
+
     /**
      * 更新時間，透過SQL自動產生
      */
@@ -51,7 +51,7 @@ public class ModSen {
 	 * 感應裝置使用模組
 	 */
 	@ManyToMany(mappedBy = "modSenSet" )
-	Set<ModData> modDataSet;
+	Set<ModMain> modMainSet;
 
 	public int getId() {
 		return id;
@@ -59,17 +59,6 @@ public class ModSen {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-    /**
-     * 感應模組名稱
-     */
-	public String getSenName() {
-		return senName;
-	}
-
-	public void setSenName(String senName) {
-		this.senName = senName;
 	}
 
     /**
@@ -81,6 +70,17 @@ public class ModSen {
 
 	public void setSenCode(String senCode) {
 		this.senCode = senCode;
+	}
+	
+    /**
+     * 感應模組名稱
+     */
+	public String getSenName() {
+		return senName;
+	}
+
+	public void setSenName(String senName) {
+		this.senName = senName;
 	}
 
     /**
@@ -97,12 +97,12 @@ public class ModSen {
 	/**
 	 * 感應裝置使用模組
 	 */
-	public Set<ModData> getModDataSet() {
-		return modDataSet;
+	public Set<ModMain> getModMainSet() {
+		return modMainSet;
 	}
 
-	public void setModDataSet(Set<ModData> modDataSet) {
-		this.modDataSet = modDataSet;
+	public void setModMainSet(Set<ModMain> modMainSet) {
+		this.modMainSet = modMainSet;
 	}
 
  

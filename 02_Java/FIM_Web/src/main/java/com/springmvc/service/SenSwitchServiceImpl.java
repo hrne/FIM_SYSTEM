@@ -20,11 +20,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.modle.service.BaseServiceImpl;
-import com.springmvc.dao.ModDataDao;
+import com.springmvc.dao.ModMainDao;
 import com.springmvc.dao.ModSenDao;
 import com.springmvc.dao.SenDht11Dao;
 import com.springmvc.dao.SenSwitchDao;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenSwitch;
@@ -42,7 +42,7 @@ public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements 
 	private ModRespLogService modRespLogService;
 
 	@Autowired
-	private ModDataDao modDataDao;
+	private ModMainDao modDataDao;
 
 	@Autowired
 	private ModSenDao modSenDao;
@@ -50,7 +50,7 @@ public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements 
 	@Autowired
 	private SenSwitchDao senSwitchDao;
 
-	public void createSwitch(ModData modData, ModSen modSen, String respJSON) {
+	public void createSwitch(ModMain modData, ModSen modSen, String respJSON) {
 
 		// 將回傳資料轉成json
 		JSONObject obj = new JSONObject(respJSON);
@@ -80,13 +80,13 @@ public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements 
 	public List<SenSwitch> findLatestSwitchData() {
 
 		// 查詢所有啟用的感應裝置
-		List<ModData> listModData = modDataDao.findByModEnable();
+		List<ModMain> listModData = modDataDao.findByModEnable();
 
 		List<SenSwitch> listSwitch = new ArrayList<SenSwitch>();
 
 		List<SenSwitch> results = new ArrayList<SenSwitch>();
 
-		for (ModData modData : listModData) {
+		for (ModMain modData : listModData) {
 			// 查詢感應裝置電源開關列表，依據更新日期排序
 			listSwitch = senSwitchDao.findSwitchOrderData(modData);
 			// 若有資料則放入
@@ -103,7 +103,7 @@ public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements 
 		boolean returnStatus = false;
 
 		// 查詢感應裝置
-		ModData modData = senSwitch.getModData();
+		ModMain modData = senSwitch.getModData();
 
 		CloseableHttpClient httpCilent = HttpClients.createDefault();
 

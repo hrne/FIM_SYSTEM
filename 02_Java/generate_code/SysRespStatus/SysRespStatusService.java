@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.modle.service.BaseService;
 import com.springmvc.entity.SenDht11;
-import com.springmvc.entity.ModMain;
-import com.springmvc.entity.ModSen;
+import com.springmvc.entity.ModData;
 
 /**
  * 溫濕度dht11感應資料的Service介面
@@ -13,17 +12,16 @@ import com.springmvc.entity.ModSen;
  * @author hrne
  *
  */
-public interface SenDht11Service extends BaseService<SenDht11> {
+public interface SenDht11Service extends BaseService<SenDht11>{
 
 	/**
 	 * 儲存溫濕度dht11感應資料
 	 * 
-	 * @param modData  感應裝置
-	 * @param modSen   感應模組
+	 * @param senMach 感應裝置
 	 * @param respJSON 回傳JSON
 	 */
-	void createDht11(ModMain modData, ModSen modSen, String respJSON);
-
+	void createDht11(ModData senMach, String respJSON);		
+		
 	/**
 	 * 查詢每個啟用的感應裝置最新一筆溫濕度資料
 	 * 

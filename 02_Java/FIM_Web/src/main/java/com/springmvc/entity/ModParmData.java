@@ -16,14 +16,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * 感應模組參數
+ * 模組參數資料
  * 
  * @author hrne
  *
  */
 @Entity
-@Table(name = "Mod_Parm")
-public class ModParm {
+@Table(name = "Mod_ParmData")
+public class ModParmData {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,16 +38,16 @@ public class ModParm {
 	private ModSen modSen;
 
 	/**
-	 * 參數名稱
-	 */
-	@Column(name = "parm_name")
-	private String parmName;
-
-	/**
 	 * 參數代號
 	 */
 	@Column(name = "parm_code")
 	private String parmCode;
+
+	/**
+	 * 參數名稱
+	 */
+	@Column(name = "parm_name")
+	private String parmName;
 
 	/**
 	 * 上限警示值
@@ -62,16 +62,16 @@ public class ModParm {
 	private BigDecimal lowerLimit;
 
 	/**
-	 * 是否啟用警示,1啟用、0關閉
+	 * 是否啟用警示:1:啟用、0:停用
 	 */
-	@Column(name = "limit_enabled", nullable = false)
-	private boolean limitEnabled = false;
-	
+	@Column(name = "limit_enabled")
+	private String limitEnabled;
+
 	/**
-	 * 是否於畫面顯示，只能從DB修正，無法從畫面修改,1是、0否
+	 * 是否於修改畫面顯示:1:顯示、0:不顯示只能從DB修正
 	 */
-	@Column(name = "show_enabled", nullable = false)
-	private boolean showEnabled = true;
+	@Column(name = "show_enabled")
+	private String showEnabled ;
 
 	/**
 	 * 更新時間，透過SQL自動產生
@@ -144,24 +144,24 @@ public class ModParm {
 	}
 
 	/**
-	 * 是否啟用警示,1啟用、0關閉
+	 * 是否啟用警示:1:啟用、0:停用
 	 */
-	public boolean isLimitEnabled() {
+	public String getLimitEnabled() {
 		return limitEnabled;
 	}
 
-	public void setLimitEnabled(boolean limitEnabled) {
+	public void setLimitEnabled(String limitEnabled) {
 		this.limitEnabled = limitEnabled;
 	}
 
 	/**
-	 * 是否於畫面顯示，只能從DB修正，無法從畫面修改,1是、0否
+	 * 是否於修改畫面顯示:1:顯示、0:不顯示只能從DB修正
 	 */
-	public boolean isShowEnabled() {
+	public String getShowEnabled() {
 		return showEnabled;
 	}
 
-	public void setShowEnabled(boolean showEnabled) {
+	public void setShowEnabled(String showEnabled) {
 		this.showEnabled = showEnabled;
 	}
 

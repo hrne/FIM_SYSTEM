@@ -31,11 +31,11 @@ public class SenDht11 {
     private int id;
     
 	/**
-	 * 感應裝置主檔id
-	 */
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "mod_main_id")
-	private ModMain modMain;
+     * 感應裝置id
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "mod_data_id")
+    private ModData modData;
     
 	/**
 	 * 濕度
@@ -71,14 +71,14 @@ public class SenDht11 {
 	}
 	
 	/**
-	 * 感應裝置主檔id
-	 */
-	public ModMain getModMain() {
-		return modMain;
+     * 感應裝置id
+     */
+	public ModData getModData() {
+		return modData;
 	}
 
-	public void setModMain(ModMain modMain) {
-		this.modMain = modMain;
+	public void setModData(ModData modData) {
+		this.modData = modData;
 	}
 
 	/**

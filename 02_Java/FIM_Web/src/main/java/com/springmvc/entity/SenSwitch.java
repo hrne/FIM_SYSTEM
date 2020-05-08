@@ -25,37 +25,37 @@ import javax.persistence.TemporalType;
 @Table(name = "Sen_Switch")
 public class SenSwitch {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+
 	/**
-     * 感應裝置id
-     */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "mod_data_id")
-    private ModData modData;
-    
-    /**
-     * 電源開關狀態，1:通電、0:關閉
-     */
-    @Column(name = "pow_status")
-    private int powStatus;
-    
+	 * 感應裝置主檔id
+	 */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "mod_main_id")
+	private ModMain modMain;
+
 	/**
-	 * 電池電力(v)
+	 * 電源狀態:1:打開、0:關閉
+	 */
+	@Column(name = "pow_status")
+	private String powStatus;
+
+	/**
+	 * 電池電力(V)
 	 */
 	@Column(name = "battery_volt", precision = 5, scale = 2)
 	private BigDecimal batteryVolt;
 
-    /**
-     * 更新時間，透過SQL自動產生
-     */
+	/**
+	 * 更新時間，透過SQL自動產生
+	 */
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "update_date",insertable = false, updatable = false)
-    private Date updateDate;
-		
+	@Column(name = "update_date", insertable = false, updatable = false)
+	private Date updateDate;
+
 	public int getId() {
 		return id;
 	}
@@ -63,31 +63,31 @@ public class SenSwitch {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
-     * 感應裝置id
-     */
-	public ModData getModData() {
-		return modData;
+	 * 感應裝置主檔id
+	 */
+	public ModMain getModMain() {
+		return modMain;
 	}
 
-	public void setModData(ModData modData) {
-		this.modData = modData;
+	public void setModMain(ModMain modMain) {
+		this.modMain = modMain;
 	}
 
-    /**
-     * 電源開關狀態，1:通電、0:關閉
-     */
-    public int getPowStatus() {
+	/**
+	 * 電源開關狀態，1:通電、0:關閉
+	 */
+	public String getPowStatus() {
 		return powStatus;
 	}
 
-	public void setPowStatus(int powStatus) {
+	public void setPowStatus(String powStatus) {
 		this.powStatus = powStatus;
 	}
 
 	/**
-	 * 電池電力(v)
+	 * 電池電力(V)
 	 */
 	public BigDecimal getBatteryVolt() {
 		return batteryVolt;
@@ -98,8 +98,8 @@ public class SenSwitch {
 	}
 
 	/**
-     * 更新時間，透過SQL自動產生
-     */
+	 * 更新時間，透過SQL自動產生
+	 */
 	public Date getUpdateDate() {
 		return updateDate;
 	}

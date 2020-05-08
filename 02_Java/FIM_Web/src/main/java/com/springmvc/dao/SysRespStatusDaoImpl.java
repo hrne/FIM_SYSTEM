@@ -7,33 +7,32 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
+
 import com.modle.dao.BaseDaoImpl;
 import com.springmvc.entity.ModData;
-import com.springmvc.entity.ModParm;
-import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenDht11;
 
 /**
- * 感應模組參數的Dao實做
+ * 溫濕度dht11感應資料的Dao實做
  * 
  * @author hrne
  *
  */
 @Repository
-public class ModParmDaoImpl extends BaseDaoImpl<ModParm> implements ModParmDao {
+public class SenDht11DaoImpl extends BaseDaoImpl<SenDht11> implements SenDht11Dao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public ModParmDaoImpl(SessionFactory sessionFactory) {
+	public SenDht11DaoImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
 
-	public List<ModParm> findModParmBySenId(Integer modSen_id) {
+	public List<SenDht11> findDht11OrderData(ModData modData) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("from ModParm where modSen.id =:modSen_id and showEnabled=1");
-		query.setParameter("modSen_id", modSen_id);
+		Query query = session.createQuery("from SenDht11 where modData.id =:modData_id order by updateDate");
+		query.setParameter("modData_id", modData.getId());
 		return query.list();
 	}
-
 }

@@ -3,7 +3,7 @@ package com.springmvc.dao;
 import java.util.List;
 
 import com.modle.dao.BaseDao;
-import com.springmvc.entity.ModMain;
+import com.springmvc.entity.ModData;
 import com.springmvc.entity.SenDht11;
 
 /**
@@ -20,7 +20,7 @@ public interface SenDht11Dao extends BaseDao<SenDht11>{
 	 * @param modData 感應裝置
 	 * @return SenDht11 list 溫濕度列表
 	 */
-	List<SenDht11> findDht11OrderData(ModMain modData);
+	List<SenDht11> findDht11OrderData(ModData modData);
 
 
 }

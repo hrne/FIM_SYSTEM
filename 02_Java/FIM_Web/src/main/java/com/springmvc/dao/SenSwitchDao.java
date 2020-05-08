@@ -3,7 +3,7 @@ package com.springmvc.dao;
 import java.util.List;
 
 import com.modle.dao.BaseDao;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenSwitch;
 
@@ -21,6 +21,6 @@ public interface SenSwitchDao extends BaseDao<SenSwitch>{
 	 * @param modData 感應裝置
 	 * @return SenSwitch list 電源開關列表
 	 */
-	List<SenSwitch> findSwitchOrderData(ModData modData);
+	List<SenSwitch> findSwitchOrderData(ModMain modData);
 
 }

@@ -3,7 +3,7 @@ package com.springmvc.service;
 import java.util.List;
 
 import com.modle.service.BaseService;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenSwitch;
@@ -23,7 +23,7 @@ public interface SenSwitchService extends BaseService<SenSwitch> {
 	 * @param modSen   感應模組
 	 * @param respJSON 回傳JSON
 	 */
-	void createSwitch(ModData modData, ModSen modSen, String respJSON);
+	void createSwitch(ModMain modData, ModSen modSen, String respJSON);
 
 	/**
 	 * 查詢每個啟用的感應裝置最新一筆電源開關

@@ -3,7 +3,7 @@ package com.springmvc.dao;
 import java.util.List;
 
 import com.modle.dao.BaseDao;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.SenHx711;
 
 /**
@@ -20,7 +20,7 @@ public interface SenHx711Dao extends BaseDao<SenHx711> {
 	 * @param modData 感應裝置
 	 * @return SenHx711 list 重量列表
 	 */
-	List<SenHx711> findHx711OrderData(ModData modData);
+	List<SenHx711> findHx711OrderData(ModMain modData);
 
 	
 

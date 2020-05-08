@@ -4,7 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.modle.dao.BaseDaoImpl;
-import com.springmvc.entity.ModDataLog;
+import com.springmvc.entity.ModUpdateLog;
 
 /**
  * 感應裝置更新紀錄的Dao實做
@@ -13,7 +13,7 @@ import com.springmvc.entity.ModDataLog;
  *
  */
 @Repository
-public class ModDataLogDaoImpl extends BaseDaoImpl<ModDataLog> implements ModDataLogDao {
+public class ModDataLogDaoImpl extends BaseDaoImpl<ModUpdateLog> implements ModDataLogDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;

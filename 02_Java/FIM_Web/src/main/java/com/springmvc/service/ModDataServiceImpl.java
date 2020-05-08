@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.modle.service.BaseServiceImpl;
 import com.modle.util.ObjectMapperUtils;
-import com.springmvc.dao.ModDataDao;
+import com.springmvc.dao.ModMainDao;
 import com.springmvc.dto.ModDataDto;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
 /**
@@ -20,21 +20,21 @@ import com.springmvc.entity.ModSen;
  *
  */
 @Service("modDataService")
-public class ModDataServiceImpl extends BaseServiceImpl<ModData> implements ModDataService {
+public class ModDataServiceImpl extends BaseServiceImpl<ModMain> implements ModDataService {
 
 	@Autowired
-	private ModDataDao modDataDao;
+	private ModMainDao modDataDao;
 
 	@Autowired
 	private ModSenService modSenService;
 
-	public List<ModData> findByModEnable() {
+	public List<ModMain> findByModEnable() {
 		return modDataDao.findByModEnable();
 	}
 
 	public void saveModDataByDto(ModDataDto modDataDto) {
 
-		ModData modData = new ModData();
+		ModMain modData = new ModMain();
 
 		Set<ModSen> modSenSet = new HashSet<ModSen>();
 
@@ -44,7 +44,7 @@ public class ModDataServiceImpl extends BaseServiceImpl<ModData> implements ModD
 			modSenSet.add(modSen);
 		}
 
-		modData = ObjectMapperUtils.map(modDataDto, ModData.class);
+		modData = ObjectMapperUtils.map(modDataDto, ModMain.class);
 
 		// 將使用感應模組放入
 		modData.setModSenSet(modSenSet);

@@ -25,8 +25,8 @@ import com.modle.util.ObjectMapperUtils;
 import com.springmvc.dto.ModDataDto;
 import com.springmvc.dto.ModParmDto;
 import com.springmvc.dto.ModSenDto;
-import com.springmvc.entity.ModData;
-import com.springmvc.entity.ModParm;
+import com.springmvc.entity.ModMain;
+import com.springmvc.entity.ModParmData;
 import com.springmvc.entity.ModSen;
 import com.springmvc.service.ModDataService;
 import com.springmvc.service.ModParmService;
@@ -72,7 +72,7 @@ public class ModDataController {
 	public String showAllModData(Model model) {
 
 		// 查詢所有感應裝置
-		List<ModData> listModData = modDataService.findAll();
+		List<ModMain> listModData = modDataService.findAll();
 
 		// 將感應裝置map到DTO上供頁面顯示
 		List<ModDataDto> listModDataDto = ObjectMapperUtils.mapAll(listModData, ModDataDto.class);
@@ -115,7 +115,7 @@ public class ModDataController {
 	public String showUpdateModDataForm(@PathVariable("id") int id, Model model) {
 
 		// 查詢感應裝置
-		ModData modData = modDataService.findByPK(id);
+		ModMain modData = modDataService.findByPK(id);
 
 		// 將感應裝置map到DTO上
 		ModDataDto modDataDto = ObjectMapperUtils.map(modData, ModDataDto.class);
@@ -234,7 +234,7 @@ public class ModDataController {
 	public List<ModParmDto> showModParm(Integer id) {
 
 		// 產生感應模組對應的參數
-		List<ModParm> listModParm = modParmService.findModParmBySenId(id);
+		List<ModParmData> listModParm = modParmService.findModParmBySenId(id);
 
 		// 將參數map到DTO上供頁面顯示
 		List<ModParmDto> listModParmDto = ObjectMapperUtils.mapAll(listModParm, ModParmDto.class);

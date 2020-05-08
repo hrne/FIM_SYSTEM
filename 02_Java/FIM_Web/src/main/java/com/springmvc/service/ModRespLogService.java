@@ -1,7 +1,7 @@
 package com.springmvc.service;
 
 import com.modle.service.BaseService;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModRespLog;
 import com.springmvc.entity.ModSen;
 
@@ -20,7 +20,7 @@ public interface ModRespLogService extends BaseService<ModRespLog> {
 	 * @param statusCode 回傳代碼
 	 * @param message 回傳訊息
 	 */
-	void createRespLogByModData(ModData modData, String statusCode, String message);
+	void createRespLogByModData(ModMain modData, String statusCode, String message);
 	
 	/**
 	 * 儲存感應模組紀錄
@@ -30,6 +30,6 @@ public interface ModRespLogService extends BaseService<ModRespLog> {
 	 * @param statusCode 回傳代碼
 	 * @param message 回傳訊息
 	 */
-	void createRespLogByModSen(ModData modData, ModSen modSen, String statusCode, String message);
+	void createRespLogByModSen(ModMain modData, ModSen modSen, String statusCode, String message);
 
 }

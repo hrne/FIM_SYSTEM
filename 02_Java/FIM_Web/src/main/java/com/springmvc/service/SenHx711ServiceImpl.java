@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.modle.service.BaseServiceImpl;
-import com.springmvc.dao.ModDataDao;
+import com.springmvc.dao.ModMainDao;
 import com.springmvc.dao.SenHx711Dao;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenHx711;
@@ -30,12 +30,12 @@ public class SenHx711ServiceImpl extends BaseServiceImpl<SenHx711> implements Se
 	private ModRespLogService modRespLogService;
 
 	@Autowired
-	private ModDataDao modDataDao;
+	private ModMainDao modDataDao;
 
 	@Autowired
 	private SenHx711Dao senHx711Dao;
 
-	public void createHx711(ModData modData, ModSen modSen, String respJSON) {
+	public void createHx711(ModMain modData, ModSen modSen, String respJSON) {
 		
 		// 將回傳資料轉成json
 		JSONObject obj = new JSONObject(respJSON);
@@ -60,13 +60,13 @@ public class SenHx711ServiceImpl extends BaseServiceImpl<SenHx711> implements Se
 	public List<SenHx711> findLatestHx711Data() {
 
 		// 查詢所有啟用的感應裝置
-		List<ModData> listModData = modDataDao.findByModEnable();
+		List<ModMain> listModData = modDataDao.findByModEnable();
 
 		List<SenHx711> listHx711 = new ArrayList<SenHx711>();
 
 		List<SenHx711> results = new ArrayList<SenHx711>();
 
-		for (ModData modData : listModData) {
+		for (ModMain modData : listModData) {
 			// 查詢感應裝置重量列表，依據更新日期排序
 			listHx711 = senHx711Dao.findHx711OrderData(modData);
 			// 若有資料則放入

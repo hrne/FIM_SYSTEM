@@ -37,13 +37,13 @@ public class ModUpdateLog {
 	private ModMain modMain;
 
 	/**
-	 * 修改前感應裝置名稱
+	 * 修改前裝置名稱
 	 */
 	@Column(name = "bef_mod_name")
 	private String befModName;
 
 	/**
-	 * 修改後感應裝置名稱
+	 * 修改後裝置名稱
 	 */
 	@Column(name = "aft_mod_name")
 	private String aftModName;
@@ -64,13 +64,13 @@ public class ModUpdateLog {
 	 * 修改前是否啟用
 	 */
 	@Column(name = "bfe_mod_enabled")
-	private String bfeModEnable;
+	private boolean bfeModEnable;
 
 	/**
 	 * 修改後是否啟用
 	 */
 	@Column(name = "aft_mod_enabled")
-	private String aftModEnable;
+	private boolean aftModEnable;
 
 	/**
 	 * 更新時間，透過SQL自動產生
@@ -99,7 +99,7 @@ public class ModUpdateLog {
 	}
 
 	/**
-	 * 修改前感應裝置名稱
+	 * 修改前裝置名稱
 	 */
 	public String getBefModName() {
 		return befModName;
@@ -110,7 +110,7 @@ public class ModUpdateLog {
 	}
 
 	/**
-	 * 修改後感應裝置名稱
+	 * 修改後裝置名稱
 	 */
 	public String getAftModName() {
 		return aftModName;
@@ -145,22 +145,22 @@ public class ModUpdateLog {
 	/**
 	 * 修改前是否啟用
 	 */
-	public String getBfeModEnable() {
+	public boolean isBfeModEnable() {
 		return bfeModEnable;
 	}
 
-	public void setBfeModEnable(String bfeModEnable) {
+	public void setBfeModEnable(boolean bfeModEnable) {
 		this.bfeModEnable = bfeModEnable;
 	}
 
 	/**
 	 * 修改後是否啟用
 	 */
-	public String getAftModEnable() {
+	public boolean isAftModEnable() {
 		return aftModEnable;
 	}
 
-	public void setAftModEnable(String aftModEnable) {
+	public void setAftModEnable(boolean aftModEnable) {
 		this.aftModEnable = aftModEnable;
 	}
 

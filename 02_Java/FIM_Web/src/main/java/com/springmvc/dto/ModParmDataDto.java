@@ -1,57 +1,53 @@
 package com.springmvc.dto;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.springmvc.entity.ModSen;
 
 /**
- * 感應模組參數Dto
+ * 模組參數資料Dto
  * 
  * @author hrne
  *
  */
-public class ModParmDto {
+public class ModParmDataDto {
 
-    private int id;
-    
-    /**
-     * 參數名稱
-     */
-    private String parmName;
-    
-    /**
-     * 參數代號
-     */
-    private String parmCode;
-    
+	private int id;
+
+	/**
+	 * 參數代號
+	 */
+	private String parmCode;
+
+	/**
+	 * 參數名稱
+	 */
+	private String parmName;
+
 	/**
 	 * 上限警示值
 	 */
 	private BigDecimal upperLimit;
-	
+
 	/**
 	 * 下限警示值
 	 */
 	private BigDecimal lowerLimit;
 
-    /**
-     * 更新時間，透過SQL自動產生
-     */
-    private Date updateDate;
+	/**
+	 * 是否啟用警示:1:啟用、0:停用
+	 */
+	private boolean limitEnabled = true;
+
+	/**
+	 * 是否於修改畫面顯示:1:顯示、0:不顯示只能從DB修正
+	 */
+	private boolean showEnabled = false;
+
+	/**
+	 * 更新時間
+	 */
+	private Date updateDate;
 
 	public int getId() {
 		return id;
@@ -61,9 +57,9 @@ public class ModParmDto {
 		this.id = id;
 	}
 
-    /**
-     * 參數名稱
-     */
+	/**
+	 * 參數名稱
+	 */
 	public String getParmName() {
 		return parmName;
 	}
@@ -72,9 +68,9 @@ public class ModParmDto {
 		this.parmName = parmName;
 	}
 
-    /**
-     * 參數代號
-     */
+	/**
+	 * 參數代號
+	 */
 	public String getParmCode() {
 		return parmCode;
 	}
@@ -105,9 +101,31 @@ public class ModParmDto {
 		this.lowerLimit = lowerLimit;
 	}
 
-    /**
-     * 更新時間，透過SQL自動產生
-     */
+	/**
+	 * 是否啟用警示:1:啟用、0:停用
+	 */
+	public boolean isLimitEnabled() {
+		return limitEnabled;
+	}
+
+	public void setLimitEnabled(boolean limitEnabled) {
+		this.limitEnabled = limitEnabled;
+	}
+
+	/**
+	 * 是否於修改畫面顯示:1:顯示、0:不顯示只能從DB修正
+	 */
+	public boolean isShowEnabled() {
+		return showEnabled;
+	}
+
+	public void setShowEnabled(boolean showEnabled) {
+		this.showEnabled = showEnabled;
+	}
+
+	/**
+	 * 更新時間
+	 */
 	public Date getUpdateDate() {
 		return updateDate;
 	}

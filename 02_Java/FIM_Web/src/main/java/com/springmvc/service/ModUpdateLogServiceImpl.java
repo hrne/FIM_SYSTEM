@@ -5,13 +5,13 @@ import com.modle.service.BaseServiceImpl;
 import com.springmvc.entity.ModUpdateLog;
 
 /**
- * 感應裝置更新紀錄的Service實做
+ * 感應裝置更新紀錄Service實作
  * 
  * @author hrne
  *
  */
-@Service("modDataLogService")
-public class ModDataLogServiceImpl extends BaseServiceImpl<ModUpdateLog> implements ModDataLogService {
+@Service("modUpdateLogService")
+public class ModUpdateLogServiceImpl extends BaseServiceImpl<ModUpdateLog> implements ModUpdateLogService {
 
 
 }

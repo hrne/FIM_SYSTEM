@@ -17,7 +17,7 @@
 		<c:forEach var="senHx711" items="${senHx711List}">
 			<tr>
 				<!-- 感應裝置名稱 -->
-				<td>${senHx711.modData.modName}</td>
+				<td>${senHx711.modMain.modName}</td>
 				<!-- 重量 -->
 				<td>${senHx711.weight}</td>
 			</tr>

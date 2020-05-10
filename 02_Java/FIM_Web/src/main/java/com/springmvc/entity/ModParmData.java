@@ -65,13 +65,13 @@ public class ModParmData {
 	 * 是否啟用警示:1:啟用、0:停用
 	 */
 	@Column(name = "limit_enabled")
-	private String limitEnabled;
+	private boolean limitEnabled = true;
 
 	/**
 	 * 是否於修改畫面顯示:1:顯示、0:不顯示只能從DB修正
 	 */
 	@Column(name = "show_enabled")
-	private String showEnabled ;
+	private boolean showEnabled = false;
 
 	/**
 	 * 更新時間，透過SQL自動產生
@@ -146,22 +146,22 @@ public class ModParmData {
 	/**
 	 * 是否啟用警示:1:啟用、0:停用
 	 */
-	public String getLimitEnabled() {
+	public boolean isLimitEnabled() {
 		return limitEnabled;
 	}
 
-	public void setLimitEnabled(String limitEnabled) {
+	public void setLimitEnabled(boolean limitEnabled) {
 		this.limitEnabled = limitEnabled;
 	}
 
 	/**
 	 * 是否於修改畫面顯示:1:顯示、0:不顯示只能從DB修正
 	 */
-	public String getShowEnabled() {
+	public boolean isShowEnabled() {
 		return showEnabled;
 	}
 
-	public void setShowEnabled(String showEnabled) {
+	public void setShowEnabled(boolean showEnabled) {
 		this.showEnabled = showEnabled;
 	}
 

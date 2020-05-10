@@ -7,18 +7,18 @@ import com.modle.dao.BaseDaoImpl;
 import com.springmvc.entity.ModUpdateLog;
 
 /**
- * 感應裝置更新紀錄的Dao實做
+ * 感應裝置更新紀錄Dao實作
  * 
  * @author hrne
  *
  */
 @Repository
-public class ModDataLogDaoImpl extends BaseDaoImpl<ModUpdateLog> implements ModDataLogDao {
+public class ModUpdateLogDaoImpl extends BaseDaoImpl<ModUpdateLog> implements ModUpdateLogDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public ModDataLogDaoImpl(SessionFactory sessionFactory) {
+	public ModUpdateLogDaoImpl(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
 

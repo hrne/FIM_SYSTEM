@@ -18,18 +18,18 @@
 			}
 		};
 
-		$("#display_result").bootstrapTable({
-			url : 'showModSen',
+		$("#display_resultParmLimit").bootstrapTable({
+			url : 'showAllModSen',
 			method : 'get',
 			dataType : "json",
 			detailView : true,//啟用父子表
 			striped : true, // 隔行加亮
 			columns : [ {
-				title : '感應模組名稱',
+				title : '模組名稱',
 				align : "center",
 				field : 'senName',
 			}, {
-				title : '感應模組代號',
+				title : '模組代號',
 				align : "center",
 				field : 'senCode'
 			}, {//表格中增加按钮  
@@ -114,10 +114,10 @@
 				</c:if>
 
 				<!-- /.panel-heading -->
-				<div class="panel-body">
+				<div >
 					<table width="100%"
 						class="table table-striped table-bordered table-hover"
-						id="display_result">
+						id="display_resultParmLimit">
 					</table>
 				</div>
 				<!-- /.panel-body -->

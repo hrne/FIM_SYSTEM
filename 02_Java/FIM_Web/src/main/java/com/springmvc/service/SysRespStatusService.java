@@ -1,32 +1,22 @@
 package com.springmvc.service;
 
-import java.util.List;
-
 import com.modle.service.BaseService;
-import com.springmvc.entity.SenDht11;
-import com.springmvc.entity.ModData;
+import com.springmvc.entity.SysRespStatus;
 
 /**
- * 溫濕度dht11感應資料的Service介面
+ * 回傳狀態代碼檔Service介面
  * 
  * @author hrne
  *
  */
-public interface SenDht11Service extends BaseService<SenDht11>{
+public interface SysRespStatusService extends BaseService<SysRespStatus> {
 
 	/**
-	 * 儲存溫濕度dht11感應資料
+	 * 依據回傳代碼查詢
 	 * 
-	 * @param senMach 感應裝置
-	 * @param respJSON 回傳JSON
+	 * @param statusCode 回傳代碼
+	 * @return SysRespStatus
 	 */
-	void createDht11(ModData senMach, String respJSON);		
-		
-	/**
-	 * 查詢每個啟用的感應裝置最新一筆溫濕度資料
-	 * 
-	 * @return SenDht11 list 溫濕度列表
-	 */
-	List<SenDht11> findLatestDht11Data();
-
+	SysRespStatus find_statusCode(String statusCode);
+	
 }

@@ -20,17 +20,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.modle.service.BaseServiceImpl;
-import com.springmvc.dao.ModMainDao;
-import com.springmvc.dao.ModSenDao;
-import com.springmvc.dao.SenDht11Dao;
 import com.springmvc.dao.SenSwitchDao;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
-import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenSwitch;
 
 /**
- * 電源開關感應資料的Service實做
+ * 電源開關感應資料Service實作
  * 
  * @author hrne
  *
@@ -39,21 +35,21 @@ import com.springmvc.entity.SenSwitch;
 public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements SenSwitchService {
 
 	@Autowired
+	private ModMainService modMainService;
+
+	@Autowired
+	private ModSenService modSenService;
+
+	@Autowired
 	private ModRespLogService modRespLogService;
-
-	@Autowired
-	private ModMainDao modDataDao;
-
-	@Autowired
-	private ModSenDao modSenDao;
 
 	@Autowired
 	private SenSwitchDao senSwitchDao;
 
-	public void createSwitch(ModMain modData, ModSen modSen, String respJSON) {
+	public void save_respJson(ModMain modMain, ModSen modSen, String respJson) {
 
 		// 將回傳資料轉成json
-		JSONObject obj = new JSONObject(respJSON);
+		JSONObject obj = new JSONObject(respJson);
 
 		try {
 			// 取出電源開關狀態
@@ -61,98 +57,119 @@ public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements 
 			// 取出電池電力(v)
 			BigDecimal batteryVolt = obj.getBigDecimal("battery_volt");
 
+			// 產生資料
 			SenSwitch senSwitch = new SenSwitch();
-			// 寫入感應裝置
-			senSwitch.setModData(modData);
-			senSwitch.setPowStatus(powStatus);
+			senSwitch.setModMain(modMain);
+			if (powStatus == 1) {
+				senSwitch.setPowStatus(true);
+			} else {
+				senSwitch.setPowStatus(false);
+			}
 			senSwitch.setBatteryVolt(batteryVolt);
-			
-			// 儲存資料
+
+			// 將資料寫入DB
 			create(senSwitch);
-			//儲存成功紀錄
-			modRespLogService.createRespLogByModSen(modData, modSen, "00", obj.toString());
+
+			// 儲存成功紀錄，00:連線正常
+			modRespLogService.save_modData_modSen(modMain, modSen, "00", obj.toString());
+
 		} catch (Exception e) {
-			// 回傳資料若其中有一筆空值，則不寫入並寫入錯誤訊息紀錄
-			modRespLogService.createRespLogByModSen(modData, modSen, "02", obj.toString());
+			// 回傳資料若其中有一筆空值，則不寫入並儲存錯誤訊息紀錄，02:讀取不到感應模組資料
+			modRespLogService.save_modData_modSen(modMain, modSen, "02", obj.toString() + e.toString());
 		}
 	}
 
-	public List<SenSwitch> findLatestSwitchData() {
+	public List<SenSwitch> find_latest_modMain() {
 
-		// 查詢所有啟用的感應裝置
-		List<ModMain> listModData = modDataDao.findByModEnable();
+		// 查詢所有啟用的感應裝置主檔
+		List<ModMain> modMainList = modMainService.find_modEnabled();
 
-		List<SenSwitch> listSwitch = new ArrayList<SenSwitch>();
+		List<SenSwitch> senSwitchList = new ArrayList<SenSwitch>();
 
 		List<SenSwitch> results = new ArrayList<SenSwitch>();
 
-		for (ModMain modData : listModData) {
+		for (ModMain modMain : modMainList) {
+
 			// 查詢感應裝置電源開關列表，依據更新日期排序
-			listSwitch = senSwitchDao.findSwitchOrderData(modData);
-			// 若有資料則放入
-			if (!CollectionUtils.isEmpty(listSwitch)) {
+			senSwitchList = senSwitchDao.find_modMainId_desc(modMain.getId());
+
+			// 判斷是否有資料
+			if (!CollectionUtils.isEmpty(senSwitchList)) {
 				// 取最新一筆放入
-				results.add(listSwitch.get(0));
+				results.add(senSwitchList.get(0));
 			}
 		}
 		return results;
 	}
 
-	public boolean turnSwitch(SenSwitch senSwitch) {
+	public boolean turn_senSwitchId(Integer modMainId, boolean state) {
 
+		// 紀錄是否成功
 		boolean returnStatus = false;
 
-		// 查詢感應裝置
-		ModMain modData = senSwitch.getModData();
+		// 查詢感應裝置主檔
+		ModMain modMain = modMainService.findByPK(modMainId);
 
+		// 開始傳送資料
 		CloseableHttpClient httpCilent = HttpClients.createDefault();
 
 		RequestConfig requestConfig = RequestConfig.custom().setConnectionRequestTimeout(5000)
 				.setConnectionRequestTimeout(5000).setSocketTimeout(5000).setRedirectsEnabled(true).build();
 
-		// 傳送ip+感應裝置代號
-		HttpPost httpPost = new HttpPost("http://" + modData.getIpAddress() + "/sensor");
-
+		// 找出對應ip
+		HttpPost httpPost = new HttpPost("http://" + modMain.getIpAddress() + "/sensor");
 		httpPost.setConfig(requestConfig);
 
 		// 讀取電源開關感應模組
-		ModSen modSen = modSenDao.findBySenCode("switch");
+		ModSen modSen = modSenService.find_senCode("switch");
 
 		try {
-			// json:開源開關
 			JSONObject obj = new JSONObject();
+
 			// 如果現行的狀態是0關閉，則打開，反之則關閉。
-			if (senSwitch.getPowStatus() == 0) {
-				obj.put("pow_enabled", 1);
+			if (!state) {
+				obj.put("pow_enabled", "1");
 			} else {
-				obj.put("pow_enabled", 0);
+				obj.put("pow_enabled", "0");
 			}
 
-			// 設定開關
 			StringEntity entity = new StringEntity(obj.toString());
 			httpPost.setEntity(entity);
 
-			// 讀取Arduino資料
+			// 傳送Arduino資料
 			HttpResponse httpResponse = httpCilent.execute(httpPost);
 
+			// 回傳值
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 
-			// 接受感應裝置回傳資料
+			// 接受Arduino回傳資料
 			// status code:200 代表成功
 			if (statusCode == 200) {
-				returnStatus = true;
-				// 成功:訊息紀錄收到資料
-				modRespLogService.createRespLogByModSen(modData, modSen, "00", "開關:" + senSwitch.getPowStatus());
+				// 取得回傳值
+				String respJsonStr = EntityUtils.toString(httpResponse.getEntity());
+
+				// 將回傳資料轉成json
+				JSONObject respJson = new JSONObject(respJsonStr);
+				// 取出電池電力(v)
+				boolean respPowerStatus = respJson.getBoolean("resp_power_status");
+				returnStatus = respPowerStatus;
+				if (respPowerStatus) {
+					// 儲存成功紀錄，00:連線正常
+					modRespLogService.save_modData_modSen(modMain, modSen, "00", "開關:" + state);
+				} else {
+					// 回傳資料若其中有一筆空值，則不寫入並儲存錯誤訊息紀錄，01:感應裝置連線失敗
+					modRespLogService.save_modData_modSen(modMain, modSen, "01", String.valueOf(statusCode));
+				}
 			} else {
 				returnStatus = false;
-				// 失敗:訊息紀錄錯誤代碼
-				modRespLogService.createRespLogByModSen(modData, modSen, "02", String.valueOf(statusCode));
+				// 回傳資料若其中有一筆空值，則不寫入並儲存錯誤訊息紀錄，01:感應裝置連線失敗
+				modRespLogService.save_modData_modSen(modMain, modSen, "01", String.valueOf(statusCode));
 			}
 		} catch (IOException e) {
 			// 連線意外失敗:紀錄錯誤訊息
 			StringWriter errors = new StringWriter();
 			e.printStackTrace(new PrintWriter(errors));
-			modRespLogService.createRespLogByModSen(modData, modSen, "99", "連線意外失敗:" + errors.toString());
+			modRespLogService.save_modData_modSen(modMain, modSen, "99", "連線意外失敗:" + errors.toString());
 		} finally {
 			try {
 				httpCilent.close();

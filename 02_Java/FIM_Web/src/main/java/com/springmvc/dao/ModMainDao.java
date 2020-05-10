@@ -14,10 +14,10 @@ import com.springmvc.entity.ModMain;
 public interface ModMainDao extends BaseDao<ModMain> {
 	
 	/**
-	 * 查詢所有啟用的感應裝置
+	 * 查詢所有啟用的感應裝置主檔
 	 * 
 	 * @return ModMain list
 	 */
-	List<ModMain> findByModEnabled();
+	List<ModMain> find_modEnabled();
 
 }

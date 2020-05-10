@@ -10,13 +10,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.modle.util.ObjectMapperUtils;
+import com.springmvc.dto.ModRespLogDto;
 import com.springmvc.dto.ModSenDto;
 import com.springmvc.dto.SenSwitchDto;
-import com.springmvc.entity.ModMain;
-import com.springmvc.entity.ModSen;
+import com.springmvc.entity.ModRespLog;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenHx711;
 import com.springmvc.entity.SenSwitch;
+import com.springmvc.service.ModMainService;
+import com.springmvc.service.ModRespLogService;
 import com.springmvc.service.SenDht11Service;
 import com.springmvc.service.SenHx711Service;
 import com.springmvc.service.SenSwitchService;
@@ -29,6 +31,12 @@ import com.springmvc.service.SenSwitchService;
  */
 @Controller
 public class SenModController {
+	
+	@Autowired
+	private ModMainService modMainService;
+	
+	@Autowired
+	private ModRespLogService modRespLogService;
 
 	@Autowired
 	private SenDht11Service senDht11Service;
@@ -39,32 +47,44 @@ public class SenModController {
 	@Autowired
 	private SenSwitchService senSwitchService;
 
-	@RequestMapping(value = { "/index.html", "/index", "/" }, method = RequestMethod.GET)
-	public String homepage(Model model) {
-		// 查詢溫濕度資料
-		List<SenDht11> senDht11List = senDht11Service.findLatestDht11Data();
-		model.addAttribute("senDht11List", senDht11List);
-
-		// 查詢重量資料
-		List<SenHx711> senHx711List = senHx711Service.findLatestHx711Data();
-		model.addAttribute("senHx711List", senHx711List);
-
-		// 查詢電源開關資料
-		List<SenSwitch> senSwitchList = senSwitchService.findLatestSwitchData();
-		model.addAttribute("senSwitchList", senSwitchList);
-
-		return "senMod/indexSen";
-	}
-
 	/**
-	 * 查詢溫濕度資料
+	 * 首頁
 	 * 
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/senMod/listSenDht11", method = RequestMethod.GET)
-	public String showAllSenMod(Model model) {
-		List<SenDht11> senDht11List = senDht11Service.findLatestDht11Data();
+	@RequestMapping(value = { "/index.html", "/index", "/" }, method = RequestMethod.GET)
+	public String showAllSenData(Model model) {
+		
+		//每進入一次就讀取一次arduino資料
+		//modMainService.scan_MainMod();
+		
+		// 查詢溫濕度資料
+		List<SenDht11> senDht11List = senDht11Service.find_latest_modMain();
+		model.addAttribute("senDht11List", senDht11List);
+
+		// 查詢重量資料
+		List<SenHx711> senHx711List = senHx711Service.find_latest_modMain();
+		model.addAttribute("senHx711List", senHx711List);
+
+//		// 查詢電源開關資料
+//		List<SenSwitch> senSwitchList = senSwitchService.find_latest_modMain();
+//		model.addAttribute("senSwitchList", senSwitchList);
+
+		// 導頁至首頁
+		return "senMod/indexSen";
+	}
+
+	/**
+	 * ajax 查詢溫濕度資料
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/senMod/showAllDht1111", method = RequestMethod.GET)
+	public String showAllDht1111(Model model) {
+		// 查詢溫濕度資料
+		List<SenDht11> senDht11List = senDht11Service.find_latest_modMain();
 		model.addAttribute("senDht11List", senDht11List);
 		return "senMod/listSenDht11";
 	}
@@ -75,9 +95,10 @@ public class SenModController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/senMod/listDht11", method = RequestMethod.GET)
-	public String getTimeDht11(Model model) {
-		List<SenDht11> senDht11List = senDht11Service.findLatestDht11Data();
+	@RequestMapping(value = "/senMod/showAllDht11", method = RequestMethod.GET)
+	public String showAllDht11(Model model) {
+		// 查詢溫濕度資料
+		List<SenDht11> senDht11List = senDht11Service.find_latest_modMain();
 		model.addAttribute("senDht11List", senDht11List);
 		return "senMod/tableDht11";
 	}
@@ -88,10 +109,10 @@ public class SenModController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/senMod/listHx711", method = RequestMethod.GET)
-	public String getTimeHx711(Model model) {
+	@RequestMapping(value = "/senMod/showAllHx711", method = RequestMethod.GET)
+	public String showAllHx711(Model model) {
 		// 查詢重量資料
-		List<SenHx711> senHx711List = senHx711Service.findLatestHx711Data();
+		List<SenHx711> senHx711List = senHx711Service.find_latest_modMain();
 		model.addAttribute("senHx711List", senHx711List);
 		return "senMod/tableHx711";
 	}
@@ -99,32 +120,18 @@ public class SenModController {
 	/**
 	 * ajax 查詢電源開關資料
 	 * 
-	 * @param model
-	 * @return
 	 */
-	@RequestMapping(value = "/senMod/listSwitch", method = RequestMethod.GET)
-	public String getTimeSwitch(Model model) {
-		// 查詢電源開關資料
-		List<SenSwitch> senSwitchList = senSwitchService.findLatestSwitchData();
-		model.addAttribute("senSwitchList", senSwitchList);
-		return "senMod/tableSwitch";
-	}
-	
-	/**
-	 * ajax 查詢電源開關資料
-	 * 
-	 */
-	@RequestMapping(value = "/senMod/listSwitchtt")
+	@RequestMapping(value = "/senMod/showAllSwitch")
 	@ResponseBody
-	public List<SenSwitchDto> getTimeSwitch() {
+	public List<SenSwitchDto> showAllSwitch() {
 
 		// 查詢電源開關資料
-		List<SenSwitch> listSenSwitch = senSwitchService.findLatestSwitchData();
+		List<SenSwitch> senSwitchList = senSwitchService.find_latest_modMain();
 
-		// 將電源開關資料map到DTO上供頁面顯示
-		List<SenSwitchDto> listSenSwitchDto = ObjectMapperUtils.mapAll(listSenSwitch, SenSwitchDto.class);
+		// 將電源開關資料map到dto上供頁面顯示
+		List<SenSwitchDto> senSwitchDtoList = ObjectMapperUtils.mapAll(senSwitchList, SenSwitchDto.class);
 
-		return listSenSwitchDto;
+		return senSwitchDtoList;
 	}
 
 	/**
@@ -134,11 +141,13 @@ public class SenModController {
 	 * @return
 	 */
 	@RequestMapping(value = "/senMod/turnPowerSwitch")
-	public @ResponseBody String turnPowerSwitch(int id) {
-		SenSwitch senSwitch = senSwitchService.findByPK(id);
-		boolean returnStatus = senSwitchService.turnSwitch(senSwitch);
+	public @ResponseBody String turnPowerSwitch(int modMainId, boolean state) {
+
+		//依據感應裝置id傳送開關訊號
+		boolean returnStatus = senSwitchService.turn_senSwitchId(modMainId, state);
 		String codeName = "";
-		if (senSwitch.getPowStatus() == 0) {
+		System.out.println("id:" + modMainId + "  state:" + state);
+		if (!state) {
 			codeName = "電源打開";
 		} else {
 			codeName = "電源關閉";
@@ -148,6 +157,24 @@ public class SenModController {
 		} else {
 			return codeName + "失敗";
 		}
+
+	}
+	
+	/**
+	 * ajax 查詢感應紀錄資料
+	 * 
+	 */
+	@RequestMapping(value = "/senMod/showAllRespLog")
+	@ResponseBody
+	public List<ModRespLogDto> showAllRespLog() {
+
+		// 查詢感應紀錄資料
+		List<ModRespLog> modRespLogList = modRespLogService.find_latest_modMain();
+
+		// 將感應紀錄資料map到dto上供頁面顯示
+		List<ModRespLogDto> modRespLogDtoList = ObjectMapperUtils.mapAll(modRespLogList, ModRespLogDto.class);
+		System.out.println("success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+		return modRespLogDtoList;
 	}
 
 }

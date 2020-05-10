@@ -26,7 +26,7 @@ public class ModMainDaoImpl extends BaseDaoImpl<ModMain> implements ModMainDao {
 		super(sessionFactory);
 	}
 
-	public List<ModMain> findByModEnabled() {
+	public List<ModMain> find_modEnabled() {
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("from ModMain where modEnabled=1");
 		return query.list();

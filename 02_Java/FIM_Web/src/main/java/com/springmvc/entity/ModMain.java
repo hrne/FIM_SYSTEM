@@ -32,7 +32,7 @@ public class ModMain {
 	private int id;
 
 	/**
-	 * 感應裝置名稱
+	 * 裝置名稱
 	 */
 	@Column(name = "mod_name")
 	private String modName;
@@ -47,7 +47,7 @@ public class ModMain {
 	 * 是否啟用:1:啟用、0:停用
 	 */
 	@Column(name = "mod_enabled")
-	private String modEnabled;
+	private boolean modEnabled = true;
 
 	/**
 	 * 更新時間，透過SQL自動產生
@@ -72,7 +72,7 @@ public class ModMain {
 	}
 
 	/**
-	 * 感應裝置名稱
+	 * 裝置名稱
 	 */
 	public String getModName() {
 		return modName;
@@ -96,11 +96,11 @@ public class ModMain {
 	/**
 	 * 是否啟用:1:啟用、0:停用
 	 */
-	public String getModEnabled() {
+	public boolean isModEnabled() {
 		return modEnabled;
 	}
 
-	public void setModEnabled(String modEnabled) {
+	public void setModEnabled(boolean modEnabled) {
 		this.modEnabled = modEnabled;
 	}
 

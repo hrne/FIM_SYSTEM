@@ -1,13 +1,10 @@
 package com.springmvc.dao;
 
-import java.util.List;
-
 import com.modle.dao.BaseDao;
-import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
 /**
- * 感應模組的Dao介面
+ * 感應模組Dao介面
  * 
  * @author hrne
  *
@@ -15,11 +12,11 @@ import com.springmvc.entity.ModSen;
 public interface ModSenDao extends BaseDao<ModSen>{
 
 	/**
-	 * 依據感應模組代碼查詢
+	 * 依據模組代碼查詢感應模組資料
 	 * 
-	 * @param senCode 感應模組代碼
+	 * @param senCode 模組代碼
 	 * @return ModSen
 	 */
-	ModSen findBySenCode(String senCode);
+	ModSen find_senCode(String senCode);
 
 }

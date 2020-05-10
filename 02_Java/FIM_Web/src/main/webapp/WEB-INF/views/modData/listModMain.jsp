@@ -6,13 +6,13 @@
 
 <script>
 	$(document).ready(function() {
-		$('#dataTables-listModDataDto').DataTable({
+		$('#dataTables-modMainDtoList').DataTable({
 			responsive : true
 		});
 	});
 </script>
 
-<!-- 感應裝置清單 -->
+<!-- 感應裝置列表 -->
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
@@ -40,11 +40,11 @@
 				<div class="panel-body">
 					<table width="100%"
 						class="table table-striped table-bordered table-hover"
-						id="dataTables-listModDataDto">
+						id="dataTables-modMainDtoList">
 						<thead>
 							<tr>
 								<th><s:message code='id'/></th>
-								<th><s:message code='name' /></th>
+								<th><s:message code='modDataName' /></th>
 								<th><s:message code='ipAddress' /></th>
 								<th><s:message code='enabled' /></th>
 								<th><s:message code='modSen' /></th>
@@ -52,23 +52,23 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="modDataDto" items="${listModDataDto}">
+							<c:forEach var="modMainDto" items="${modMainDtoList}">
 								<tr>
 									<!-- 編號 -->
-									<td>${modDataDto.id}</td>
-									<!-- 名稱 -->
-									<td>${modDataDto.modName}</td>
+									<td>${modMainDto.id}</td>
+									<!-- 裝置名稱 -->
+									<td>${modMainDto.modName}</td>
 									<!-- ip位址 -->
-									<td>${modDataDto.ipAddress}</td>
+									<td>${modMainDto.ipAddress}</td>
 									<!-- 是否啟用 -->
-									<td>${modDataDto.shonEnableName}</td>
+									<td>${modMainDto.showEnabledName}</td>
 									<!-- 感應模組 -->
-									<td><c:forEach var="showModSens"
-											items="${modDataDto.showModSenList}" varStatus="loop">
-												${showModSens} <c:if test="${not loop.last}">,</c:if>
+									<td><c:forEach var="showModSenName"
+											items="${modMainDto.showModSenNameList}" varStatus="loop">
+												${showModSenName} <c:if test="${not loop.last}">,</c:if>
 										</c:forEach></td>
 									<!-- 修改 按鈕 -->
-									<td><s:url value="/modData/${modDataDto.id}/updateModData"
+									<td><s:url value="/modData/${modMainDto.id}/showUpdateModMain"
 											var="updateUrl" />
 										<button onclick="location.href='${updateUrl}'"
 											class="btn btn-primary">

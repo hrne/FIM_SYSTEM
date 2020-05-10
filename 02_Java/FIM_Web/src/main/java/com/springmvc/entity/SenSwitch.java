@@ -41,7 +41,7 @@ public class SenSwitch {
 	 * 電源狀態:1:打開、0:關閉
 	 */
 	@Column(name = "pow_status")
-	private String powStatus;
+	private boolean powStatus;
 
 	/**
 	 * 電池電力(V)
@@ -78,14 +78,14 @@ public class SenSwitch {
 	/**
 	 * 電源開關狀態，1:通電、0:關閉
 	 */
-	public String getPowStatus() {
+	public boolean isPowStatus() {
 		return powStatus;
 	}
 
-	public void setPowStatus(String powStatus) {
+	public void setPowStatus(boolean powStatus) {
 		this.powStatus = powStatus;
 	}
-
+	
 	/**
 	 * 電池電力(V)
 	 */

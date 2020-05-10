@@ -5,11 +5,10 @@ import java.util.List;
 import com.modle.service.BaseService;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
-import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenSwitch;
 
 /**
- * 電源開關感應資料的Service介面
+ * 電源開關感應資料Service介面
  * 
  * @author hrne
  *
@@ -17,27 +16,28 @@ import com.springmvc.entity.SenSwitch;
 public interface SenSwitchService extends BaseService<SenSwitch> {
 
 	/**
-	 * 儲存電源開關感應資料
+	 * 依據回傳Json儲存資料，若資料有錯誤則紀錄log不儲存
 	 * 
-	 * @param senMach  感應裝置
+	 * @param modMain  感應裝置主檔
 	 * @param modSen   感應模組
-	 * @param respJSON 回傳JSON
+	 * @param respJson 回傳Json
 	 */
-	void createSwitch(ModMain modData, ModSen modSen, String respJSON);
+	void save_respJson(ModMain modMain, ModSen modSen, String respJson);
 
 	/**
-	 * 查詢每個啟用的感應裝置最新一筆電源開關
+	 * 依據啟用感應裝置主檔查詢最新的電源開關資料
 	 * 
-	 * @return SenSwitch list 電源開關列表
+	 * @return SenSwitch list
 	 */
-	List<SenSwitch> findLatestSwitchData();
-	
+	List<SenSwitch> find_latest_modMain();
+
 	/**
-	 * 開關電源
+	 * 依據感應裝置id傳送訊號給Arduino開關電源
 	 * 
-	 * @param senSwitch 電源開關感應資料
-	 * @return
+	 * @param modMainId 感應裝置id
+	 * @param state 現行開關訊號
+	 * @return 是否成功
 	 */
-	boolean turnSwitch(SenSwitch senSwitch);
+	boolean turn_senSwitchId(Integer modMainId, boolean state);
 
 }

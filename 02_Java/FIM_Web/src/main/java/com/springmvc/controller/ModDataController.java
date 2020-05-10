@@ -22,16 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.modle.util.ObjectMapperUtils;
-import com.springmvc.dto.ModDataDto;
-import com.springmvc.dto.ModParmDto;
+import com.springmvc.dto.ModMainDto;
+import com.springmvc.dto.ModParmDataDto;
 import com.springmvc.dto.ModSenDto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModParmData;
 import com.springmvc.entity.ModSen;
-import com.springmvc.service.ModDataService;
-import com.springmvc.service.ModParmService;
+import com.springmvc.service.ModMainService;
+import com.springmvc.service.ModParmDataService;
 import com.springmvc.service.ModSenService;
-import com.springmvc.validator.ModDataFormValidator;
+import com.springmvc.validator.ModMainFormValidator;
 
 /**
  * 感應裝置controller
@@ -43,132 +43,133 @@ import com.springmvc.validator.ModDataFormValidator;
 public class ModDataController {
 
 	@Autowired
-	ModDataFormValidator modDataFormValidator;
+	ModMainFormValidator modMainFormValidator;
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		binder.setValidator(modDataFormValidator);
+		binder.setValidator(modMainFormValidator);
 	}
 
 	@Autowired
-	private ModDataService modDataService;
+	private ModMainService modMainService;
 
 	@Autowired
 	private ModSenService modSenService;
 
 	@Autowired
-	private ModParmService modParmService;
+	private ModParmDataService modParmDataService;
 
 	@Autowired
 	private ResourceBundleMessageSource messageSource;
 
 	/**
-	 * 感應裝置列表
+	 * 導頁:感應裝置列表
 	 * 
 	 * @param model
-	 * @return
+	 * @return modData/listModData
 	 */
-	@RequestMapping(value = "/modData/showListModData", method = RequestMethod.GET)
-	public String showAllModData(Model model) {
+	@RequestMapping(value = "/modData/showAllModMain", method = RequestMethod.GET)
+	public String showAllModMain(Model model) {
 
-		// 查詢所有感應裝置
-		List<ModMain> listModData = modDataService.findAll();
+		// 查詢所有感應裝置主檔
+		List<ModMain> modMainList = modMainService.findAll();
 
 		// 將感應裝置map到DTO上供頁面顯示
-		List<ModDataDto> listModDataDto = ObjectMapperUtils.mapAll(listModData, ModDataDto.class);
+		List<ModMainDto> modMainDtoList = ObjectMapperUtils.mapAll(modMainList, ModMainDto.class);
 
 		// 資料放至頁面
-		model.addAttribute("listModDataDto", listModDataDto);
+		model.addAttribute("modMainDtoList", modMainDtoList);
 
 		// 導頁至感應裝置列表
-		return "modData/listModData";
+		return "modData/listModMain";
 	}
 
 	/**
-	 * 新增感應裝置
+	 * 導頁:新增感應裝置頁面
 	 * 
 	 * @param model
-	 * @return
+	 * @return modData/modMainForm
 	 */
-	@RequestMapping(value = "/modData/addModData", method = RequestMethod.GET)
-	public String showAddModDataForm(Model model) {
-		ModDataDto modDataDto = new ModDataDto();
+	@RequestMapping(value = "/modData/showAddModMain", method = RequestMethod.GET)
+	public String showAddModMain(Model model) {
+		ModMainDto modMainDto = new ModMainDto();
 
-		// 將DTO放至頁面以暫存資料
-		model.addAttribute("modDataDto", modDataDto);
+		// 將dto放至頁面以暫存資料
+		model.addAttribute("modMainDto", modMainDto);
 
 		// 產生頁面選單資料
 		createFormOptions(model);
 
 		// 導頁至新增頁面
-		return "modData/modDataForm";
+		return "modData/modMainForm";
 	}
 
 	/**
-	 * 修改感應裝置
+	 * 導頁:修改感應裝置頁面
 	 * 
-	 * @param id
+	 * @param id    感應裝置主檔id
 	 * @param model
-	 * @return
+	 * @return modData/modMainForm
 	 */
-	@RequestMapping(value = "/modData/{id}/updateModData", method = RequestMethod.GET)
-	public String showUpdateModDataForm(@PathVariable("id") int id, Model model) {
+	@RequestMapping(value = "/modData/{id}/showUpdateModMain", method = RequestMethod.GET)
+	public String showUpdateModMain(@PathVariable("id") int id, Model model) {
 
 		// 查詢感應裝置
-		ModMain modData = modDataService.findByPK(id);
+		ModMain modMain = modMainService.findByPK(id);
 
-		// 將感應裝置map到DTO上
-		ModDataDto modDataDto = ObjectMapperUtils.map(modData, ModDataDto.class);
+		// 將感應裝置map到dto上
+		ModMainDto modMainDto = ObjectMapperUtils.map(modMain, ModMainDto.class);
 
-		List<Integer> modSenIDs = new ArrayList<Integer>();
+		List<Integer> modSenIdList = new ArrayList<Integer>();
 
 		// 將現有的感應裝置放入顯示
-		for (ModSen modSen : modData.getModSenSet()) {
-			modSenIDs.add(modSen.getId());
+		for (ModSen modSen : modMain.getModSenSet()) {
+			modSenIdList.add(modSen.getId());
 		}
-		modDataDto.setModSenIDs(modSenIDs);
+		modMainDto.setModSenIdList(modSenIdList);
 
 		// 資料放至頁面
-		model.addAttribute("modDataDto", modDataDto);
+		model.addAttribute("modMainDto", modMainDto);
 
 		// 產生頁面選單資料
 		createFormOptions(model);
 
 		// 導頁至修改頁面
-		return "modData/modDataForm";
+		return "modData/modMainForm";
 	}
 
 	/**
 	 * 儲存感應裝置 from add or update
 	 * 
-	 * @param modDataDto
+	 * @param modMainDto
 	 * @param result
 	 * @param model
 	 * @param redirectAttributes
 	 * @param locale
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/saveModData", method = RequestMethod.POST)
-	public String saveOrUpdateModData(@ModelAttribute("senMachForm") @Validated ModDataDto modDataDto,
-			BindingResult result, Model model, final RedirectAttributes redirectAttributes, Locale locale) {
+	@RequestMapping(value = "/modData/saveModMain", method = RequestMethod.POST)
+	public String saveModMain(@ModelAttribute("senMachForm") @Validated ModMainDto modMainDto, BindingResult result,
+			Model model, final RedirectAttributes redirectAttributes, Locale locale) {
 		if (result.hasErrors()) {
 			createFormOptions(model);
-			return "modData/modDataForm";
+			return "modData/modMainForm";
 		} else {
 
 			// 儲存資料
-			modDataService.saveModDataByDto(modDataDto);
+			modMainService.save_modMainDto(modMainDto);
 
 			// 顯示回傳訊息
 			redirectAttributes.addFlashAttribute("css", "success");
-			if (modDataDto.isNew()) {
+			if (modMainDto.isNew()) {
 				redirectAttributes.addFlashAttribute("msg",
 						messageSource.getMessage("modDataAddSuc", new Object[] {}, locale));
 			} else {
 				redirectAttributes.addFlashAttribute("msg",
 						messageSource.getMessage("modDataUpdateSuc", new Object[] {}, locale));
 			}
-			return "redirect:/modData/showListModData";
+			//重導至感應裝置列表
+			return "redirect:/modData/showAllModMain";
 		}
 	}
 
@@ -180,12 +181,12 @@ public class ModDataController {
 	private void createFormOptions(Model model) {
 
 		// 查詢所有感應模組
-		List<ModSen> listModSen = modSenService.findAll();
+		List<ModSen> modSenList = modSenService.findAll();
 
 		Map<Integer, String> senList = new HashMap<>();
 
 		// 感應模組選單
-		for (ModSen modSen : listModSen) {
+		for (ModSen modSen : modSenList) {
 			senList.put(modSen.getId(), modSen.getSenName());
 		}
 
@@ -194,15 +195,15 @@ public class ModDataController {
 	}
 
 	/**
-	 * 感應模組警示值
+	 * 導頁:感應模組警示值
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/showModSenLimit", method = RequestMethod.GET)
-	public String showAllMod() {
+	@RequestMapping(value = "/modData/showAllSenParmLimit", method = RequestMethod.GET)
+	public String showAllSenParmLimit() {
 
 		// 導頁至感應模組警示值
-		return "modData/listModSenLimit";
+		return "modData/listSenParmLimit";
 	}
 
 	/**
@@ -210,17 +211,17 @@ public class ModDataController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/modData/showModSen")
+	@RequestMapping(value = "/modData/showAllModSen")
 	@ResponseBody
-	public List<ModSenDto> showModSen() {
+	public List<ModSenDto> showAllModSen() {
 
 		// 查詢所有感應模組
-		List<ModSen> listModSen = modSenService.findAll();
+		List<ModSen> modSenList = modSenService.findAll();
 
-		// 將感應模組map到DTO上供頁面顯示
-		List<ModSenDto> listModSenDto = ObjectMapperUtils.mapAll(listModSen, ModSenDto.class);
+		// 將感應模組map到dto上供頁面顯示
+		List<ModSenDto> modSenDtoList = ObjectMapperUtils.mapAll(modSenList, ModSenDto.class);
 
-		return listModSenDto;
+		return modSenDtoList;
 	}
 
 	/**
@@ -231,15 +232,15 @@ public class ModDataController {
 	 */
 	@RequestMapping(value = "/modData/showModParm", method = RequestMethod.GET)
 	@ResponseBody
-	public List<ModParmDto> showModParm(Integer id) {
+	public List<ModParmDataDto> showModParm(Integer id) {
 
-		// 產生感應模組對應的參數
-		List<ModParmData> listModParm = modParmService.findModParmBySenId(id);
+		// 依據感應模組id查詢模組參數資料
+		List<ModParmData> modParmDataList = modParmDataService.find_modSenId_show(id);
 
-		// 將參數map到DTO上供頁面顯示
-		List<ModParmDto> listModParmDto = ObjectMapperUtils.mapAll(listModParm, ModParmDto.class);
+		// 將參數map到dto上供頁面顯示
+		List<ModParmDataDto> modParmDataDtoList = ObjectMapperUtils.mapAll(modParmDataList, ModParmDataDto.class);
 
-		return listModParmDto;
+		return modParmDataDtoList;
 	}
 
 }

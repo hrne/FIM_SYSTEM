@@ -6,24 +6,24 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.springmvc.dto.ModDataDto;
-import com.springmvc.service.ModDataService;
+import com.springmvc.dto.ModMainDto;
+import com.springmvc.service.ModMainService;
 
 @Component
-public class ModDataFormValidator implements Validator {
+public class ModMainFormValidator implements Validator {
 
 	@Autowired
-	ModDataService senMachService;
+	ModMainService senMachService;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return ModDataDto.class.equals(clazz);
+		return ModMainDto.class.equals(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
 
-		ModDataDto senMachDto = (ModDataDto) target;
+		ModMainDto senMachDto = (ModMainDto) target;
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "modName", "userForm.name.notEmpty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ipAddress", "userForm.email.notEmpty");

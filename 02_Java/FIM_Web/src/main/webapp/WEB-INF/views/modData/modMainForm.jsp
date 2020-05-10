@@ -13,12 +13,12 @@
 	})
 
 	$(document).ready(function() {
-		var btnFlag = $
+		var btnFlg = $
 		{
-			modDataDto.modEnable
+			modMainDto['modEnabled']
 		}
 		;
-		$('#toggle-event').prop('checked', btnFlag).change();
+		$('#toggle-event').prop('checked', btnFlg).change();
 	});
 </script>
 
@@ -27,7 +27,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<c:choose>
-				<c:when test="${modDataDto['new']}">
+				<c:when test="${modMainDto['new']}">
 					<h1 class="page-header">
 						<s:message code='modDataAdd' />
 					</h1>
@@ -48,9 +48,9 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-lg-6">
-							<s:url value="/modData/saveModData" var="modDataActionUrl" />
+							<s:url value="/modData/saveModMain" var="saveUrl" />
 							<sf:form class="form-horizontal" method="post"
-								modelAttribute="modDataDto" action="${modDataActionUrl}">
+								modelAttribute="modMainDto" action="${saveUrl}">
 								<sf:hidden path="id" />
 								<!-- 感應裝置名稱 -->
 								<s:bind path="modName">
@@ -77,8 +77,8 @@
 									</div>
 								</s:bind>
 								<!-- 是否啟用 -->
-								<sf:hidden id="console-event" path="modEnable" />
-								<s:bind path="modEnable">
+								<sf:hidden id="console-event" path="modEnabled" />
+								<s:bind path="modEnabled">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
 										<label class="col-sm-2 control-label"><s:message
 												code='enabled' /></label>
@@ -89,15 +89,15 @@
 									</div>
 								</s:bind>
 								<!-- 感應模組 -->
-								<s:bind path="modSenIDs">
+								<s:bind path="modSenIdList">
 									<div class="form-group ${status.error ? 'has-error' : ''}">
 										<label class="col-sm-2 control-label"><s:message
 												code='modSen' /></label>
 										<div class="col-sm-10">
-											<sf:checkboxes path="modSenIDs" items="${senList}"
+											<sf:checkboxes path="modSenIdList" items="${senList}"
 												element="label class='checkbox-inline'" />
 											<br />
-											<sf:errors path="modSenIDs" class="control-label" />
+											<sf:errors path="modSenIdList" class="control-label" />
 										</div>
 									</div>
 								</s:bind>

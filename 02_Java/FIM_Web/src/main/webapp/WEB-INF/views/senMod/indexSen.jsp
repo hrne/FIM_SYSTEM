@@ -4,26 +4,19 @@
 
 <script type="text/javascript">
 	$(function() {
-		setInterval(refresh, 3000); //每3秒刷新一次
+		//setInterval(refresh, 3000); //每3秒刷新一次
 		function refresh() {
 			$.ajax({
-				url : 'senMod/listDht11',
+				url : 'senMod/showAllDht11',
 				success : function(data) {
 					$('#dht11').html(data);
 				}
 			});
 
 			$.ajax({
-				url : 'senMod/listHx711',
+				url : 'senMod/showAllHx711',
 				success : function(data) {
 					$('#hx711').html(data);
-				}
-			});
-			
-			$.ajax({
-				url : 'senMod/listSwitch',
-				success : function(data) {
-					$('#switch').html(data);
 				}
 			});
 		}
@@ -101,6 +94,46 @@
 				<div class="panel-body">
 					<div class="table-responsive" id="switch">
 						<%@include file="tableSwitch.jsp"%>
+					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-6 -->
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<!-- -->
+				<div class="panel-heading">
+
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-6 -->
+	</div>
+	
+		<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<!-- 感應紀錄資料 -->
+				<div class="panel-heading ">
+					<h4 class="text-info">
+						<s:message code='respLog' />
+					</h4>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div class="table-responsive" id="respLog">
+						<%@include file="tableRespLog.jsp"%>
 					</div>
 					<!-- /.table-responsive -->
 				</div>

@@ -29,13 +29,13 @@ public class ModSen {
     private int id;
     
     /**
-     * 感應模組代號
+     * 模組代號
      */
     @Column(name = "sen_code")
     private String senCode;
     
     /**
-     * 感應模組名稱
+     * 模組名稱
      */
     @Column(name = "sen_name")
     private String senName;    
@@ -62,7 +62,7 @@ public class ModSen {
 	}
 
     /**
-     * 感應模組代號
+     * 模組代號
      */
 	public String getSenCode() {
 		return senCode;
@@ -73,7 +73,7 @@ public class ModSen {
 	}
 	
     /**
-     * 感應模組名稱
+     * 模組名稱
      */
 	public String getSenName() {
 		return senName;

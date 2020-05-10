@@ -8,12 +8,10 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.modle.dao.BaseDaoImpl;
-import com.springmvc.entity.ModMain;
-import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenSwitch;
 
 /**
- * 電源開關感應資料資料的Dao實做
+ * 電源開關感應資料資料Dao實做
  * 
  * @author hrne
  *
@@ -28,10 +26,10 @@ public class SenSwitchDaoImpl extends BaseDaoImpl<SenSwitch> implements SenSwitc
 		super(sessionFactory);
 	}
 
-	public List<SenSwitch> findSwitchOrderData(ModMain modData) {
+	public List<SenSwitch> find_modMainId_desc(Integer modMainId) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("from SenSwitch where modData.id =:modData_id order by updateDate desc");
-		query.setParameter("modData_id", modData.getId());
+		Query query = session.createQuery("from SenSwitch where modMain.id =:modMainId order by updateDate desc");
+		query.setParameter("modMainId", modMainId);
 		return query.list();
 	}
 }

@@ -13,17 +13,17 @@ public class ModSenDto {
 	private int id;
 
 	/**
-	 * 感應模組名稱
+	 * 模組名稱
 	 */
 	private String senName;
 
 	/**
-	 * 感應模組代號
+	 * 模組代號
 	 */
 	private String senCode;
-
+	
 	/**
-	 * 更新時間，透過SQL自動產生
+	 * 更新時間
 	 */
 	private Date updateDate;
 
@@ -56,9 +56,9 @@ public class ModSenDto {
 	public void setSenCode(String senCode) {
 		this.senCode = senCode;
 	}
-
+	
 	/**
-	 * 更新時間，透過SQL自動產生
+	 * 更新時間
 	 */
 	public Date getUpdateDate() {
 		return updateDate;
@@ -68,5 +68,4 @@ public class ModSenDto {
 		this.updateDate = updateDate;
 	}
 
-	
 }

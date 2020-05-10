@@ -1,7 +1,5 @@
 package com.springmvc.dao;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -28,7 +26,7 @@ public class ModSenDaoImpl extends BaseDaoImpl<ModSen> implements ModSenDao {
 		super(sessionFactory);
 	}
 
-	public ModSen findBySenCode(String senCode) {
+	public ModSen find_senCode(String senCode) {
 		Session session = sessionFactory.openSession();
 		Query query = session.createQuery("from ModSen where senCode =:senCode ");
 		query.setParameter("senCode", senCode);

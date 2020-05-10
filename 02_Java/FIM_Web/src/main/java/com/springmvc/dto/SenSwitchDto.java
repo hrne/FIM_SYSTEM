@@ -1,25 +1,9 @@
 package com.springmvc.dto;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springmvc.entity.ModMain;
-import com.springmvc.entity.ModSen;
 
 /**
  * 電源開關感應資料Dto
@@ -35,7 +19,7 @@ public class SenSwitchDto {
      * 感應裝置id
      */
 	@JsonIgnore
-    private ModMain modData;
+    private ModMain modMain;
 
 	/**
 	 * 電源開關狀態，1:通電、0:關閉
@@ -63,12 +47,12 @@ public class SenSwitchDto {
 	/**
      * 感應裝置id
      */
-	public ModMain getModData() {
-		return modData;
+	public ModMain getModMain() {
+		return modMain;
 	}
 
-	public void setModData(ModMain modData) {
-		this.modData = modData;
+	public void setModMain(ModMain modMain) {
+		this.modMain = modMain;
 	}
 
 	/**
@@ -104,11 +88,18 @@ public class SenSwitchDto {
 		this.updateDate = updateDate;
 	}
 
-	// 頁面使用
+	/***** 頁面使用 *****/
+	/**
+	 * 感應裝置id
+	 */
+	public Integer getModMainId() {
+		return getModMain().getId();
+	}
+	
 	/**
 	 * 感應裝置名稱
 	 */
 	public String getSenName() {
-		return getModData().getModName();
+		return getModMain().getModName();
 	}
 }

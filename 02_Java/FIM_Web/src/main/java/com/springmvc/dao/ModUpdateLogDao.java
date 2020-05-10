@@ -4,12 +4,12 @@ import com.modle.dao.BaseDao;
 import com.springmvc.entity.ModUpdateLog;
 
 /**
- * 感應裝置更新紀錄的Dao介面
+ * 感應裝置更新紀錄Dao介面
  * 
  * @author hrne
  *
  */
-public interface ModDataLogDao extends BaseDao<ModUpdateLog>{
+public interface ModUpdateLogDao extends BaseDao<ModUpdateLog>{
 
 
 }

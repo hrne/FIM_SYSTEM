@@ -6,14 +6,16 @@
 
 /**
    感應器說明:
-   Dht11:溫濕度
-   Hx711:重量感應
-   switch:電源開關(繼電器)
+   Dht11:   溫濕度
+   Hx711:   重量感應
+   switch:  電源開關(繼電器)
+   FireAlm: 火災警報
 
    接腳:
-   Dht11   D3
-   Hx711   D4、D5
-   switch  D7(開關)、A0(電池電力)
+   Dht11     D3
+   Hx711     D4、D5
+   switch    D7(開關)、A0(電池電力)
+   FireAlm   D8(火光)、D9(一氧化碳)
 
 */
 
@@ -42,6 +44,10 @@ HX711 scale; // Initialize load cell amplifire
 #define turnon true
 #define turnoff false
 
+//FireAlm設定
+#define firePin D8  //火光
+#define mq7Pin D9   //一氧化碳 
+
 //sensor變數
 //dht11
 float humidity = 0; //濕度
@@ -54,6 +60,10 @@ float weight = 0;//重量
 //電源開關(繼電器)
 float batteryVolt = 0; //電池電力
 int powStatus = 1; //電源狀態 1:啟用 0:關閉
+
+//fireAlm
+int fireStatus; //火光警示
+int mq7Status; //一氧化碳警示
 
 //sensor回傳值
 String respJsonMes = ""; //回傳json值
@@ -75,6 +85,10 @@ void setup() {
   //設定電源開關
   pinMode(relayPin, OUTPUT) ;
   digitalWrite(relayPin, turnon) ;//一開始打開
+
+  //設定fireAlm
+  pinMode(firePin, INPUT);
+  pinMode(mq7Pin, INPUT);
 
   //若要指定IP位址，請自行在此加入WiFi.config()敘述。
   //WiFi.config(IPAddress(192,168,0,105),    // IP位址
@@ -98,10 +112,11 @@ void setup() {
     deserializeJson(rootGet, server.arg("plain"));
     for (uint8_t i = 0; i < server.args(); i++) {
       rootGet[server.argName(i)] = server.arg(i);
-    }  
+    }
     String stateDht11 = rootGet["dht11"];
     String stateHx711 = rootGet["hx711"];
     String stateSwitch = rootGet["switch"];
+    String stateFireAlm = rootGet["fireAlm"];
     String statePowEnabled = rootGet["pow_enabled"];
 
     //回傳Json
@@ -128,13 +143,23 @@ void setup() {
       rootResp["pow_status"] = powStatus;
     }
 
+    //判斷需要火災警報時，讀取資料
+    if (stateFireAlm == "1") {
+      getFireAlm();
+      rootResp["fire_status"] = fireStatus;
+      rootResp["mq7_status"] = mq7Status;
+    }
+
     //判斷是否需要關閉電源
-    if (statePowEnabled !="") {
+    if (statePowEnabled != "") {
       if (statePowEnabled == "1") {
         digitalWrite(relayPin, turnon) ;//打開
       } else if (statePowEnabled == "0") {
         digitalWrite(relayPin, turnoff) ;//關閉
       }
+      rootResp["resp_power_status"] = true;
+    } else {
+      rootResp["resp_power_status"] = false;
     }
 
     //將回傳Json放入
@@ -174,4 +199,10 @@ void getHx711() {
 void getSwitchBatteryVolt() {
   batteryVolt = (analogRead(A0) / 1023 * 3.3) * 4.9;
   powStatus = digitalRead(D7);
+}
+
+//讀取火災警報資料
+void getFireAlm() {
+  fireStatus = digitalRead(firePin);//火光警示
+  mq7Status = digitalRead(mq7Pin);//一氧化碳警示
 }

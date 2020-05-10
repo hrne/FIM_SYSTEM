@@ -1,26 +1,22 @@
 package com.springmvc.dao;
 
-import java.util.List;
-
 import com.modle.dao.BaseDao;
-import com.springmvc.entity.ModData;
-import com.springmvc.entity.SenDht11;
+import com.springmvc.entity.SysRespStatus;
 
 /**
- * 溫濕度dht11感應資料的Dao介面
+ * 回傳狀態代碼檔Dao介面
  * 
  * @author hrne
  *
  */
-public interface SenDht11Dao extends BaseDao<SenDht11>{
+public interface SysRespStatusDao extends BaseDao<SysRespStatus>{
 			
 	/**
-	 * 依據感應裝置查詢溫濕度資料，依照更新日期新到舊排序
+	 * 依據回傳代碼查詢
 	 * 
-	 * @param modData 感應裝置
-	 * @return SenDht11 list 溫濕度列表
+	 * @param statusCode 回傳代碼
+	 * @return SysRespStatus
 	 */
-	List<SenDht11> findDht11OrderData(ModData modData);
-
+	SysRespStatus find_statusCode(String statusCode);
 
 }

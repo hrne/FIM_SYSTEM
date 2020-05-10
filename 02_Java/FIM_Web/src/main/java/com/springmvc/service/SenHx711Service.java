@@ -8,7 +8,7 @@ import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenHx711;
 
 /**
- * 重量hx711感應資料的Service介面
+ * 重量hx711感應資料Service介面
  * 
  * @author hrne
  *
@@ -16,19 +16,19 @@ import com.springmvc.entity.SenHx711;
 public interface SenHx711Service extends BaseService<SenHx711> {
 
 	/**
-	 * 儲存重量hx711感應資料
+	 * 依據回傳Json儲存資料，若資料有錯誤則紀錄log不儲存
 	 * 
-	 * @param senMach  感應裝置
-	 * @param modSen   感應模組
-	 * @param respJSON 回傳JSON
+	 * @param modMain 感應裝置主檔
+	 * @param modSen 感應模組
+	 * @param respJson 回傳Json
 	 */
-	void createHx711(ModMain modData, ModSen modSen, String respJSON);
-
+	void save_respJson(ModMain modMain, ModSen modSen, String respJson);
+	
 	/**
-	 * 查詢每個啟用的感應裝置最新一筆重量資料
+	 * 依據啟用感應裝置主檔查詢最新的重量資料
 	 * 
-	 * @return SenHx711 list 重量列表
+	 * @return SenHx711 list
 	 */
-	List<SenHx711> findLatestHx711Data();
+	List<SenHx711> find_latest_modMain();
 
 }

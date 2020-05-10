@@ -96,6 +96,7 @@
 
 <!-- Bootstrap-table.min JavaScript -->
 <script src="<c:url value='/vendor/bootstrap-table/dist/bootstrap-table.min.js'/>"></script>
+<script src="<c:url value='/vendor/bootstrap-table/dist/extensions/auto-refresh/bootstrap-table-auto-refresh.min.js'/>"></script>
 
 <!-- Bootstrap-toggle.min JavaScript -->
 <script src="<c:url value='/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js'/>"></script>

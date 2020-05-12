@@ -51,6 +51,10 @@
 <!-- bootstrap-toggle CSS -->
 <link href="<c:url value='/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css'/>"
 	rel="stylesheet">	
+	
+<!-- bootstrap-editable CSS -->
+<link href="<c:url value='/vendor/bootstrap-editable/css/bootstrap-editable.css'/>"
+	rel="stylesheet">	
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -100,6 +104,9 @@
 
 <!-- Bootstrap-toggle.min JavaScript -->
 <script src="<c:url value='/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js'/>"></script>
+
+<!-- Bootstrap-editable.min JavaScript -->
+<script src="<c:url value='/vendor/bootstrap-editable/js/bootstrap-editable.min.js'/>"></script>
 
 </head>
 

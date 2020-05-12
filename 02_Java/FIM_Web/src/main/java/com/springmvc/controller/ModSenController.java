@@ -72,7 +72,7 @@ public class ModSenController {
 	public String showAllSenParmLimit() {
 
 		// 導頁至感應模組警示值
-		return "modData/listSenParmLimit";
+		return "modSen/listSenParmLimit";
 	}
 	
 	/**
@@ -139,7 +139,43 @@ public class ModSenController {
 		model.addAttribute("modSenDto", modSenDto);
 		
 		// 導頁至修改頁面
-		return "modData/senParmLimitForm";
+		return "modSen/senParmLimitForm";
+	}
+	
+	/**
+	 * 儲存感應裝置 from add or update
+	 * 
+	 * @param modMainDto
+	 * @param result
+	 * @param model
+	 * @param redirectAttributes
+	 * @param locale
+	 * @return
+	 */
+	@RequestMapping(value = "/modSen/saveSenParmLimit", method = RequestMethod.POST)
+	public String save(@ModelAttribute("modSenDto") @Validated ModSenDto modSenDto,List<ModParmDataDto> modParmDataDtoList, BindingResult result,
+			Model model, final RedirectAttributes redirectAttributes, Locale locale) {
+		if (result.hasErrors()) {
+			return "modSen/senParmLimitForm";
+		} else {
+			System.out.println(modSenDto.getId());
+			for(ModParmDataDto modParmDataDto: modParmDataDtoList) {
+				// 儲存資料
+				modParmDataService.save_modParmDataDto(modParmDataDto);
+			}
+
+//			// 顯示回傳訊息
+//			redirectAttributes.addFlashAttribute("css", "success");
+//			if (modMainDto.isNew()) {
+//				redirectAttributes.addFlashAttribute("msg",
+//						messageSource.getMessage("modDataAddSuc", new Object[] {}, locale));
+//			} else {
+//				redirectAttributes.addFlashAttribute("msg",
+//						messageSource.getMessage("modDataUpdateSuc", new Object[] {}, locale));
+//			}
+			//重導至感應模組列表
+			return "redirect:/modSen/showAllSenParmLimit";
+		}
 	}
 
 }

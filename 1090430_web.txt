@@ -28,3 +28,6 @@ https://blog.csdn.net/yiifaa/article/details/51917882
 http://jsfiddle.net/phpdeveloperrahul/MRxn3/
 https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/xaxis/plotlines-id/
 https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/stock/demo/dynamic-update/
+
+http://ccwcode.blogspot.com/2017/05/x-editablebootstrap-table.html
+https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/554786/

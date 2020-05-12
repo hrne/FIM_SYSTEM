@@ -7,12 +7,19 @@
 
 <script type="text/javascript">
 	$(function() {
-		setInterval(refreshSwitch, 300); //每3秒刷新一次
+		//setInterval(refreshSwitch, 3000); //每3秒刷新一次
+		function refreshSwitch() {
+			$.ajax({
+				success : function(data) {
+					$('#display_resultSwitch').bootstrapTable('refresh');
+				}
+			});
+		}
 		$(document).ready(function() {
-			refreshSwitch();
+			createSwitch();
 		});
 
-		function refreshSwitch() {
+		function createSwitch() {
 			//這段須放在表格初始化之前
 			function updateStatus(modMainId, state) {
 				$.ajax({
@@ -88,7 +95,8 @@
 </script>
 
 <!-- 電源開關感應資料 -->
-<table width="100%" id="display_resultSwitch"
+<table width="100%" id="display_resultSwitch" data-auto-refresh="true"
+	data-auto-refresh-interval="3"
 	class="table table-striped table-bordered table-hover">
 
 </table>

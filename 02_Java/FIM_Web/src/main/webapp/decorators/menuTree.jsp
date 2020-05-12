@@ -73,18 +73,16 @@
 			<!-- 感應裝置列表 -->
 			<li><a href="<c:url value='/modData/showAllModMain'/>"><s:message
 						code='modDataList' /></a></li>
-			<!-- 感應模組警示值 -->
-			<li><a href="<c:url value='/modData/showAllSenParmLimit'/>"><s:message
-						code='modSenLimit' /></a></li>
+
 		</ul></li>
 
 	<!-- 感應模組 -->
 	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <s:message
 				code='modSen' /><span class="fa arrow"></span></a>
 		<ul class="nav nav-second-level collapse">
-			<!-- 溫濕度 -->
-			<li><a href="<c:url value='/senMod/listSenDht11'/>"> <s:message
-						code='senDht11' /></a></li>
+			<!-- 感應模組警示值 -->
+			<li><a href="<c:url value='/modSen/showAllSenParmLimit'/>"><s:message
+						code='modSenLimit' /></a></li>
 		</ul></li>
 
 </ul>

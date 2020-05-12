@@ -2,7 +2,14 @@ package com.springmvc.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.springmvc.entity.ModSen;
 
 /**
  * 模組參數資料Dto
@@ -13,6 +20,13 @@ import javax.persistence.Column;
 public class ModParmDataDto {
 
 	private int id;
+	
+	/**
+	 * 感應模組id
+	 */
+	@JsonIgnore
+	private ModSen modSen;
+
 
 	/**
 	 * 參數代號
@@ -55,6 +69,17 @@ public class ModParmDataDto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	/**
+	 * 感應模組id
+	 */
+	public ModSen getModSen() {
+		return modSen;
+	}
+
+	public void setModSen(ModSen modSen) {
+		this.modSen = modSen;
 	}
 
 	/**

@@ -24,7 +24,6 @@
 				url : 'senMod/showAllRespLog',
 				method : 'get',
 				dataType : "json",
-				autoRefreshInterval="3",
 				striped : true, // 隔行加亮
 				idField : 'modMainId',//指定主键列  
 				columns : [ {
@@ -36,7 +35,7 @@
 				} ]
 			});
 		}
-		setInterval(refreshRespLog, 3000); //每3秒刷新一次
+		//setInterval(refreshRespLog, 3000); //每3秒刷新一次
 	})
 </script>
 

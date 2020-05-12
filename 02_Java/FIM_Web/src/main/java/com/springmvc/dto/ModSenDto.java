@@ -1,6 +1,7 @@
 package com.springmvc.dto;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 感應模組Dto
@@ -66,6 +67,23 @@ public class ModSenDto {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+	
+	/***** 頁面使用 *****/
+	/**
+	 * 模組參數資料dto列表
+	 */
+	private List<ModParmDataDto> modParmDataDtoList;
+	
+	/**
+	 * 模組參數資料dto列表
+	 */
+	public List<ModParmDataDto> getModParmDataDtoList() {
+		return modParmDataDtoList;
+	}
+
+	public void setModParmDataDtoList(List<ModParmDataDto> modParmDataDtoList) {
+		this.modParmDataDtoList = modParmDataDtoList;
 	}
 
 }

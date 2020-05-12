@@ -14,7 +14,7 @@
 		}
 		window.operateEvents = {
 			'click .RoleOfedit' : function(e, value, row, index) {
-				alert(row.id);
+				location.href = row.id + "/showUpdateSenParmLimit";
 			}
 		};
 
@@ -37,8 +37,9 @@
 				title : '操作',
 				align : 'center',
 				events : operateEvents,//按鈕事件
-				formatter : addFunctionAlty //按鈕格式
-			
+				formatter : addFunctionAlty
+			//按鈕格式
+
 			} ],
 			//無限讀取子表，直到沒有資料
 			onExpandRow : function(index, row, $Subdetail) {
@@ -114,7 +115,7 @@
 				</c:if>
 
 				<!-- /.panel-heading -->
-				<div >
+				<div>
 					<table width="100%"
 						class="table table-striped table-bordered table-hover"
 						id="display_resultParmLimit">

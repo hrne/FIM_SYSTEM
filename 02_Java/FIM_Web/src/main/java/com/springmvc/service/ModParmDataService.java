@@ -13,7 +13,7 @@ import com.springmvc.entity.ModParmData;
  * @author hrne
  *
  */
-public interface ModParmDataService extends BaseService<ModParmData>{
+public interface ModParmDataService extends BaseService<ModParmData> {
 
 	/**
 	 * 依據感應模組id查詢模組參數資料，篩選只於修改畫面顯示
@@ -22,12 +22,29 @@ public interface ModParmDataService extends BaseService<ModParmData>{
 	 * @return ModParmData list
 	 */
 	List<ModParmData> find_modSenId_show(Integer modSenId);
-	
+
 	/**
 	 * 依據模組參數資料Dto儲存資料
 	 * 
 	 * @param modParmDataDto 模組參數Dto
 	 */
 	void save_modParmDataDto(ModParmDataDto modParmDataDto);
-	
+
+	/**
+	 * 依據畫面傳回值儲存資料
+	 * 
+	 * @param id         模組參數id
+	 * @param field      修改欄位
+	 * @param upperLimit 修改後上限警示值
+	 * @param lowerLimit 修改後下限警示值
+	 */
+	void save_filed_data(int id, String field, int upperLimit, int lowerLimit);
+
+	/**
+	 * 依據模組參數id儲存警示值是否啟用
+	 * 
+	 * @param ModParmDataId
+	 */
+	void save_modParmDataId(int ModParmDataId, boolean state);
+
 }

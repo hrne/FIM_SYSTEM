@@ -7,6 +7,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.springmvc.dto.ModMainDto;
+import com.springmvc.dto.ModParmDataDto;
 import com.springmvc.dto.ModSenDto;
 import com.springmvc.service.ModMainService;
 import com.springmvc.service.ModSenService;
@@ -19,13 +20,13 @@ public class ModSenFormValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return ModSenDto.class.equals(clazz);
+		return ModParmDataDto.class.equals(clazz);
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
 
-		ModSenDto modSenDto = (ModSenDto) target;
+		ModParmDataDto modParmDataDto = (ModParmDataDto) target;
 
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "modName", "userForm.name.notEmpty");
 //		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ipAddress", "userForm.email.notEmpty");

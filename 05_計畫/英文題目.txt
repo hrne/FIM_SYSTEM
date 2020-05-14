@@ -1,0 +1,17 @@
+題目:
+Implementation of Factory Information Monitoring System based on OPC UA
+
+備胎1:
+The Smart Factory Monitoring System Based on the OPC UA Protocol
+
+備胎2:
+Design and Development of the Factory Information Monitoring System by using OPC UA
+
+備胎3:
+The Information Monitoring System for Smart Factory based on OPC UA
+
+備胎4:
+Real-Time Information Monitoring System In Smart Factory
+
+最終版
+Design and Development of the Factory Information Monitoring System in Smart Factory

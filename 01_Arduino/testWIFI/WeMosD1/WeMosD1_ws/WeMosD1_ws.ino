@@ -36,7 +36,7 @@ void setup() {
   Serial.println(WiFi.localIP());  // 顯示ESP8266裝置的IP位址
 
   // 處理GET或POST請求
-  server.on("/send", []() {
+  server.on("/dht11", []() {
     String message;
     getTemperature();
     StaticJsonBuffer<500> jsonBuffer;

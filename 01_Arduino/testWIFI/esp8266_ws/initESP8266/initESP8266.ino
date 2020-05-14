@@ -1,12 +1,14 @@
 #include "ESP8266WiFi.h"
- 
- const char* ssid = "lin2";
+
+ //WIFI帳號密碼
+ const char* ssid = "lin2"; 
  const char* password = "29883713";
  
  void setup(void)
  {  
    Serial.begin(115200);
    Serial.println("start....");
+   //WIFI設置
    WiFi.begin(ssid, password);
    while (WiFi.status() != WL_CONNECTED) {  //不斷嚐試連接
      delay(500);

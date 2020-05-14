@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/decorators">
+	<excludes>
+		<pattern>/login</pattern>
+		<!-- 排除透過ajax更新的頁面 controller @RequestMapping value -->
+		<pattern>/senMod/showAllDht11</pattern>
+		<pattern>/senMod/showAllHx711</pattern>
+		<pattern>/senMod/showAllSwitch</pattern>
+		<pattern>/senMod/turnPowerSwitch</pattern>
+		<pattern>/senMod/showAllFireAlm</pattern>
+		<pattern>/senMod/showAllRespLog</pattern>
+		<pattern>/senMod/listSwitch</pattern>
+	</excludes>
+	<decorator name="layout" page="layout.jsp">
+		<pattern>*</pattern>
+	</decorator>
+</decorators>

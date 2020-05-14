@@ -44,13 +44,13 @@ public class SenDht11 {
 	private BigDecimal humidity;
 
 	/**
-	 * 溫度(攝氏H)
+	 * 溫度(攝氏C)
 	 */
 	@Column(name = "temp_cal", precision = 5, scale = 2)
 	private BigDecimal tempCal;
 
 	/**
-	 * 溫度(華氏C)
+	 * 溫度(華氏F)
 	 */
 	@Column(name = "temp_fah", precision = 5, scale = 2)
 	private BigDecimal tempFah;
@@ -93,7 +93,7 @@ public class SenDht11 {
 	}
 
 	/**
-	 * 溫度(攝氏H)
+	 * 溫度(攝氏C)
 	 */
 	public BigDecimal getTempCal() {
 		return tempCal;
@@ -104,7 +104,7 @@ public class SenDht11 {
 	}
 
 	/**
-	 * 溫度(華氏C)
+	 * 溫度(華氏F)
 	 */
 	public BigDecimal getTempFah() {
 		return tempFah;

@@ -33,5 +33,13 @@ public class ModRespLogDaoImpl extends BaseDaoImpl<ModRespLog> implements ModRes
 		query.setParameter("modMainId", modMainId);
 		return query.list();
 	}
+	
+	public List<ModRespLog> find_modMainId_modSenId_desc(Integer modMainId,Integer modSenId){
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from ModRespLog where modMain.id =:modMainId and modSen.id =:modSenId order by updateDate desc");
+		query.setParameter("modMainId", modMainId);
+		query.setParameter("modSenId", modSenId);
+		return query.list();
+	}
 
 }

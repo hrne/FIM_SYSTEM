@@ -8,6 +8,8 @@
 		<pattern>/senMod/showAllHx711</pattern>
 		<pattern>/senMod/showAllSwitch</pattern>
 		<pattern>/senMod/turnPowerSwitch</pattern>
+		<pattern>/senMod/showAllFireAlm</pattern>
+		<pattern>/senMod/showAllRespLog</pattern>
 		<pattern>/senMod/listSwitch</pattern>
 	</excludes>
 	<decorator name="layout" page="layout.jsp">

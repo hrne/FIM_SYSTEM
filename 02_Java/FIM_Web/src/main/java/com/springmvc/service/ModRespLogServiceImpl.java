@@ -27,10 +27,10 @@ public class ModRespLogServiceImpl extends BaseServiceImpl<ModRespLog> implement
 
 	@Autowired
 	private SysRespStatusService sysRespStatusService;
-	
+
 	@Autowired
 	private ModMainService modMainService;
-	
+
 	@Autowired
 	private ModRespLogDao modRespLog;
 
@@ -69,7 +69,7 @@ public class ModRespLogServiceImpl extends BaseServiceImpl<ModRespLog> implement
 		// 將資料寫入DB
 		create(modRespLog);
 	}
-	
+
 	public List<ModRespLog> find_latest_modMain() {
 
 		// 查詢所有啟用的感應裝置主檔
@@ -80,14 +80,17 @@ public class ModRespLogServiceImpl extends BaseServiceImpl<ModRespLog> implement
 		List<ModRespLog> results = new ArrayList<ModRespLog>();
 
 		for (ModMain modMain : modMainList) {
-			
-			// 查詢感應裝置感應紀錄列表，依據更新日期排序
-			modRespLogList = modRespLog.find_modMainId_desc(modMain.getId());
-			
-			// 判斷是否有資料
-			if (!CollectionUtils.isEmpty(modRespLogList)) {
-				// 取最新一筆放入
-				results.add(modRespLogList.get(0));
+
+			// 依據每個感應裝置的模組查詢紀錄
+			for (ModSen modSen : modMain.getModSenSet()) {
+				// 查詢感應裝置感應紀錄列表，依據更新日期排序
+				modRespLogList = modRespLog.find_modMainId_modSenId_desc(modMain.getId(), modSen.getId());
+
+				// 判斷是否有資料
+				if (!CollectionUtils.isEmpty(modRespLogList)) {
+					// 取最新一筆放入
+					results.add(modRespLogList.get(0));
+				}
 			}
 		}
 		return results;

@@ -1,7 +1,10 @@
 package com.springmvc.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.FetchType;
@@ -13,44 +16,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModParmData;
 import com.springmvc.entity.ModSen;
-import com.springmvc.entity.SysRespStatus;
 
 /**
- * 感應紀錄Dto
+ * 重量hx711感應資料Dto
  * 
  * @author hrne
  *
  */
-public class ModRespLogDto {
+public class SenHx711Dto {
 
 	private int id;
 
 	/**
 	 * 感應裝置主檔id
 	 */
-	@JsonIgnore
 	private ModMain modMain;
 
 	/**
-	 * 感應模組id
+	 * 重量(g)
 	 */
-	@JsonIgnore
-	private ModSen modSen;
-
-	/**
-	 * 回傳狀態代碼檔id
-	 */
-	@JsonIgnore
-	private SysRespStatus sysRespStatus;
-
-	/**
-	 * 回傳訊息
-	 */
-	private String respMessage;
+	private BigDecimal weight;
 
 	/**
 	 * 更新時間，透過SQL自動產生
@@ -77,36 +65,14 @@ public class ModRespLogDto {
 	}
 
 	/**
-	 * 感應模組id
+	 * 重量(g)
 	 */
-	public ModSen getModSen() {
-		return modSen;
+	public BigDecimal getWeight() {
+		return weight;
 	}
 
-	public void setModSen(ModSen modSen) {
-		this.modSen = modSen;
-	}
-
-	/**
-	 * 回傳狀態代碼檔id
-	 */
-	public SysRespStatus getSysRespStatus() {
-		return sysRespStatus;
-	}
-
-	public void setSysRespStatus(SysRespStatus sysRespStatus) {
-		this.sysRespStatus = sysRespStatus;
-	}
-
-	/**
-	 * 回傳訊息
-	 */
-	public String getRespMessage() {
-		return respMessage;
-	}
-
-	public void setRespMessage(String respMessage) {
-		this.respMessage = respMessage;
+	public void setWeight(BigDecimal weight) {
+		this.weight = weight;
 	}
 
 	/**
@@ -122,31 +88,10 @@ public class ModRespLogDto {
 
 	/***** 頁面使用 *****/
 	/**
-	 * 感應裝置id
-	 */
-	public Integer getModMainId() {
-		return getModMain().getId();
-	}
-
-	/**
 	 * 感應裝置名稱
 	 */
 	public String getModMainName() {
 		return getModMain().getModName();
-	}
-
-	/**
-	 * 模組名稱
-	 */
-	public String getModSenName() {
-		return getModSen().getSenName();
-	}
-
-	/**
-	 * 代碼說明
-	 */
-	public String getRespStatusName() {
-		return getSysRespStatus().getStatusName();
 	}
 
 	/**
@@ -182,18 +127,38 @@ public class ModRespLogDto {
 	}
 
 	/**
-	 * 依據感應紀錄代碼顯示
+	 * 重量(g)參數設定資料
+	 */
+	private ModParmData modParmDataWeight;
+
+	/**
+	 * 重量(g)參數設定資料
+	 */
+	public ModParmData getModParmDataWeight() {
+		return modParmDataWeight;
+	}
+
+	public void setModParmDataWeight(ModParmData modParmDataWeight) {
+		this.modParmDataWeight = modParmDataWeight;
+	}
+
+	/**
+	 * 依據警示值顯示重量(g)顏色
 	 * 
 	 * @return
 	 */
-	public String getClassRespStatus() {
-		// 判斷代碼不為00:連線正常
-		if (!getSysRespStatus().getStatusCode().equals("00")) {
-			// 異常顯示
-			return getClassNorDan();
-
+	public String getClassWeight() {
+		// 判斷是否啟用警示
+		if (getModParmDataWeight().isLimitEnabled()) {
+			// 判斷重量(g)是否超過警示值上下限
+			if (getWeight().compareTo(getModParmDataWeight().getUpperLimit()) >= 0
+					|| getWeight().compareTo(getModParmDataWeight().getLowerLimit()) <= 0) {
+				// 異常顯示
+				return getClassNorDan();
+			}
 		}
 		// 正常顯示
 		return getClassNor();
 	}
+
 }

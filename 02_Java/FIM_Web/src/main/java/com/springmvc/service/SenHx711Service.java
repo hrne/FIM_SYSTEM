@@ -3,6 +3,8 @@ package com.springmvc.service;
 import java.util.List;
 
 import com.modle.service.BaseService;
+import com.springmvc.dto.SenDht11Dto;
+import com.springmvc.dto.SenHx711Dto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenHx711;
@@ -30,5 +32,12 @@ public interface SenHx711Service extends BaseService<SenHx711> {
 	 * @return SenHx711 list
 	 */
 	List<SenHx711> find_latest_modMain();
+	
+	/**
+	 * 查詢於頁面顯示重量資料
+	 * 
+	 * @return SenDht11Dto list
+	 */
+	List<SenHx711Dto>find_show_page();
 
 }

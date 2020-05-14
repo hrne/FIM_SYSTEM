@@ -99,7 +99,7 @@ public class SenSwitchDto {
 	/**
 	 * 感應裝置名稱
 	 */
-	public String getSenName() {
+	public String getModMainName() {
 		return getModMain().getModName();
 	}
 }

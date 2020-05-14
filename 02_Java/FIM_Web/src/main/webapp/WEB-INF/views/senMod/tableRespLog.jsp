@@ -4,43 +4,24 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 
-
-<script type="text/javascript">
-	$(function() {
-
-		function refreshRespLog() {
-			$.ajax({
-				success : function(data) {
-					$('#display_respLog').bootstrapTable('refresh');
-				}
-			});
-		}
-
-		$(document).ready(function() {
-			createRespLogTable();
-		});
-		function createRespLogTable() {
-			$("#display_respLog").bootstrapTable({
-				url : 'senMod/showAllRespLog',
-				method : 'get',
-				dataType : "json",
-				striped : true, // 隔行加亮
-				idField : 'modMainId',//指定主键列  
-				columns : [ {
-					title : '模組名稱',
-					field : 'senName',
-				}, {
-					title : '連線狀態',
-					field : 'respStatusName'
-				} ]
-			});
-		}
-		//setInterval(refreshRespLog, 3000); //每3秒刷新一次
-	})
-</script>
-
 <!-- 感應紀錄資料 -->
-<table width="100%" id="display_respLog"
+<table width="100%"
 	class="table table-striped table-bordered table-hover">
-
+	<thead>
+		<tr>
+			<th width="35%">裝置名稱</th>
+			<th width="35%">模組名稱</th>
+			<th width="30%">連線狀態</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="senHx711Dto" items="${senHx711DtoList}">
+			<tr>
+				<!-- 感應裝置名稱 -->
+				<td>${senHx711Dto.modMainName}</td>
+				<!-- 重量(g) -->
+				<td class='${senHx711Dto.classWeight}'>${senHx711Dto.weight}</td>
+			</tr>
+		</c:forEach>
+	</tbody>
 </table>

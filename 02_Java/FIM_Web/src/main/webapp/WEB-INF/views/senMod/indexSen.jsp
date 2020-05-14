@@ -19,6 +19,20 @@
 					$('#hx711').html(data);
 				}
 			});
+			
+			$.ajax({
+				url : 'senMod/showAllFireAlm',
+				success : function(data) {
+					$('#fireAlm').html(data);
+				}
+			});
+			
+			$.ajax({
+				url : 'senMod/showAllRespLog',
+				success : function(data) {
+					$('#respLog').html(data);
+				}
+			});
 		}
 	})
 </script>
@@ -104,13 +118,15 @@
 		<!-- /.col-lg-6 -->
 		<div class="col-lg-6">
 			<div class="panel panel-default">
-				<!-- -->
-				<div class="panel-heading">
-
+				<!-- 火光警示資料 -->
+				<div class="panel-heading ">
+					<h4 class="text-info">火災警報感應資料</h4>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
-
+					<div class="table-responsive" id="fireAlm">
+						<%@include file="tableFireAlm.jsp"%>
+					</div>
 					<!-- /.table-responsive -->
 				</div>
 				<!-- /.panel-body -->
@@ -119,8 +135,8 @@
 		</div>
 		<!-- /.col-lg-6 -->
 	</div>
-	
-		<!-- /.row -->
+
+	<!-- /.row -->
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="panel panel-default">
@@ -145,9 +161,7 @@
 		<div class="col-lg-6">
 			<div class="panel panel-default">
 				<!-- -->
-				<div class="panel-heading">
-
-				</div>
+				<div class="panel-heading"></div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
 

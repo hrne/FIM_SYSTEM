@@ -90,13 +90,17 @@ public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements 
 
 		for (ModMain modMain : modMainList) {
 
-			// 查詢感應裝置電源開關列表，依據更新日期排序
-			senSwitchList = senSwitchDao.find_modMainId_desc(modMain.getId());
-
-			// 判斷是否有資料
-			if (!CollectionUtils.isEmpty(senSwitchList)) {
-				// 取最新一筆放入
-				results.add(senSwitchList.get(0));
+			// 判斷感應裝置是否有設定電源控制感應模組
+			for (ModSen modSen : modMain.getModSenSet()) {
+				if (modSen.getSenCode().equals("switch")) {
+					// 查詢感應裝置電源開關列表，依據更新日期排序
+					senSwitchList = senSwitchDao.find_modMainId_desc(modMain.getId());
+					// 判斷是否有資料
+					if (!CollectionUtils.isEmpty(senSwitchList)) {
+						// 取最新一筆放入
+						results.add(senSwitchList.get(0));
+					}
+				}
 			}
 		}
 		return results;

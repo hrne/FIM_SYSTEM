@@ -5,25 +5,25 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 
 <script type="text/javascript">
+	function updateStatus(id) {
+
+		state = document.getElementById(id).checked;
+
+		console.log(state);
+		$.ajax({
+			url : "saveSenParmLimitEnabled",
+			type : "POST",
+			dataType : "JSON",
+			data : {
+				"id" : id,
+				"state" : state
+			},
+			success : function(data) {
+				console.log(data)
+			}
+		})
+	};
 	$(function() {
-
-		//這段須放在表格初始化之前
-		function updateStatus(id, state) {
-			$.ajax({
-				url : "saveSenParmLimitEnabled",
-				type : "POST",
-				dataType : "JSON",
-				data : {
-					"id" : id,
-					"state" : state
-				},
-				success : function(data) {
-					console.log(data)
-				}
-			})
-		}
-		;
-
 		$("#display_resultParmLimit").bootstrapTable({
 			url : 'showAllModSen',
 			method : 'get',
@@ -113,9 +113,16 @@
 													index) {
 												var $enabled;
 												if (row.limitEnabled) {
-													$enabled = "<input  value=" + row.id + " name='avaCheck' type='checkbox' checked/>";
+													$enabled = "<input  id="
+															+ row.id
+															+ " id='avaCheck' type='checkbox' onclick='updateStatus("
+															+ row.id
+															+ ")' checked/>";
 												} else {
-													$enabled = "<input  value=" + row.id + " name='avaCheck' type='checkbox'/>";
+													$enabled = "<input  id="
+															+ row.id
+															+ " id='avaCheck' type='checkbox' onclick='updateStatus("
+															+ row.id + ")' />";
 												}
 												return $enabled;
 											}
@@ -150,53 +157,8 @@
 										complete : function() {
 
 										}
-
 									});
-								},
-								onClickCell : function(field, value, row,
-										$element) {
-									console.log(row);
-									$.ajax({
-										url : "saveSenParmLimitEnabled",
-										type : "POST",
-										dataType : "JSON",
-										data : {
-											"id" : row.id,
-											"state" : row.limitEnabled
-										},
-										success : function(data) {
-											console.log(row.limitEnabled);
-											
-											console.log(row.limitEnabled);
-										}
-									})
-									if (row.limitEnabled) {
-												row.limitEnabled = false;
-											} else {
-												row.limitEnabled = true;
-											}
 								}
-							/**
-							onLoadSuccess : function() {
-								
-								var changeHandler = function() {
-									var id = $(this).val();
-									var state = !$(this).prop('checked');
-									updateStatus(id, state);
-								};
-								$("[name='avaCheck']").bootstrapToggle(
-										'destroy');
-								return $("[name='avaCheck']")
-										.bootstrapToggle({
-											on : '啟用',//選中時顯示文字
-											off : '關閉',///選中時顯示文字
-											//onstyle: 'success',//on樣式：default,primary,success,info,warning,danger
-											//offstyle: 'default',//off樣式：default,primary,success,info,warning,danger
-											size : 'small',//物件大小：large,normal,small,mini
-										}).off('change.status').on(
-												'change.status',
-												changeHandler);
-							}**/
 							});
 		};
 	})

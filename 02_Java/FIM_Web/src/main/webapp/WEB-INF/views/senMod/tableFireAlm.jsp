@@ -4,22 +4,25 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 
-<!-- 重量hx711感應資料 -->
+<!-- 火災警報感應資料資料 -->
 <table width="100%"
 	class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th width="50%"><s:message code='modDataName' /></th>
-			<th width="50%"><s:message code='senHx711Weight' /></th>
+			<th width="20%"><s:message code='modDataName' /></th>
+			<th width="40%">火光警示</th>
+			<th width="40%">一氧化碳警示</th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="senHx711Dto" items="${senHx711DtoList}">
+		<c:forEach var="senFireAlmDto" items="${senFireAlmDtoList}">
 			<tr>
 				<!-- 感應裝置名稱 -->
-				<td>${senHx711Dto.modMainName}</td>
-				<!-- 重量(g) -->
-				<td class='${senHx711Dto.classWeight}'>${senHx711Dto.weight}</td>
+				<td>${senFireAlmDto.modMainName}</td>
+				<!-- 火光警示-->
+				<td>${senFireAlmDto.fireStatusName}</td>
+				<!-- 一氧化碳警示-->
+				<td>${senFireAlmDto.mq7StatusName}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

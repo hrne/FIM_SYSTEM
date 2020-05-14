@@ -9,22 +9,23 @@
 	<thead>
 		<tr>
 			<th width="25%"><s:message code='modDataName' /></th>
-			<th width="25%"><s:message code='senDht11TempCal' /></th>
 			<th width="25%"><s:message code='senDht11Humidity' /></th>
-			<th width="25%"><s:message code='updateDate' /></th>
+			<th width="25%"><s:message code='senDht11TempCal' /></th>
+			<th width="25%"><s:message code='senDht11TempFah' /></th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="senDht11" items="${senDht11List}">
+		<c:forEach var="senDht11Dto" items="${senDht11DtoList}">
 			<tr>
 				<!-- 感應裝置名稱 -->
-				<td>${senDht11.modMain.modName}</td>
-				<!-- 溫度(攝氏H) -->
-				<td>${senDht11.tempCal}</td>
+				<td>${senDht11Dto.modMainName}</td>
 				<!-- 濕度 -->
-				<td>${senDht11.humidity}</td>
-				<!-- 更新時間 -->
-				<td>${senDht11.updateDate}</td>
+				<td class='${senDht11Dto.classHumidity}'>${senDht11Dto.humidity}</td>
+				<!-- 溫度(攝氏C) -->
+				<td class='${senDht11Dto.classTempCal}'>${senDht11Dto.tempCal}</td>
+				<!-- 溫度(華氏F) -->
+				<td class='${senDht11Dto.classTempFah}'>${senDht11Dto.tempFah}</td>
+
 			</tr>
 		</c:forEach>
 	</tbody>

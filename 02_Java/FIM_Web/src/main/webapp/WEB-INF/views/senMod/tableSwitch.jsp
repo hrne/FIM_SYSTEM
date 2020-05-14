@@ -8,6 +8,7 @@
 <script type="text/javascript">
 	$(function() {
 		//setInterval(refreshSwitch, 3000); //每3秒刷新一次
+		/**
 		function refreshSwitch() {
 			$.ajax({
 				success : function(data) {
@@ -17,80 +18,76 @@
 		}
 		$(document).ready(function() {
 			createSwitch();
-		});
+		});**/
 
-		function createSwitch() {
-			//這段須放在表格初始化之前
-			function updateStatus(modMainId, state) {
-				$.ajax({
-					url : "senMod/turnPowerSwitch",
-					type : "POST",
-					dataType : "JSON",
-					data : {
-						"modMainId" : modMainId,
-						"state" : state
-					},
-					success : function(data) {
-						console.log(data)
-					}
-				})
-			}
-			;
-
-			$("#display_resultSwitch")
-					.bootstrapTable(
-							{
-								url : 'senMod/showAllSwitch',
-								method : 'get',
-								dataType : "json",
-								striped : true, // 隔行加亮
-								idField : 'modMainId',//指定主键列  
-								columns : [
-										{
-											title : '模組名稱',
-											field : 'senName',
-										},
-										{
-											title : '電池電力(V)',
-											field : 'batteryVolt'
-										},
-										{
-											title : "電源開關",
-											field : 'powStatus',
-											align : 'left',
-											valign : 'middle',
-											formatter : function(value, row,
-													index) {
-												var $switch;
-												if (value == 1) {
-													$switch = "<input data-toggle='toggle' value=" + row.modMainId + " name='avaCheck' type='checkbox' checked/>";
-												} else {
-													$switch = "<input data-toggle='toggle' value=" + row.modMainId + " name='avaCheck' type='checkbox'/>";
-												}
-												return $switch;
-											}
-										} ],
-								onLoadSuccess : function() {
-									var changeHandler = function() {
-										var modMainId = $(this).val();
-										var state = !$(this).prop('checked');
-										updateStatus(modMainId, state);
-									};
-									$("[name='avaCheck']").bootstrapToggle(
-											'destroy');
-									return $("[name='avaCheck']")
-											.bootstrapToggle({
-												//on: 'on',//選中時顯示文字
-												//off: 'off',///選中時顯示文字
-												//onstyle: 'success',//on樣式：default,primary,success,info,warning,danger
-												//offstyle: 'default',//off樣式：default,primary,success,info,warning,danger
-												size : 'small',//物件大小：large,normal,small,mini
-											}).off('change.status').on(
-													'change.status',
-													changeHandler);
-								}
-							});
+		//這段須放在表格初始化之前
+		function updateStatus(modMainId, state) {
+			$.ajax({
+				url : "senMod/turnPowerSwitch",
+				type : "POST",
+				dataType : "JSON",
+				data : {
+					"modMainId" : modMainId,
+					"state" : state
+				},
+				success : function(data) {
+					console.log(data)
+				}
+			})
 		}
+		;
+
+		$("#display_resultSwitch")
+				.bootstrapTable(
+						{
+							url : 'senMod/showAllSwitch',
+							method : 'get',
+							dataType : "json",
+							striped : true, // 隔行加亮
+							idField : 'modMainId',//指定主键列  
+							columns : [
+									{
+										title : '裝置名稱',
+										field : 'modMainName',
+									},
+									{
+										title : '電池電力(V)',
+										field : 'batteryVolt'
+									},
+									{
+										title : "電源開關",
+										field : 'powStatus',
+										align : 'left',
+										valign : 'middle',
+										formatter : function(value, row, index) {
+											var $switch;
+											if (value == 1) {
+												$switch = "<input data-toggle='toggle' value=" + row.modMainId + " name='avaCheck' type='checkbox' checked/>";
+											} else {
+												$switch = "<input data-toggle='toggle' value=" + row.modMainId + " name='avaCheck' type='checkbox'/>";
+											}
+											return $switch;
+										}
+									} ],
+							onLoadSuccess : function() {
+								var changeHandler = function() {
+									var modMainId = $(this).val();
+									var state = !$(this).prop('checked');
+									updateStatus(modMainId, state);
+								};
+								$("[name='avaCheck']").bootstrapToggle(
+										'destroy');
+								return $("[name='avaCheck']").bootstrapToggle({
+									//on: 'on',//選中時顯示文字
+									//off: 'off',///選中時顯示文字
+									//onstyle: 'success',//on樣式：default,primary,success,info,warning,danger
+									//offstyle: 'default',//off樣式：default,primary,success,info,warning,danger
+									size : 'small',//物件大小：large,normal,small,mini
+								}).off('change.status').on('change.status',
+										changeHandler);
+
+							}
+						});
 	})
 </script>
 

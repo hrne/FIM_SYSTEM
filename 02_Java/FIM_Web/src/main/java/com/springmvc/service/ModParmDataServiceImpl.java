@@ -27,44 +27,48 @@ public class ModParmDataServiceImpl extends BaseServiceImpl<ModParmData> impleme
 	public List<ModParmData> find_modSenId_show(Integer modSenId) {
 		return modParmDataDao.find_modSenId_show(modSenId);
 	}
-	
-	public void save_modParmDataDto(ModParmDataDto modParmDataDto){
-		
+
+	public void save_modParmDataDto(ModParmDataDto modParmDataDto) {
+
 		ModParmData modParmData = new ModParmData();
-		
-		//將dto資料轉換回entity
+
+		// 將dto資料轉換回entity
 		modParmData = ObjectMapperUtils.map(modParmDataDto, ModParmData.class);
-		
+
 		// 寫入DB
 		saveOrUpdate(modParmData);
 
 	}
-	
+
 	public void save_filed_data(int id, String field, int upperLimit, int lowerLimit) {
-		
-		//依據id找出模組參數
+
+		// 依據id找出模組參數
 		ModParmData modParmData = modParmDataDao.findByPK(id);
-		
-		//判斷本次修改欄位
-		if(field.equals("upperLimit")) {
+
+		// 判斷本次修改欄位
+		if (field.equals("upperLimit")) {
 			modParmData.setUpperLimit(new BigDecimal(upperLimit));
-		}else if(field.equals("lowerLimit")) {
+		} else if (field.equals("lowerLimit")) {
 			modParmData.setLowerLimit(new BigDecimal(lowerLimit));
 		}
-		
+
 		// 寫入DB
 		saveOrUpdate(modParmData);
-		
+
 	}
-	
+
 	public void save_modParmDataId(int ModParmDataId, boolean state) {
-		
-		//依據id找出模組參數
+
+		// 依據id找出模組參數
 		ModParmData modParmData = modParmDataDao.findByPK(ModParmDataId);
-		
+
 		modParmData.setLimitEnabled(state);
-		
+
 		// 寫入DB
 		saveOrUpdate(modParmData);
+	}
+
+	public ModParmData find_parmCode(String parmCode) {
+		return modParmDataDao.find_parmCode(parmCode);
 	}
 }

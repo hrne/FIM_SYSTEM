@@ -57,7 +57,7 @@ public class SenFireAlmServiceImpl extends BaseServiceImpl<SenFireAlm> implement
 
 			// 儲存成功紀錄，00:連線正常
 			modRespLogService.save_modData_modSen(modMain, modSen, "00", obj.toString());
-			
+
 		} catch (Exception e) {
 			// 回傳資料若其中有一筆空值，則不寫入並儲存錯誤訊息紀錄，02:讀取不到感應模組資料
 			modRespLogService.save_modData_modSen(modMain, modSen, "02", obj.toString());
@@ -74,14 +74,19 @@ public class SenFireAlmServiceImpl extends BaseServiceImpl<SenFireAlm> implement
 		List<SenFireAlm> results = new ArrayList<SenFireAlm>();
 
 		for (ModMain modMain : modMainList) {
-			
-			// 查詢感應裝置火災警報列表，依據更新日期排序
-			senFireAlmList = senFireAlmDao.find_modMainId_desc(modMain.getId());
-			
-			// 判斷是否有資料
-			if (!CollectionUtils.isEmpty(senFireAlmList)) {
-				// 取最新一筆放入
-				results.add(senFireAlmList.get(0));
+
+			// 判斷感應裝置是否有設定火災警報感應模組
+			for (ModSen modSen : modMain.getModSenSet()) {
+				if (modSen.getSenCode().equals("fireAlm")) {
+					// 查詢感應裝置火災警報列表，依據更新日期排序
+					senFireAlmList = senFireAlmDao.find_modMainId_desc(modMain.getId());
+
+					// 判斷是否有資料
+					if (!CollectionUtils.isEmpty(senFireAlmList)) {
+						// 取最新一筆放入
+						results.add(senFireAlmList.get(0));
+					}
+				}
 			}
 		}
 		return results;

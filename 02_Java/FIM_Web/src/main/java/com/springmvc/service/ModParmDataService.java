@@ -46,5 +46,13 @@ public interface ModParmDataService extends BaseService<ModParmData> {
 	 * @param ModParmDataId
 	 */
 	void save_modParmDataId(int ModParmDataId, boolean state);
+	
+	/**
+	 * 依據參數代號查詢模組參數資料
+	 * 
+	 * @param parmCode 參數代號
+	 * @return ModParmData
+	 */
+	ModParmData find_parmCode(String parmCode);
 
 }

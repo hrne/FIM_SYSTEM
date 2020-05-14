@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.modle.service.BaseService;
 import com.springmvc.entity.SenDht11;
+import com.springmvc.dto.SenDht11Dto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
@@ -30,5 +31,12 @@ public interface SenDht11Service extends BaseService<SenDht11> {
 	 * @return SenDht11 list
 	 */
 	List<SenDht11> find_latest_modMain();
+	
+	/**
+	 * 查詢於頁面顯示溫濕度資料
+	 * 
+	 * @return SenDht11Dto list
+	 */
+	List<SenDht11Dto>find_show_page();
 
 }

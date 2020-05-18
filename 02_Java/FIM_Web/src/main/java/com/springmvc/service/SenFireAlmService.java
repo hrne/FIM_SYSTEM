@@ -5,6 +5,8 @@ import java.util.List;
 import com.modle.service.BaseService;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenFireAlm;
+import com.springmvc.dto.SenDht11Dto;
+import com.springmvc.dto.SenFireAlmDto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
@@ -31,5 +33,12 @@ public interface SenFireAlmService extends BaseService<SenFireAlm> {
 	 * @return SenFireAlm list
 	 */
 	List<SenFireAlm> find_latest_modMain();
+	
+	/**
+	 * 查詢於頁面顯示火災警報感應資料資料
+	 * 
+	 * @return SenFireAlmDto list
+	 */
+	List<SenFireAlmDto>find_show_page();
 
 }

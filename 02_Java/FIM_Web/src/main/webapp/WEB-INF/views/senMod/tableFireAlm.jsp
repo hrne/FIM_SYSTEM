@@ -9,20 +9,20 @@
 	class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th width="20%"><s:message code='modDataName' /></th>
-			<th width="40%">火光警示</th>
-			<th width="40%">一氧化碳警示</th>
+			<th width="20%" class="text-center"><s:message code='modDataName' /></th>
+			<th width="40%" class="text-center">火光警示</th>
+			<th width="40%" class="text-center">一氧化碳警示</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="senFireAlmDto" items="${senFireAlmDtoList}">
-			<tr>
+			<tr class="text-center">
 				<!-- 感應裝置名稱 -->
 				<td>${senFireAlmDto.modMainName}</td>
 				<!-- 火光警示-->
-				<td>${senFireAlmDto.fireStatusName}</td>
+				<td class='${senFireAlmDto.classFireStatus}'>${senFireAlmDto.fireStatusName}</td>
 				<!-- 一氧化碳警示-->
-				<td>${senFireAlmDto.mq7StatusName}</td>
+				<td class='${senFireAlmDto.classMq7Status}'>${senFireAlmDto.mq7StatusName}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

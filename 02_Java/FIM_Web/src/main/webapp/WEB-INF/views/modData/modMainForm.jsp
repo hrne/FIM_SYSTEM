@@ -13,11 +13,7 @@
 	})
 
 	$(document).ready(function() {
-		var btnFlg = $
-		{
-			modMainDto['modEnabled']
-		}
-		;
+		var btnFlg=${modMainDto.modEnabled};
 		$('#toggle-event').prop('checked', btnFlg).change();
 	});
 </script>

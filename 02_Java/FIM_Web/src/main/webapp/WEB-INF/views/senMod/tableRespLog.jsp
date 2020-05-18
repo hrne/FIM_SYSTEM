@@ -9,18 +9,20 @@
 	class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th width="35%">裝置名稱</th>
-			<th width="35%">模組名稱</th>
-			<th width="30%">連線狀態</th>
+			<th width="35%" class="text-center">裝置名稱</th>
+			<th width="35%" class="text-center">模組名稱</th>
+			<th width="30%" class="text-center">連線狀態</th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="senHx711Dto" items="${senHx711DtoList}">
-			<tr>
+		<c:forEach var="modRespLogDto" items="${modRespLogDtoList}">
+			<tr class="text-center">
 				<!-- 感應裝置名稱 -->
-				<td>${senHx711Dto.modMainName}</td>
-				<!-- 重量(g) -->
-				<td class='${senHx711Dto.classWeight}'>${senHx711Dto.weight}</td>
+				<td>${modRespLogDto.modMainName}</td>
+				<!-- 模組名稱 -->
+				<td>${modRespLogDto.modSenName}</td>
+				<!-- 連線狀態 -->
+				<td class='${modRespLogDto.classRespStatus}'>${modRespLogDto.respStatusName}</td>
 			</tr>
 		</c:forEach>
 	</tbody>

@@ -37,9 +37,9 @@ public class SensorClient {
 	ModMainService modMainService;
 
 	// 每5秒掃描一次
-//	@Scheduled(cron = "0/5 * * * * ? ")
+	@Scheduled(cron = "0/1 * * * * ? ")
 	public void startClient() {
-
+		System.out.println("Start Scn");
 		modMainService = (ModMainService) ApplicationContextUtil.getBean("modMainService");
 		modMainService.scan_MainMod();
 		

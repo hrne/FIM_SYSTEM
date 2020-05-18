@@ -53,13 +53,13 @@ public class ModParmData {
 	/**
 	 * 上限警示值
 	 */
-	@Column(name = "upper_limit", precision = 5, scale = 2)
+	@Column(name = "upper_limit")
 	private BigDecimal upperLimit;
 
 	/**
 	 * 下限警示值
 	 */
-	@Column(name = "lower_limit", precision = 5, scale = 2)
+	@Column(name = "lower_limit")
 	private BigDecimal lowerLimit;
 
 	/**

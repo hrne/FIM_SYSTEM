@@ -9,13 +9,13 @@
 	class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th width="50%"><s:message code='modDataName' /></th>
-			<th width="50%"><s:message code='senHx711Weight' /></th>
+			<th width="50%" class="text-center"><s:message code='modDataName' /></th>
+			<th width="50%" class="text-center">重量(g)</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="senHx711Dto" items="${senHx711DtoList}">
-			<tr>
+			<tr class="text-center">
 				<!-- 感應裝置名稱 -->
 				<td>${senHx711Dto.modMainName}</td>
 				<!-- 重量(g) -->

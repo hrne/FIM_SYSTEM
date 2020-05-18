@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.modle.service.BaseServiceImpl;
+import com.modle.util.ObjectMapperUtils;
 import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenFireAlm;
 import com.springmvc.dao.SenDht11Dao;
 import com.springmvc.dao.SenFireAlmDao;
+import com.springmvc.dto.SenFireAlmDto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
@@ -90,6 +92,16 @@ public class SenFireAlmServiceImpl extends BaseServiceImpl<SenFireAlm> implement
 			}
 		}
 		return results;
+	}
+
+	public List<SenFireAlmDto> find_show_page() {
+		// 查詢火災警報感應資料
+		List<SenFireAlm> senFireAlmList = find_latest_modMain();
+
+		// 將火災警報感應資料map到dto上供頁面顯示
+		List<SenFireAlmDto> senFireAlmDtoList = ObjectMapperUtils.mapAll(senFireAlmList, SenFireAlmDto.class);
+		return senFireAlmDtoList;
+
 	}
 
 }

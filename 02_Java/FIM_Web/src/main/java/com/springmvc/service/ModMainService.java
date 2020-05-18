@@ -32,5 +32,12 @@ public interface ModMainService extends BaseService<ModMain> {
 	 * 掃描感應裝置資料
 	 */
 	void scan_MainMod();
+	
+	/**
+	 * 頁面折線圖初始化使用
+	 * 
+	 * @return ModMain List
+	 */
+	List<ModMainDto> find_chart_init();
 
 }

@@ -3,6 +3,7 @@ package com.springmvc.service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,7 @@ import com.modle.service.BaseServiceImpl;
 import com.modle.util.ObjectMapperUtils;
 import com.springmvc.dao.ModMainDao;
 import com.springmvc.dto.ModMainDto;
+import com.springmvc.dto.SenDht11Dto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
 
@@ -35,7 +37,7 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 
 	@Autowired
 	private ModSenService modSenService;
-	
+
 	@Autowired
 	private ModRespLogService modRespLogService;
 
@@ -47,7 +49,7 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 
 	@Autowired
 	private SenSwitchService senSwitchService;
-	
+
 	@Autowired
 	private SenFireAlmService senFireAlmService;
 
@@ -62,17 +64,17 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 
 		ModMain modMain = new ModMain();
 
-		//暫存感應模組
+		// 暫存感應模組
 		Set<ModSen> modSenSet = new HashSet<ModSen>();
 
 		for (Integer modSenId : modMainDto.getModSenIdList()) {
 			// 依據id查詢感應模組
 			ModSen modSen = modSenService.findByPK(modSenId);
-			//將資料感應模組資料放入暫存
+			// 將資料感應模組資料放入暫存
 			modSenSet.add(modSen);
 		}
 
-		//將dto資料轉換回entity
+		// 將dto資料轉換回entity
 		modMain = ObjectMapperUtils.map(modMainDto, ModMain.class);
 
 		// 將暫存感應模組放入
@@ -81,9 +83,9 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 		// 寫入DB
 		saveOrUpdate(modMain);
 	}
-	
+
 	public void scan_MainMod() {
-		
+
 		System.out.println("start scan");
 
 		// 查詢所有啟用感應裝置
@@ -119,7 +121,7 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 			}
 		}
 	}
-	
+
 	/**
 	 * 連線Arduino讀取資料
 	 * 
@@ -148,7 +150,6 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 
 			// 讀取Arduino資料
 			HttpResponse httpResponse = httpCilent.execute(httpPost);
-
 			int statusCode = httpResponse.getStatusLine().getStatusCode();
 
 			// 接受Arduino回傳資料
@@ -194,6 +195,28 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 
 		System.out.println(obj.toString());
 		return obj.toString();
+	}
+
+	public List<ModMainDto> find_chart_init() {
+
+		// 查詢所有啟用感應裝置
+		List<ModMain> modMainList = find_modEnabled();
+
+		List<ModMainDto> modMainDtoList = new ArrayList<ModMainDto>();
+
+		for (ModMain modMain : modMainList) {
+
+			ModMainDto modMainDto = ObjectMapperUtils.map(modMain, ModMainDto.class);
+
+			List<SenDht11Dto> senDht11Dto = senDht11Service.find_show_chart(modMain.getId());
+			
+			//modMainDto.setDht11Json(senDht11Dto);
+
+			modMainDtoList.add(modMainDto);
+
+		}
+		return modMainDtoList;
+
 	}
 
 }

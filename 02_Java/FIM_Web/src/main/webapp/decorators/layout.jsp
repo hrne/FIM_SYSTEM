@@ -113,6 +113,12 @@
 <!-- Bootstrap-editable.min JavaScript -->
 <script src="<c:url value='/vendor/bootstrap3-editable/js/bootstrap-editable.min.js'/>"></script>
 
+<!-- Highcharts JavaScript -->
+<script src="<c:url value='/vendor/highcharts/highcharts.js'/>"></script>
+<script src="<c:url value='/vendor/highcharts/highcharts-more.js'/>"></script>
+<script src="<c:url value='/vendor/highcharts/highcharts-3d.js'/>"></script>
+
+
 </head>
 
 <body>

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModParmData;
 import com.springmvc.entity.ModSen;
@@ -33,6 +34,7 @@ public class SenDht11Dto {
 	/**
 	 * 感應裝置主檔id
 	 */
+	@JsonIgnore
 	private ModMain modMain;
 
 	/**
@@ -212,7 +214,6 @@ public class SenDht11Dto {
 	 * @return
 	 */
 	public String getClassHumidity() {
-		System.out.println(getModParmDataHumidity().isLimitEnabled());
 		// 判斷是否啟用警示
 		if (getModParmDataHumidity().isLimitEnabled()) {
 			// 判斷濕度是否超過警示值上下限

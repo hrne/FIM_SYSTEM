@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.modle.service.BaseServiceImpl;
+import com.modle.util.ObjectMapperUtils;
 import com.springmvc.dao.ModRespLogDao;
 import com.springmvc.dao.SenDht11Dao;
+import com.springmvc.dto.ModRespLogDto;
+import com.springmvc.dto.SenFireAlmDto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModRespLog;
 import com.springmvc.entity.ModSen;
 import com.springmvc.entity.SenDht11;
+import com.springmvc.entity.SenFireAlm;
 import com.springmvc.entity.SysRespStatus;
 
 /**
@@ -95,4 +99,15 @@ public class ModRespLogServiceImpl extends BaseServiceImpl<ModRespLog> implement
 		}
 		return results;
 	}
+
+	public List<ModRespLogDto> find_show_page() {
+		// 查詢感應紀錄資料
+		List<ModRespLog> modRespLogList = find_latest_modMain();
+
+		// 將感應紀錄資料map到dto上供頁面顯示
+		List<ModRespLogDto> modRespLogDtoList = ObjectMapperUtils.mapAll(modRespLogList, ModRespLogDto.class);
+		return modRespLogDtoList;
+
+	}
+
 }

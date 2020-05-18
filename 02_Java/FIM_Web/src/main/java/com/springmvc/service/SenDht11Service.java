@@ -38,5 +38,12 @@ public interface SenDht11Service extends BaseService<SenDht11> {
 	 * @return SenDht11Dto list
 	 */
 	List<SenDht11Dto>find_show_page();
+	
+	/**
+	 * 查詢於圖表顯示溫濕度資料
+	 * 
+	 * @return
+	 */
+	List<SenDht11Dto>find_show_chart(int modMainId);
 
 }

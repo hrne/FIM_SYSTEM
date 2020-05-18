@@ -39,7 +39,7 @@ public class SenHx711 {
 	/**
 	 * 重量(g)
 	 */
-	@Column(name = "weight", precision = 5, scale = 2)
+	@Column(name = "weight")
 	private BigDecimal weight;
 
 	/**

@@ -2,6 +2,8 @@ package com.springmvc.controller;
 
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.modle.util.ObjectMapperUtils;
+import com.springmvc.dto.ModMainDto;
 import com.springmvc.dto.ModRespLogDto;
 import com.springmvc.dto.ModSenDto;
 import com.springmvc.dto.SenDht11Dto;
@@ -36,10 +39,10 @@ import com.springmvc.service.SenSwitchService;
  */
 @Controller
 public class SenModController {
-	
+
 	@Autowired
 	private ModMainService modMainService;
-	
+
 	@Autowired
 	private ModRespLogService modRespLogService;
 
@@ -51,7 +54,7 @@ public class SenModController {
 
 	@Autowired
 	private SenSwitchService senSwitchService;
-	
+
 	@Autowired
 	private SenFireAlmService senFireAlmService;
 
@@ -63,10 +66,10 @@ public class SenModController {
 	 */
 	@RequestMapping(value = { "/index.html", "/index", "/" }, method = RequestMethod.GET)
 	public String showAllSenData(Model model) {
-		
-		//每進入一次就讀取一次arduino資料
-		//modMainService.scan_MainMod();
-		
+
+		// 每進入一次就讀取一次arduino資料
+		// modMainService.scan_MainMod();
+
 		// 查詢溫濕度資料dto
 		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_page();
 		model.addAttribute("senDht11DtoList", senDht11DtoList);
@@ -75,12 +78,14 @@ public class SenModController {
 		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_page();
 		model.addAttribute("senHx711DtoList", senHx711DtoList);
 
-
-		// 查詢火災警報感應資料資料
-		List<SenFireAlm> senFireAlmList = senFireAlmService.find_latest_modMain();
-		// 將火災警報感應資料map到dto上供頁面顯示
-		List<SenFireAlmDto> senFireAlmDtoList = ObjectMapperUtils.mapAll(senFireAlmList, SenFireAlmDto.class);
+		// 查詢火災警報感應資料資料dto
+		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_page();
 		model.addAttribute("senFireAlmDtoList", senFireAlmDtoList);
+
+		// 查詢感應紀錄dto
+		List<ModRespLogDto> modRespLogDtoList = modRespLogService.find_show_page();
+		model.addAttribute("modRespLogDtoList", modRespLogDtoList);
+
 		// 導頁至首頁
 		return "senMod/indexSen";
 	}
@@ -139,7 +144,7 @@ public class SenModController {
 	@RequestMapping(value = "/senMod/turnPowerSwitch")
 	public @ResponseBody String turnPowerSwitch(int modMainId, boolean state) {
 
-		//依據感應裝置id傳送開關訊號
+		// 依據感應裝置id傳送開關訊號
 		boolean returnStatus = senSwitchService.turn_senSwitchId(modMainId, state);
 		String codeName = "";
 		System.out.println("id:" + modMainId + "  state:" + state);
@@ -155,36 +160,65 @@ public class SenModController {
 		}
 
 	}
-	
+
 	/**
 	 * ajax 查詢火災警報感應資料資料
 	 * 
 	 */
 	@RequestMapping(value = "/senMod/showAllFireAlm", method = RequestMethod.GET)
-	public List<SenFireAlmDto> showAllFireAlm() {
+	public String showAllFireAlm(Model model) {
 
-		// 查詢火災警報感應資料資料
-		List<SenFireAlm> senFireAlmList = senFireAlmService.find_latest_modMain();
-
-		// 將火災警報感應資料map到dto上供頁面顯示
-		List<SenFireAlmDto> senFireAlmDtoList = ObjectMapperUtils.mapAll(senFireAlmList, SenFireAlmDto.class);
-
-		return senFireAlmDtoList;
+		// 查詢火災警報感應資料dto
+		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_page();
+		model.addAttribute("senFireAlmDtoList", senFireAlmDtoList);
+		return "senMod/tableFireAlm";
 	}
-	
+
 	/**
 	 * ajax 查詢感應紀錄資料
 	 * 
 	 */
 	@RequestMapping(value = "/senMod/showAllRespLog", method = RequestMethod.GET)
-	public List<ModRespLogDto> showAllRespLog() {
+	public String showAllRespLog(Model model) {
 
-		// 查詢感應紀錄資料
-		List<ModRespLog> modRespLogList = modRespLogService.find_latest_modMain();
+		// 查詢感應紀錄dto
+		List<ModRespLogDto> modRespLogDtoList = modRespLogService.find_show_page();
+		model.addAttribute("modRespLogDtoList", modRespLogDtoList);
+		return "senMod/tableRespLog";
+	}
 
-		// 將感應紀錄資料map到dto上供頁面顯示
-		List<ModRespLogDto> modRespLogDtoList = ObjectMapperUtils.mapAll(modRespLogList, ModRespLogDto.class);
-		return modRespLogDtoList;
+	/**
+	 * ajax 查詢折線圖用溫度資料
+	 * 
+	 */
+	@RequestMapping(value = "/senMod/showChartDht11")
+	public @ResponseBody String showChartDht11() {
+
+		JSONObject obj = new JSONObject();
+		// 查詢溫濕度資料dto
+		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_page();
+		for (SenDht11Dto senDht11Dto : senDht11DtoList) {
+			obj.put(String.valueOf(senDht11Dto.getModMain().getId()) + "id", senDht11Dto.getUpdateDate().getTime());
+			obj.put(String.valueOf(senDht11Dto.getModMain().getId()) + "Cal", senDht11Dto.getTempCal());
+		}
+
+		return obj.toString();
+	}
+
+	/**
+	 * ajax 查詢初始化折線圖用溫度資料
+	 * 
+	 */
+	@RequestMapping(value = "/senMod/showInitChartDht11")
+	public @ResponseBody String showInitChartDht11() {
+
+		String jsonStr = "";
+		List<ModMainDto> modMainDtoList = modMainService.find_chart_init();
+
+		JSONArray fromObject2 = new JSONArray();
+//		fromObject2.fr
+//		System.out.println(jsonStr);
+		return jsonStr;
 	}
 
 }

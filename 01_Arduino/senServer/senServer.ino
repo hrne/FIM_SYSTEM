@@ -12,15 +12,15 @@
    FireAlm: 火災警報
 
    接腳:
-   Dht11     D3
-   Hx711     D4、D5
+   Dht11     D4
+   Hx711     D2、D3
    switch    D7(開關)、A0(電池電力)
    FireAlm   D8(火光)、D9(一氧化碳)
 
 */
 
 //wifi ssid
-const char ssid[] = "lin2";
+const char ssid[] = "note4";
 const char pass[] = "29883713";
 
 //webService設定
@@ -30,12 +30,12 @@ ESP8266WebServer server(80);   // 宣告網站伺服器物件與埠號
 //sensor設定
 //dht11設定
 #define dhtType DHT11 //選用DHT11  
-#define dhtPin D3      //讀取DHT11 Data
+#define dhtPin D4      //讀取DHT11 Data
 DHT dht(dhtPin, dhtType); // Initialize DHT sensor
 
 //hx711設定
-#define DOUT D4
-#define CLK D5
+#define dtPin D2
+#define sckPin D3
 const int scale_factor = 378; //比例參數，從校正程式中取得
 HX711 scale; // Initialize load cell amplifire
 
@@ -45,8 +45,8 @@ HX711 scale; // Initialize load cell amplifire
 #define turnoff false
 
 //FireAlm設定
-#define firePin D8  //火光
-#define mq7Pin D9   //一氧化碳 
+#define firePin D5  //火光
+#define mq7Pin D6   //一氧化碳 
 
 //sensor變數
 //dht11
@@ -76,11 +76,11 @@ void setup() {
   dht.begin();
 
   //啟動hx711
-  scale.begin(DOUT, CLK);
-  scale.get_units(5);
+  scale.begin(dtPin, sckPin);
+  Serial.println(scale.get_units(5), 0);  //未設定比例參數前的數值
   scale.set_scale(scale_factor);       // 設定比例參數
   scale.tare();               // 歸零
-  scale.get_units(5);
+  Serial.println(scale.get_units(5), 0);  //設定比例參數後的數值
 
   //設定電源開關
   pinMode(relayPin, OUTPUT) ;
@@ -91,9 +91,9 @@ void setup() {
   pinMode(mq7Pin, INPUT);
 
   //若要指定IP位址，請自行在此加入WiFi.config()敘述。
-  //WiFi.config(IPAddress(192,168,0,105),    // IP位址
-  //           IPAddress(192,168,0,1),     // 閘道（gateway）位址
-  //           IPAddress(255,255,255,0));  // 網路遮罩（netmask）
+  WiFi.config(IPAddress(192, 168, 43, 101), // IP位址
+              IPAddress(192, 168, 43, 1),  // 閘道（gateway）位址
+              IPAddress(255, 255, 255, 0)); // 網路遮罩（netmask）
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);   // 等待WiFi連線
@@ -191,13 +191,19 @@ void getDht11() {
 //讀取重量hx711資料
 void getHx711() {
   weight = scale.get_units(10);
+  if (weight < 0) {
+    weight = 0;
+  }
   scale.power_down();             // 進入睡眠模式
+  delay(1000);
   scale.power_up();               // 結束睡眠模式
 }
 
 //讀取電源開關資料
 void getSwitchBatteryVolt() {
-  batteryVolt = (analogRead(A0) / 1023 * 3.3) * 4.9;
+  batteryVolt = analogRead(A0);
+  batteryVolt = batteryVolt / 1023;
+  batteryVolt = batteryVolt * 3.3 * 4.9;
   powStatus = digitalRead(D7);
 }
 

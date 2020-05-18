@@ -130,4 +130,24 @@ public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements Se
 		return senDht11DtoList;
 	}
 
+	public List<SenDht11Dto> find_show_chart(int modMainId) {
+
+		List<SenDht11> senDht11List = new ArrayList<SenDht11>();
+
+		List<SenDht11Dto> senDht11DtoList = new ArrayList<SenDht11Dto>();
+
+		// 查詢感應裝置溫濕度列表，依據更新日期排序
+		senDht11List = senDht11Dao.find_modMainId_desc(modMainId);
+
+		for (int i = 0; i < 10; i++) {
+			if (senDht11List.get(i) != null) {
+				// 將濕度資料map到dto上
+				SenDht11Dto senDht11Dto = ObjectMapperUtils.map(senDht11List.get(i), SenDht11Dto.class);
+				senDht11DtoList.add(senDht11Dto);
+			}
+		}
+
+		return senDht11DtoList;
+	}
+
 }

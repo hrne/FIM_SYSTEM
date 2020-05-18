@@ -8,15 +8,15 @@
 	class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th width="25%"><s:message code='modDataName' /></th>
-			<th width="25%"><s:message code='senDht11Humidity' /></th>
-			<th width="25%"><s:message code='senDht11TempCal' /></th>
-			<th width="25%"><s:message code='senDht11TempFah' /></th>
+			<th width="25%" class="text-center"><s:message code='modDataName' /></th>
+			<th width="25%" class="text-center"><s:message code='senDht11Humidity' /></th>
+			<th width="25%" class="text-center"><s:message code='senDht11TempCal' /></th>
+			<th width="25%" class="text-center"><s:message code='senDht11TempFah' /></th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="senDht11Dto" items="${senDht11DtoList}">
-			<tr>
+			<tr class="text-center">
 				<!-- 感應裝置名稱 -->
 				<td>${senDht11Dto.modMainName}</td>
 				<!-- 濕度 -->

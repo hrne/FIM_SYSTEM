@@ -110,6 +110,38 @@ public class SenFireAlmDto {
 	}
 
 	/**
+	 * 正常狀態顏色:黑色
+	 */
+	private String classNor = "text-body";
+
+	/**
+	 * 異常狀態顏色:紅色
+	 */
+	private String classNorDan = "p-3 mb-2 bg-danger text-white";
+
+	/**
+	 * 正常狀態顏色:黑色
+	 */
+	public String getClassNor() {
+		return classNor;
+	}
+
+	public void setClassNor(String classNor) {
+		this.classNor = classNor;
+	}
+
+	/**
+	 * 異常狀態顏色:紅色
+	 */
+	public String getClassNorDan() {
+		return classNorDan;
+	}
+
+	public void setClassNorDan(String classNorDan) {
+		this.classNorDan = classNorDan;
+	}
+
+	/**
 	 * 顯示火光警示:1:有火光、0:安全
 	 */
 	public String getFireStatusName() {
@@ -129,5 +161,35 @@ public class SenFireAlmDto {
 		} else {
 			return "安全";
 		}
+	}
+
+	/**
+	 * 依據火光警示狀態顯示顏色
+	 * 
+	 * @return
+	 */
+	public String getClassFireStatus() {
+		// 判斷是否有火光
+		if (getFireStatus().equals(new BigDecimal(1))) {
+			// 異常顯示
+			return getClassNorDan();
+		}
+		// 正常顯示
+		return getClassNor();
+	}
+
+	/**
+	 * 依據一氧化碳警示狀態顯示顏色
+	 * 
+	 * @return
+	 */
+	public String getClassMq7Status() {
+		// 判斷是否有火光
+		if (getMq7Status().equals(new BigDecimal(1))) {
+			// 異常顯示
+			return getClassNorDan();
+		}
+		// 正常顯示
+		return getClassNor();
 	}
 }

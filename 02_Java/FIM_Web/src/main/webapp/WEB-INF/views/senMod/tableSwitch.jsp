@@ -49,16 +49,17 @@
 									{
 										title : '裝置名稱',
 										field : 'modMainName',
+										align : "center",
 									},
 									{
 										title : '電池電力(V)',
-										field : 'batteryVolt'
+										field : 'batteryVolt',
+										align : "center",
 									},
 									{
 										title : "電源開關",
 										field : 'powStatus',
-										align : 'left',
-										valign : 'middle',
+										align : "center",
 										formatter : function(value, row, index) {
 											var $switch;
 											if (value == 1) {

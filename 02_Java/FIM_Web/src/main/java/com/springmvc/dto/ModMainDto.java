@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springmvc.entity.ModSen;
 
 /**
@@ -40,6 +41,7 @@ public class ModMainDto {
 	/**
 	 * 感應裝置使用模組
 	 */
+	@JsonIgnore
 	private Set<ModSen> modSenSet;
 
 	public int getId() {
@@ -155,6 +157,16 @@ public class ModMainDto {
 
 	public void setModSenIdList(List<Integer> modSenIdList) {
 		this.modSenIdList = modSenIdList;
+	}
+	
+	private String dht11Json;
+
+	public String getDht11Json() {
+		return dht11Json;
+	}
+
+	public void setDht11Json(String dht11Json) {
+		this.dht11Json = dht11Json;
 	}
 
 }

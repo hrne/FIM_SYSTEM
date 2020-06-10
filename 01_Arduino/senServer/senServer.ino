@@ -15,7 +15,7 @@
    Dht11     D4
    Hx711     D2、D3
    switch    D7(開關)、A0(電池電力)
-   FireAlm   D8(火光)、D9(一氧化碳)
+   FireAlm   D5(火光)、D6(一氧化碳)
 
 */
 

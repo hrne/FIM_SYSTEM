@@ -5,6 +5,10 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags"%>
 
 <script>
+	window.onload = function() {
+		var dateControl = document.querySelector('input[id="start_date"]');
+		dateControl.value = '2017-06-01T08:30';
+	}
 	$(function() {
 		var chart = {
 
@@ -37,22 +41,43 @@
 					enableMouseTracking : true
 				}
 			},
-			series : [ {
-				name : 'Random data',
-				data : (function() {
-					// generate an array of random data
-					var data = [], time = (new Date()).getTime(), i;
-
-					for (i = -10; i <= 0; i += 1) {
-						data.push([ time + i * 1000,
-							Math.random()*(40-30+1)+30 ]);
-					}
-					return data;
-				}())
-			} ]
+			series : requestData()
 		};
-		var charSert = Highcharts.chart('container2', chart);
 
+		function requestData() {
+			var series = new Array();
+			$.ajax({
+				url : "showChartDht11",
+				type : "GET",
+				async : false,
+				success : function(data) {
+					var seriesData = [];
+					for (var j = 0; j < data[0].length; j++) {
+						var point = data[0][j];
+						var time = point[0];
+						var value = point[1];
+						seriesData.push({
+							x : time,
+							y : value
+						});
+					}
+					series.push({
+						"name" : "溫濕度",
+						"data" : seriesData
+					});
+				}
+
+			});
+			return series;
+
+		}
+		$("#searchBtn").off().on("click", function() {
+			var charSert = Highcharts.chart('container2', chart);
+		});
+
+		$("#resetBtn").off().on("click", function() {
+			var charSert = Highcharts.chart('container2', chart);
+		});
 	})
 </script>
 
@@ -75,19 +100,20 @@
 									<!-- 感應裝置名稱 -->
 									<td>查詢期間</td>
 									<td><input class="form-control" type="datetime-local"
-										value="" id="example-datetime-local-input"></td>
+										value="" id="start_date"></td>
 									<td>至</td>
 									<td><input class="form-control" type="datetime-local"
-										value="" id="example-datetime-local-input"></td>
+										value="" id="end_date"></td>
 								</tr>
 								<tr>
 									<td class="text-center" colspan="4" class="heading">
 										                                    
-										<button type="submit" class="btn btn-primary btn-sm">
+										<button type="submit" class="btn btn-primary btn-sm"
+											id="searchBtn">
 											<i class="fa fa-search fa-large"></i>查询
 										</button>                                      
 										<button type="reset" class="btn btn-primary btn-sm"
-											style="margin-right: 30px;">
+											id="resetBtn" style="margin-right: 30px;">
 											<i class="fa fa-undo fa-large"></i>重置
 										</button>                                 
 									</td>

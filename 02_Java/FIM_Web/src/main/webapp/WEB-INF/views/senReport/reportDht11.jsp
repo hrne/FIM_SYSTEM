@@ -19,25 +19,25 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-
-				<div class="alert alert-${css} alert-dismissible" role="alert">
-					<div class="form-group ${status.error ? 'has-error' : ''}">
-						<label class="col-sm-2 control-label"><s:message
-								code='ipAddress' /></label>
-						<div class="col-sm-10"></div>
+				<div class="panel-body">
+					<div class="row">
+						<table class="table table-bordered"">
+							<tbody>
+								<tr class="text-center">
+									<!-- 感應裝置名稱 -->
+									<td>查詢期間</td>
+									<td><input type="date" class="form-control" id="startTime"
+										name="startTime" /></td>
+									<td>至</td>
+									<td><input type="date" class="form-control" id="startTime"
+										name="startTime" /></td>
+								</tr>
+							
+							</tbody>
+						</table>
 					</div>
-
+					<!-- /.row (nested) -->
 				</div>
-
-				<!-- 儲存按鈕 -->
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn-lg btn-primary pull-left">
-							查詢</button>
-					</div>
-				</div>
-				<!-- /.panel-heading -->
-
 				<!-- /.panel-body -->
 			</div>
 			<!-- /.panel -->

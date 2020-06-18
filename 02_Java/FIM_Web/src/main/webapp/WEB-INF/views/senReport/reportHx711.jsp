@@ -51,11 +51,19 @@
 			} ],
 			yAxis : {
 				title : {
-					text : '攝氏 (°C)'
+					text : '狀態'
 				},
-				max : 100,
-				min : 0
+				labels : {
+					formatter : function() {
+						if (this.value == 0) {
+							return "正常";
+						} else {
+							return "異常";
+						}
+					}
+				}
 			},
+
 			plotOptions : {
 				line : {
 					dataLabels : {
@@ -85,7 +93,7 @@
 						});
 					}
 					series.push({
-						"name" : "溫度",
+						"name" : "重量",
 						"data" : seriesData
 					});
 				}
@@ -108,7 +116,7 @@
 <div id="page-wrapper">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">溫濕度報表</h1>
+			<h1 class="page-header">重量報表</h1>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -120,30 +128,29 @@
 					<div class="row">
 						<table class="table table-bordered"">
 							<tbody>
-								<tr>
-									<td class="text-center">查詢期間</td>
-									<td class="text-center"><input class="form-control" type="datetime-local"
+								<tr class="text-center">
+									<td>查詢期間</td>
+									<td><input class="form-control" type="datetime-local"
 										value="" id="start_date"></td>
 									<td>至</td>
 									<td><input class="form-control" type="datetime-local"
 										value="" id="end_date"></td>
 								</tr>
-								<tr >
-									<td class="text-center">工具機名稱</td>
-									<td >
+								<tr class="text-center">
+									<td>
 										<div class="btn-group">
-											<button type="button" class="btn btn-Info dropdown-toggle"
+											<button type="button" class="btn btn-danger dropdown-toggle"
 												data-toggle="dropdown" aria-haspopup="true"
 												aria-expanded="false">Action</button>
 											<div class="dropdown-menu">
 												<a class="dropdown-item" href="#">Action</a> <a
 													class="dropdown-item" href="#">Another action</a> <a
 													class="dropdown-item" href="#">Something else here</a>
+												<div class="dropdown-divider"></div>
+												<a class="dropdown-item" href="#">Separated link</a>
 											</div>
 										</div>
 									</td>
-									<td></td>
-									<td></td>
 								</tr>
 								<tr>
 									<td class="text-center" colspan="4" class="heading">

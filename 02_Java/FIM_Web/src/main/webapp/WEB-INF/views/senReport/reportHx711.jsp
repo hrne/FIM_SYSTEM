@@ -51,19 +51,11 @@
 			} ],
 			yAxis : {
 				title : {
-					text : '狀態'
+					text : '攝氏 (°C)&濕度(%)'
 				},
-				labels : {
-					formatter : function() {
-						if (this.value == 0) {
-							return "正常";
-						} else {
-							return "異常";
-						}
-					}
-				}
+				max : 100,
+				min : 0
 			},
-
 			plotOptions : {
 				line : {
 					dataLabels : {
@@ -82,22 +74,33 @@
 				type : "post",
 				async : false,
 				success : function(data) {
-					var seriesData = [];
-					for (var j = 0; j < data[0].length; j++) {
-						var point = data[0][j];
-						var time = point[0];
-						var value = point[1];
-						seriesData.push({
-							x : time,
-							y : value
-						});
-					}
-					series.push({
-						"name" : "重量",
-						"data" : seriesData
-					});
-				}
+					for (var k = 0; k < 2; k++) {
+						var seriesData = [];
+						for (var j = 0; j < data[k].length; j++) {
+							var point = data[k][j];
+							var time = point[0];
+							var value = point[1];
+							seriesData.push({
+								x : time,
+								y : value
+							});
+						}
+						if (k == 0) {
+							series.push({
+								"name" : "溫度",
+								"data" : seriesData
+							});
+						} else {
+							series.push({
+								"name" : "濕度",
+								color : '#89A54E',
+								"data" : seriesData
+							});
 
+						}
+
+					}
+				}
 			});
 			return series;
 
@@ -128,29 +131,30 @@
 					<div class="row">
 						<table class="table table-bordered"">
 							<tbody>
-								<tr class="text-center">
-									<td>查詢期間</td>
-									<td><input class="form-control" type="datetime-local"
-										value="" id="start_date"></td>
-									<td>至</td>
+								<tr>
+									<td class="text-center">查詢期間</td>
+									<td class="text-center"><input class="form-control"
+										type="datetime-local" value="" id="start_date"></td>
+									<td class="text-center">至</td>
 									<td><input class="form-control" type="datetime-local"
 										value="" id="end_date"></td>
 								</tr>
-								<tr class="text-center">
+								<tr>
+									<td class="text-center">工具機名稱</td>
 									<td>
 										<div class="btn-group">
-											<button type="button" class="btn btn-danger dropdown-toggle"
+											<button type="button" class="btn btn-Info dropdown-toggle"
 												data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false">Action</button>
+												aria-expanded="false">沖床機</button>
 											<div class="dropdown-menu">
-												<a class="dropdown-item" href="#">Action</a> <a
+												<a class="dropdown-item" href="#">沖床機</a> <a
 													class="dropdown-item" href="#">Another action</a> <a
 													class="dropdown-item" href="#">Something else here</a>
-												<div class="dropdown-divider"></div>
-												<a class="dropdown-item" href="#">Separated link</a>
 											</div>
 										</div>
 									</td>
+									<td></td>
+									<td></td>
 								</tr>
 								<tr>
 									<td class="text-center" colspan="4" class="heading">

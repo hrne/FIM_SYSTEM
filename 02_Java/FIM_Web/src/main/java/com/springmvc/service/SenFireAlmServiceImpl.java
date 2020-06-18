@@ -15,6 +15,7 @@ import com.springmvc.entity.SenDht11;
 import com.springmvc.entity.SenFireAlm;
 import com.springmvc.dao.SenDht11Dao;
 import com.springmvc.dao.SenFireAlmDao;
+import com.springmvc.dto.SenDht11Dto;
 import com.springmvc.dto.SenFireAlmDto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModSen;
@@ -102,6 +103,26 @@ public class SenFireAlmServiceImpl extends BaseServiceImpl<SenFireAlm> implement
 		List<SenFireAlmDto> senFireAlmDtoList = ObjectMapperUtils.mapAll(senFireAlmList, SenFireAlmDto.class);
 		return senFireAlmDtoList;
 
+	}
+	
+	public List<SenFireAlmDto> find_show_chart(int modMainId) {
+
+		List<SenFireAlm> senFireAlmList = new ArrayList<SenFireAlm>();
+
+		List<SenFireAlmDto> senFireAlmDtoList = new ArrayList<SenFireAlmDto>();
+
+		// 查詢感應裝置火災警報感應列表，依據更新日期排序
+		senFireAlmList = senFireAlmDao.find_modMainId_desc(modMainId);
+
+		for (int i = 0; i < 10; i++) {
+			if (senFireAlmList.get(i) != null) {
+				// 將火災警報感應資料map到dto上
+				SenFireAlmDto senFireAlmDto = ObjectMapperUtils.map(senFireAlmList.get(i), SenFireAlmDto.class);
+				senFireAlmDtoList.add(senFireAlmDto);
+			}
+		}
+
+		return senFireAlmDtoList;
 	}
 
 }

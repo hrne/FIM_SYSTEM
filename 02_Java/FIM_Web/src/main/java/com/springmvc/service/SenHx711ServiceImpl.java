@@ -34,7 +34,7 @@ public class SenHx711ServiceImpl extends BaseServiceImpl<SenHx711> implements Se
 
 	@Autowired
 	private ModRespLogService modRespLogService;
-	
+
 	@Autowired
 	private ModParmDataService modParmDataService;
 
@@ -94,7 +94,7 @@ public class SenHx711ServiceImpl extends BaseServiceImpl<SenHx711> implements Se
 		}
 		return results;
 	}
-	
+
 	public List<SenHx711Dto> find_show_page() {
 
 		// 查詢頁面顯示重量資料
@@ -112,9 +112,28 @@ public class SenHx711ServiceImpl extends BaseServiceImpl<SenHx711> implements Se
 			// 放入資料至dto
 			senHx711Dto.setModParmDataWeight(modParmDataWeight);
 
-
 			// 放入dto list
 			senHx711DtoList.add(senHx711Dto);
+		}
+
+		return senHx711DtoList;
+	}
+
+	public List<SenHx711Dto> find_show_chart(int modMainId) {
+
+		List<SenHx711> senHx711List = new ArrayList<SenHx711>();
+
+		List<SenHx711Dto> senHx711DtoList = new ArrayList<SenHx711Dto>();
+
+		// 查詢感應裝置重量列表，依據更新日期排序
+		senHx711List = senHx711Dao.find_modMainId_desc(modMainId);
+
+		for (int i = 0; i < 10; i++) {
+			if (senHx711List.get(i) != null) {
+				// 將濕度資料map到dto上
+				SenHx711Dto senHx711Dto = ObjectMapperUtils.map(senHx711List.get(i), SenHx711Dto.class);
+				senHx711DtoList.add(senHx711Dto);
+			}
 		}
 
 		return senHx711DtoList;

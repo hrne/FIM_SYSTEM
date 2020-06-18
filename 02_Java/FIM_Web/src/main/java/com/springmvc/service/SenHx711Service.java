@@ -39,5 +39,12 @@ public interface SenHx711Service extends BaseService<SenHx711> {
 	 * @return SenDht11Dto list
 	 */
 	List<SenHx711Dto>find_show_page();
+	
+	/**
+	 * 查詢於圖表顯示重量資料
+	 * 
+	 * @return
+	 */
+	List<SenHx711Dto>find_show_chart(int modMainId);
 
 }

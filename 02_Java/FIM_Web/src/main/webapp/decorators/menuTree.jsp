@@ -86,10 +86,15 @@
 		</ul></li>
 
 	<!-- 報表資料 -->
-	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> 報表資料<span class="fa arrow"></span></a>
+	<li><a href="#"><i class="fa fa-files-o fa-fw"></i> 報表資料<span
+			class="fa arrow"></span></a>
 		<ul class="nav nav-second-level collapse">
 			<!-- 溫濕度報表 -->
 			<li><a href="<c:url value='/senReport/reportDht11'/>">溫濕度報表</a></li>
+			<!-- 重量報表報表 -->
+			<li><a href="<c:url value='/senReport/reportHx711'/>">重量報表</a></li>
+			<!-- 火災警報感應報表 -->
+			<li><a href="<c:url value='/senReport/reportFireAlm'/>">火災警報感應報表</a></li>
 		</ul></li>
 
 </ul>

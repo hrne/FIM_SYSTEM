@@ -40,5 +40,12 @@ public interface SenFireAlmService extends BaseService<SenFireAlm> {
 	 * @return SenFireAlmDto list
 	 */
 	List<SenFireAlmDto>find_show_page();
+	
+	/**
+	 * 查詢於圖表顯示火災警報感應資料
+	 * 
+	 * @return
+	 */
+	List<SenFireAlmDto>find_show_chart(int modMainId);
 
 }

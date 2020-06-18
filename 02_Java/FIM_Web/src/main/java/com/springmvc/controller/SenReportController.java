@@ -28,6 +28,8 @@ import com.springmvc.dto.ModMainDto;
 import com.springmvc.dto.ModParmDataDto;
 import com.springmvc.dto.ModSenDto;
 import com.springmvc.dto.SenDht11Dto;
+import com.springmvc.dto.SenFireAlmDto;
+import com.springmvc.dto.SenHx711Dto;
 import com.springmvc.entity.ModMain;
 import com.springmvc.entity.ModParmData;
 import com.springmvc.entity.ModSen;
@@ -35,6 +37,8 @@ import com.springmvc.service.ModMainService;
 import com.springmvc.service.ModParmDataService;
 import com.springmvc.service.ModSenService;
 import com.springmvc.service.SenDht11Service;
+import com.springmvc.service.SenFireAlmService;
+import com.springmvc.service.SenHx711Service;
 import com.springmvc.validator.ModMainFormValidator;
 
 /**
@@ -65,6 +69,12 @@ public class SenReportController {
 
 	@Autowired
 	private SenDht11Service senDht11Service;
+	
+	@Autowired
+	private SenHx711Service senHx711Service;
+	
+	@Autowired
+	private SenFireAlmService senFireAlmService;
 
 	@Autowired
 	private ResourceBundleMessageSource messageSource;
@@ -76,9 +86,33 @@ public class SenReportController {
 	 * @return senReport/reportDht11
 	 */
 	@RequestMapping(value = "/senReport/reportDht11", method = RequestMethod.GET)
-	public String showAllModMain(Model model) {
+	public String showReportDht11(Model model) {
 		// 導頁至溫濕度報表
 		return "senReport/reportDht11";
+	}
+	
+	/**
+	 * 導頁:重量報表
+	 * 
+	 * @param model
+	 * @return senReport/reportHx711
+	 */
+	@RequestMapping(value = "/senReport/reportHx711", method = RequestMethod.GET)
+	public String showReportHx711(Model model) {
+		// 導頁至重量報表
+		return "senReport/reportHx711";
+	}
+	
+	/**
+	 * 導頁:火災警報報表
+	 * 
+	 * @param model
+	 * @return /senReport/reportFireAlm
+	 */
+	@RequestMapping(value = "/senReport/reportFireAlm", method = RequestMethod.GET)
+	public String showReportFireAlm(Model model) {
+		// 導頁至火災警報報表報表
+		return "senReport/reportFireAlm";
 	}
 
 	/**
@@ -91,17 +125,76 @@ public class SenReportController {
 
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
+		List<List<Long>> twoList = new ArrayList<List<Long>>();
 		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(2);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		for (SenDht11Dto senDht11Dto : senDht11DtoList) {
 			List<Long> ss = new ArrayList<Long>();
 			ss.add(senDht11Dto.getUpdateDate().getTime());
 			ss.add(senDht11Dto.getTempCal().longValue());
 			oneList.add(ss);
-
 		}
 		resultList.add(oneList);
+		for (SenDht11Dto senDht11Dto : senDht11DtoList) {
+			List<Long> ss = new ArrayList<Long>();
+			ss.add(senDht11Dto.getUpdateDate().getTime());
+			ss.add(senDht11Dto.getHumidity().longValue());
+			twoList.add(ss);
+		}
+		resultList.add(twoList);
+		return resultList;
+	}
+	
+	/**
+	 * ajax 查詢折線圖用重量資料
+	 * 
+	 */
+	@RequestMapping(value = "/senReport/showChartHx711")
+	@ResponseBody
+	public List<List<List<Long>>> showChartHx711() {
+
+		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
+		List<List<Long>> oneList = new ArrayList<List<Long>>();
+		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_chart(2);
+
+		for (SenHx711Dto senHx711Dto : senHx711DtoList) {
+			List<Long> ss = new ArrayList<Long>();
+			ss.add(senHx711Dto.getUpdateDate().getTime());
+			ss.add(senHx711Dto.getWeight().longValue());
+			oneList.add(ss);
+		}
+		resultList.add(oneList);
+
+		return resultList;
+	}
+	
+	/**
+	 * ajax 查詢折線圖用火災警報感應資料
+	 * 
+	 */
+	@RequestMapping(value = "/senReport/showCharFireAlm")
+	@ResponseBody
+	public List<List<List<Long>>> showChartFireAlm() {
+
+		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
+		List<List<Long>> oneList = new ArrayList<List<Long>>();
+		List<List<Long>> twoList = new ArrayList<List<Long>>();
+		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_chart(2);
+
+		for (SenFireAlmDto senFireAlmDto : senFireAlmDtoList) {
+			List<Long> ss = new ArrayList<Long>();
+			ss.add(senFireAlmDto.getUpdateDate().getTime());
+			ss.add(senFireAlmDto.getFireStatus().longValue());
+			oneList.add(ss);
+		}
+		resultList.add(oneList);
+		for (SenFireAlmDto senFireAlmDto : senFireAlmDtoList) {
+			List<Long> ss = new ArrayList<Long>();
+			ss.add(senFireAlmDto.getUpdateDate().getTime());
+			ss.add(senFireAlmDto.getMq7Status().longValue());
+			twoList.add(ss);
+		}
+		resultList.add(twoList);
 		return resultList;
 	}
 	//https://ithelp.ithome.com.tw/questions/10188080?sc=pt

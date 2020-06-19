@@ -33,6 +33,11 @@
 
 	}
 	$(function() {
+		Highcharts.setOptions({
+			global : {
+				useUTC : false
+			}
+		});//設定時區
 		var chart = {
 
 			credits : {
@@ -40,21 +45,30 @@
 			//不顯示LOGO
 			},
 			title : {
-				text : '溫度'
+				text : '火災警報感應資料'
 			},
-			xAxis : [ {
+			xAxis : {
 				type : 'datetime',
-				labels : {
-					format : '{value:%H:%M}'
-				},
+
 				tickPixelInterval : 120
-			} ],
+			},
 			yAxis : {
 				title : {
-					text : '攝氏 (°C)&濕度(%)'
+					text : '狀態'
 				},
-				max : 100,
-				min : 0
+				labels : {
+					formatter : function() {
+						if (this.value <= 0) {
+							return "正常(" + this.value + ")";
+						} else {
+							return "異常(" + this.value + ")";
+						}
+					}
+				},
+				max : 1, // 定義Y軸 最大值  
+				min : 0, // 定義最小值  
+				tickInterval : 1
+			// 刻度值  
 			},
 			plotOptions : {
 				line : {
@@ -70,7 +84,7 @@
 		function requestData() {
 			var series = new Array();
 			$.ajax({
-				url : "showChartDht11",
+				url : "showCharFireAlm",
 				type : "post",
 				async : false,
 				success : function(data) {
@@ -80,6 +94,7 @@
 							var point = data[k][j];
 							var time = point[0];
 							var value = point[1];
+							console.log(time);
 							seriesData.push({
 								x : time,
 								y : value
@@ -87,12 +102,12 @@
 						}
 						if (k == 0) {
 							series.push({
-								"name" : "溫度",
+								"name" : "火光",
 								"data" : seriesData
 							});
 						} else {
 							series.push({
-								"name" : "濕度",
+								"name" : "一氧化碳",
 								color : '#89A54E',
 								"data" : seriesData
 							});

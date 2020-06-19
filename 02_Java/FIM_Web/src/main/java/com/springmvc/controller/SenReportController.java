@@ -126,7 +126,7 @@ public class SenReportController {
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
 		List<List<Long>> twoList = new ArrayList<List<Long>>();
-		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(2);
+		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(1);
 
 		for (SenDht11Dto senDht11Dto : senDht11DtoList) {
 			List<Long> ss = new ArrayList<Long>();
@@ -155,7 +155,7 @@ public class SenReportController {
 
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
-		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_chart(2);
+		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_chart(1);
 
 		for (SenHx711Dto senHx711Dto : senHx711DtoList) {
 			List<Long> ss = new ArrayList<Long>();
@@ -179,13 +179,15 @@ public class SenReportController {
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
 		List<List<Long>> twoList = new ArrayList<List<Long>>();
-		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_chart(2);
+		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_chart(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		for (SenFireAlmDto senFireAlmDto : senFireAlmDtoList) {
 			List<Long> ss = new ArrayList<Long>();
 			ss.add(senFireAlmDto.getUpdateDate().getTime());
 			ss.add(senFireAlmDto.getFireStatus().longValue());
 			oneList.add(ss);
+			System.out.println(sdf.format(senFireAlmDto.getUpdateDate().getTime()));
 		}
 		resultList.add(oneList);
 		for (SenFireAlmDto senFireAlmDto : senFireAlmDtoList) {

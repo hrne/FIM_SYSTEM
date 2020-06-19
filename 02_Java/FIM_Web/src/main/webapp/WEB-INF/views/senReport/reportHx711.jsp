@@ -33,6 +33,11 @@
 
 	}
 	$(function() {
+		Highcharts.setOptions({
+			global : {
+				useUTC : false
+			}
+		});//設定時區
 		var chart = {
 
 			credits : {
@@ -40,7 +45,7 @@
 			//不顯示LOGO
 			},
 			title : {
-				text : '溫度'
+				text : '重量'
 			},
 			xAxis : [ {
 				type : 'datetime',
@@ -51,9 +56,9 @@
 			} ],
 			yAxis : {
 				title : {
-					text : '攝氏 (°C)&濕度(%)'
+					text : '重量(g)'
 				},
-				max : 100,
+				max : 5000,
 				min : 0
 			},
 			plotOptions : {
@@ -70,11 +75,11 @@
 		function requestData() {
 			var series = new Array();
 			$.ajax({
-				url : "showChartDht11",
+				url : "showChartHx711",
 				type : "post",
 				async : false,
 				success : function(data) {
-					for (var k = 0; k < 2; k++) {
+					for (var k = 0; k < 1; k++) {
 						var seriesData = [];
 						for (var j = 0; j < data[k].length; j++) {
 							var point = data[k][j];
@@ -85,20 +90,11 @@
 								y : value
 							});
 						}
-						if (k == 0) {
-							series.push({
-								"name" : "溫度",
-								"data" : seriesData
-							});
-						} else {
-							series.push({
-								"name" : "濕度",
-								color : '#89A54E',
-								"data" : seriesData
-							});
 
-						}
-
+						series.push({
+							"name" : "重量",
+							"data" : seriesData
+						});
 					}
 				}
 			});

@@ -33,6 +33,11 @@
 
 	}
 	$(function() {
+		Highcharts.setOptions({
+			global : {
+				useUTC : false
+			}
+		});//設定時區
 		var chart = {
 
 			credits : {
@@ -40,7 +45,7 @@
 			//不顯示LOGO
 			},
 			title : {
-				text : '溫度'
+				text : '溫濕度'
 			},
 			xAxis : [ {
 				type : 'datetime',
@@ -51,7 +56,7 @@
 			} ],
 			yAxis : {
 				title : {
-					text : '攝氏 (°C)&濕度(%)'
+					text : '攝氏 (°C)-濕度(%)'
 				},
 				max : 100,
 				min : 0
@@ -132,32 +137,32 @@
 						<table class="table table-bordered"">
 							<tbody>
 								<tr>
-									<td class="text-center">查詢期間</td>
-									<td class="text-center"><input class="form-control"
-										type="datetime-local" value="" id="start_date"></td>
-									<td class="text-center">至</td>
-									<td><input class="form-control" type="datetime-local"
-										value="" id="end_date"></td>
+									<td class="text-center" width="%"><div class="dropdown">
+											<button type="button" class="btn dropdown-toggle"
+												id="dropdownMenu1" data-toggle="dropdown">
+												工具機名稱 <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu"
+												aria-labelledby="dropdownMenu1">
+												<li role="presentation"><a role="menuitem"
+													tabindex="-1" href="#">沖床機</a></li>
+												<li role="presentation"><a role="menuitem"
+													tabindex="-1" href="#">壓縮機</a></li>
+												<li role="presentation"><a role="menuitem"
+													tabindex="-1" href="#"> 切割機 </a></li>
+											</ul>
+										</div></td>
+									<td class="text-center" width="15%">查詢期間</td>
+									<td class="text-center" width="20%"><input
+										class="form-control" type="datetime-local" value=""
+										id="start_date"></td>
+									<td class="text-center" width="5%">至</td>
+									<td class="text-center" width="20%"><input
+										class="form-control" type="datetime-local" value=""
+										id="end_date"></td>
 								</tr>
 								<tr>
-									<td class="text-center">工具機名稱</td>
-									<td>
-										<div class="btn-group">
-											<button type="button" class="btn btn-Info dropdown-toggle"
-												data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false">沖床機</button>
-											<div class="dropdown-menu">
-												<a class="dropdown-item" href="#">沖床機</a> <a
-													class="dropdown-item" href="#">Another action</a> <a
-													class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td class="text-center" colspan="4" class="heading">
+									<td class="text-center" colspan="5" class="heading">
 										                                    
 										<button type="submit" class="btn btn-primary btn-sm"
 											id="searchBtn">

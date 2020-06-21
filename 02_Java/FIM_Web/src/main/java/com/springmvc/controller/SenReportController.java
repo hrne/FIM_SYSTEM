@@ -126,7 +126,7 @@ public class SenReportController {
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
 		List<List<Long>> twoList = new ArrayList<List<Long>>();
-		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(1);
+		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(2);
 
 		for (SenDht11Dto senDht11Dto : senDht11DtoList) {
 			List<Long> ss = new ArrayList<Long>();

@@ -10,6 +10,26 @@ create table Sys_Resp_Status(
 	PRIMARY KEY(id)
 )comment '回傳狀態代碼檔';
 
+-- Sys_Exp_Record 實驗紀錄資料
+create table Sys_Exp_Record(
+	id int not null AUTO_INCREMENT comment 'key值',
+	exp_content varchar(100)  comment '實驗內容',
+	ser_number decimal(10,0)  comment '次數',	
+    cost_time decimal(10,0) comment '花費時間',	
+    update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
+	PRIMARY KEY(id)
+)comment '實驗紀錄資料';
+
+-- Sys_Exp_Record 實驗紀錄資料
+create table Sys_Exp_Record(
+	id int not null AUTO_INCREMENT comment 'key值',
+	exp_content varchar(2)  comment '實驗內容',
+	ser_number decimal(10,0)  comment '次數',	
+    cost_time decimal(10,0) comment '花費時間',	
+    update_date timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新時間',
+	PRIMARY KEY(id)
+)comment '實驗紀錄資料';
+
 -- Mod_Main 感應裝置主檔
 create table Mod_Main(
 	id int not null AUTO_INCREMENT comment 'key值',

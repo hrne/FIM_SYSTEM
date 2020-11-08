@@ -86,7 +86,7 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 
 	public void scan_MainMod() {
 
-		System.out.println("start scan");
+		//System.out.println("start scan");
 
 		// 查詢所有啟用感應裝置
 		List<ModMain> scan_modMainList = find_modEnabled();
@@ -162,7 +162,7 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 				modRespLogService.save_modData_statusCode(modMain, "01", String.valueOf(statusCode));
 			}
 
-			System.out.println("status code:    " + statusCode + "   content:   " + respJsonStr);
+			//System.out.println("status code:    " + statusCode + "   content:   " + respJsonStr);
 
 		} catch (IOException e) {
 			// 連線意外失敗:紀錄錯誤訊息，99:未知原因
@@ -193,7 +193,7 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 			obj.put(modSen.getSenCode(), "1");
 		}
 
-		System.out.println(obj.toString());
+		//System.out.println(obj.toString());
 		return obj.toString();
 	}
 

@@ -140,7 +140,7 @@
 									<td class="text-center" width="%"><div class="dropdown">
 											<button type="button" class="btn dropdown-toggle"
 												id="dropdownMenu1" data-toggle="dropdown">
-												工具機名稱 <span class="caret"></span>
+												裁切機 <span class="caret"></span>
 											</button>
 											<ul class="dropdown-menu" role="menu"
 												aria-labelledby="dropdownMenu1">

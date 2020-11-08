@@ -20,7 +20,8 @@
 */
 
 //wifi ssid
-const char ssid[] = "note4";
+//const char ssid[] = "note4";
+const char ssid[] = "lin2";
 const char pass[] = "29883713";
 
 //webService設定
@@ -91,8 +92,11 @@ void setup() {
   pinMode(mq7Pin, INPUT);
 
   //若要指定IP位址，請自行在此加入WiFi.config()敘述。
-  WiFi.config(IPAddress(192, 168, 43, 101), // IP位址
-              IPAddress(192, 168, 43, 1),  // 閘道（gateway）位址
+//  WiFi.config(IPAddress(192, 168, 43, 101), // IP位址
+//              IPAddress(192, 168, 43, 1),  // 閘道（gateway）位址
+//              IPAddress(255, 255, 255, 0)); // 網路遮罩（netmask）
+  WiFi.config(IPAddress(192, 168, 50, 102), // IP位址
+              IPAddress(192, 168, 50, 1),  // 閘道（gateway）位址
               IPAddress(255, 255, 255, 0)); // 網路遮罩（netmask）
 
   while (WiFi.status() != WL_CONNECTED) {

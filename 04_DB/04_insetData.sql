@@ -32,3 +32,5 @@ insert into Sys_Resp_Status(status_code,status_name) values('02','讀取不到�
 insert into Sys_Resp_Status(status_code,status_name) values('99','未知原因');
 
 insert into Mod_Main_Sen_R(mod_main_id,mod_sen_id) values(1,1); 
+
+insert into Sys_Exp_Record(exp_content,ser_number) values('實驗次數',1);

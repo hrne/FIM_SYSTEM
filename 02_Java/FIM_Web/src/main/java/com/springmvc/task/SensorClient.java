@@ -43,7 +43,7 @@ public class SensorClient {
 	SysExpRecordService sysExpRecordService;
 
 	// 每5秒掃描一次
-	// @Scheduled(cron = "0/20 * * * * ? ")
+	@Scheduled(cron = "0/5 * * * * ? ")
 	public void startClient() {
 		System.out.println("Start Scn");
 		modMainService = (ModMainService) ApplicationContextUtil.getBean("modMainService");

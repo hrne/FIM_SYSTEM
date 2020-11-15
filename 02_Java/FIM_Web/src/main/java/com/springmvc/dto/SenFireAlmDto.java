@@ -35,7 +35,7 @@ public class SenFireAlmDto {
 	private ModMain modMain;
 
 	/**
-	 * 火光警示:1:有火光、0:安全
+	 * 火光警示:0:有火光、1:安全
 	 */
 	private BigDecimal fireStatus;
 
@@ -69,7 +69,7 @@ public class SenFireAlmDto {
 	}
 
 	/**
-	 * 火光警示:1:有火光、0:安全
+	 * 火光警示:0:有火光、1:安全
 	 */
 	public BigDecimal getFireStatus() {
 		return fireStatus;
@@ -142,10 +142,10 @@ public class SenFireAlmDto {
 	}
 
 	/**
-	 * 顯示火光警示:1:有火光、0:安全
+	 * 顯示火光警示:0:有火光、1:安全
 	 */
 	public String getFireStatusName() {
-		if (getFireStatus().equals(new BigDecimal(1))) {
+		if (getFireStatus().equals(new BigDecimal(0))) {
 			return "有火光";
 		} else {
 			return "安全";
@@ -170,7 +170,7 @@ public class SenFireAlmDto {
 	 */
 	public String getClassFireStatus() {
 		// 判斷是否有火光
-		if (getFireStatus().equals(new BigDecimal(1))) {
+		if (getFireStatus().equals(new BigDecimal(0))) {
 			// 異常顯示
 			return getClassNorDan();
 		}

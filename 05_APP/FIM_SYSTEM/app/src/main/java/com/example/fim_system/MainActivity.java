@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         WebView webview = (WebView) findViewById(R.id.web_view);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(new WebViewClient()); //不調用系統瀏覽器
-        webview.loadUrl("http://192.168.50.180:8080/FIM_Web/");
+        webview.loadUrl("http://192.168.43.178:8080/FIM_Web/");
     }
 
 

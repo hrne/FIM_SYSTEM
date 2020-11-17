@@ -1,5 +1,6 @@
 package com.springmvc.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.modle.service.BaseService;
@@ -42,8 +43,11 @@ public interface SenDht11Service extends BaseService<SenDht11> {
 	/**
 	 * 查詢於圖表顯示溫濕度資料
 	 * 
+	 * @param modMainId 感應裝置主檔id
+	 * @param startDate 查詢起日
+	 * @param endDate 查詢迄日
 	 * @return
 	 */
-	List<SenDht11Dto>find_show_chart(int modMainId);
+	List<SenDht11Dto>find_show_chart(int modMainId,Date startDate, Date endDate);
 
 }

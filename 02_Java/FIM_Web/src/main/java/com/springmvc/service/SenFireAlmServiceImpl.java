@@ -2,6 +2,7 @@ package com.springmvc.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -105,16 +106,16 @@ public class SenFireAlmServiceImpl extends BaseServiceImpl<SenFireAlm> implement
 
 	}
 	
-	public List<SenFireAlmDto> find_show_chart(int modMainId) {
+	public List<SenFireAlmDto> find_show_chart(int modMainId, Date startDate, Date endDate) {
 
 		List<SenFireAlm> senFireAlmList = new ArrayList<SenFireAlm>();
 
 		List<SenFireAlmDto> senFireAlmDtoList = new ArrayList<SenFireAlmDto>();
 
 		// 查詢感應裝置火災警報感應列表，依據更新日期排序
-		senFireAlmList = senFireAlmDao.find_modMainId_desc(modMainId);
+		senFireAlmList = senFireAlmDao.find_modMainId_date_desc(modMainId, startDate, endDate);
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < senFireAlmList.size(); i++) {
 			if (senFireAlmList.get(i) != null) {
 				// 將火災警報感應資料map到dto上
 				SenFireAlmDto senFireAlmDto = ObjectMapperUtils.map(senFireAlmList.get(i), SenFireAlmDto.class);

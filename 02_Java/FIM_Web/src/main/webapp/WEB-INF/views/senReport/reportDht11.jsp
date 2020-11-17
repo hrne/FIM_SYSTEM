@@ -38,8 +38,8 @@
 				useUTC : false
 			}
 		});//設定時區
-		var chart = {
-
+		function init(){
+		chart = {
 			credits : {
 				enabled : false
 			//不顯示LOGO
@@ -71,12 +71,38 @@
 			},
 			series : requestData()
 		};
-
+		}
 		function requestData() {
+			var protocol_type= $("#PROTOCOL_TYPE").val();	
+			
+			//Start Date
+			var x_date = $("input[id='start_date']").val();
+			var s_date = new Date();
+			s_date.setFullYear(parseInt(x_date.substring(0, 4)));
+			s_date.setMonth(parseInt(x_date.substring(5, 7)) - 1);
+			s_date.setDate(parseInt(x_date.substring(8, 10)));
+			s_date.setHours(parseInt(x_date.substring(11, 13)));
+			s_date.setMinutes(parseInt(x_date.substring(14, 16)));
+	        
+			//End Date
+			var y_date = $("input[id='end_date']").val();
+			var e_date = new Date();
+			e_date.setFullYear(parseInt(y_date.substring(0, 4)));
+			e_date.setMonth(parseInt(y_date.substring(5, 7)) - 1);
+			e_date.setDate(parseInt(y_date.substring(8, 10)));
+			e_date.setHours(parseInt(y_date.substring(11, 13)));
+			e_date.setMinutes(parseInt(y_date.substring(14, 16)));
+			
 			var series = new Array();
 			$.ajax({
 				url : "showChartDht11",
 				type : "post",
+		        data:{
+		        	protocol_type:protocol_type,
+		        	s_date:s_date,
+		        	e_date:e_date
+		        },
+		        ataType: "json",
 				async : false,
 				success : function(data) {
 					for (var k = 0; k < 2; k++) {
@@ -111,13 +137,11 @@
 
 		}
 		$("#searchBtn").off().on("click", function() {
+			init();
 			var charSert = Highcharts.chart('container2', chart);
 		});
 
-		$("#resetBtn").off().on("click", function() {
-			var start_date = $("input[id='start_date']").val();
-			console.log(start_date);
-		});
+
 	})
 </script>
 
@@ -134,45 +158,37 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row">
-						<table class="table table-bordered"">
+						<table class="table table-bordered">
 							<tbody>
-								<tr>
-									<td class="text-center" width="%"><div class="dropdown">
-											<button type="button" class="btn dropdown-toggle"
-												id="dropdownMenu1" data-toggle="dropdown">
-												裁切機 <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu" role="menu"
-												aria-labelledby="dropdownMenu1">
-												<li role="presentation"><a role="menuitem"
-													tabindex="-1" href="#">沖床機</a></li>
-												<li role="presentation"><a role="menuitem"
-													tabindex="-1" href="#">壓縮機</a></li>
-												<li role="presentation"><a role="menuitem"
-													tabindex="-1" href="#"> 切割機 </a></li>
-											</ul>
-										</div></td>
-									<td class="text-center" width="15%">查詢期間</td>
-									<td class="text-center" width="20%"><input
+								<tr>			
+								<td class="text-center" >工具機</td>							
+										<td class="text-center" width="%">
+										  <select class="form-control"  id="PROTOCOL_TYPE" name="PROTOCOL_TYPE" >
+                                          <option value="1">裁切機</option>
+                                          <option value="2">沖床機</option>
+                                          <option value="3">壓縮機</option>
+                                          <option value="4">切割機</option>
+
+                                        </select>
+									</td>
+									<td class="text-center" >查詢期間</td>
+									<td class="text-center" ><input
 										class="form-control" type="datetime-local" value=""
 										id="start_date"></td>
-									<td class="text-center" width="5%">至</td>
-									<td class="text-center" width="20%"><input
+									<td class="text-center" >至</td>
+									<td class="text-center" ><input
 										class="form-control" type="datetime-local" value=""
 										id="end_date"></td>
 								</tr>
 								<tr>
-									<td class="text-center" colspan="5" class="heading">
+									<td class="text-center" colspan="6" class="heading">
 										                                    
 										<button type="submit" class="btn btn-primary btn-sm"
 											id="searchBtn">
 											<i class="fa fa-search fa-large"></i>查询
-										</button>                                      
-										<button type="reset" class="btn btn-primary btn-sm"
-											id="resetBtn" style="margin-right: 30px;">
-											<i class="fa fa-undo fa-large"></i>重置
-										</button>                                 
+										</button>                                                                    
 									</td>
+
 								</tr>
 
 							</tbody>

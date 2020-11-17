@@ -2,6 +2,7 @@ package com.springmvc.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -130,16 +131,21 @@ public class SenDht11ServiceImpl extends BaseServiceImpl<SenDht11> implements Se
 		return senDht11DtoList;
 	}
 
-	public List<SenDht11Dto> find_show_chart(int modMainId) {
+	public List<SenDht11Dto> find_show_chart(int modMainId, Date startDate, Date endDate) {
 
 		List<SenDht11> senDht11List = new ArrayList<SenDht11>();
 
 		List<SenDht11Dto> senDht11DtoList = new ArrayList<SenDht11Dto>();
 
 		// 查詢感應裝置溫濕度列表，依據更新日期排序
-		senDht11List = senDht11Dao.find_modMainId_desc(modMainId);
+		senDht11List = senDht11Dao.find_modMainId_date_desc(modMainId, startDate, endDate);
 
-		for (int i = 0; i < 10; i++) {
+		int size = senDht11List.size();
+		if (size >= 50) {
+			size = 50;
+		}
+
+		for (int i = 0; i < size; i++) {
 			if (senDht11List.get(i) != null) {
 				// 將濕度資料map到dto上
 				SenDht11Dto senDht11Dto = ObjectMapperUtils.map(senDht11List.get(i), SenDht11Dto.class);

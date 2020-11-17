@@ -1,5 +1,6 @@
 package com.springmvc.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.modle.service.BaseService;
@@ -44,8 +45,12 @@ public interface SenFireAlmService extends BaseService<SenFireAlm> {
 	/**
 	 * 查詢於圖表顯示火災警報感應資料
 	 * 
+	 * @param modMainId 感應裝置主檔id
+	 * @param startDate 查詢起日
+	 * @param endDate 查詢迄日
+	 * @return
 	 * @return
 	 */
-	List<SenFireAlmDto>find_show_chart(int modMainId);
+	List<SenFireAlmDto>find_show_chart(int modMainId,Date startDate, Date endDate);
 
 }

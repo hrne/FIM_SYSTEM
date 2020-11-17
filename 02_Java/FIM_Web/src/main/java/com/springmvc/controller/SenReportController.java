@@ -2,37 +2,20 @@ package com.springmvc.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.modle.util.ObjectMapperUtils;
-import com.springmvc.dto.ModMainDto;
-import com.springmvc.dto.ModParmDataDto;
-import com.springmvc.dto.ModSenDto;
 import com.springmvc.dto.SenDht11Dto;
 import com.springmvc.dto.SenFireAlmDto;
 import com.springmvc.dto.SenHx711Dto;
-import com.springmvc.entity.ModMain;
-import com.springmvc.entity.ModParmData;
-import com.springmvc.entity.ModSen;
 import com.springmvc.service.ModMainService;
 import com.springmvc.service.ModParmDataService;
 import com.springmvc.service.ModSenService;
@@ -121,12 +104,12 @@ public class SenReportController {
 	 */
 	@RequestMapping(value = "/senReport/showChartDht11")
 	@ResponseBody
-	public List<List<List<Long>>> showChartDht11() {
-
+	public List<List<List<Long>>> showChartDht11(int protocol_type, Date s_date, Date e_date) {
+		
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
 		List<List<Long>> twoList = new ArrayList<List<Long>>();
-		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(2);
+		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(protocol_type,s_date,e_date);
 
 		for (SenDht11Dto senDht11Dto : senDht11DtoList) {
 			List<Long> ss = new ArrayList<Long>();
@@ -151,11 +134,11 @@ public class SenReportController {
 	 */
 	@RequestMapping(value = "/senReport/showChartHx711")
 	@ResponseBody
-	public List<List<List<Long>>> showChartHx711() {
+	public List<List<List<Long>>> showChartHx711(int protocol_type, Date s_date, Date e_date) {
 
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
-		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_chart(1);
+		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_chart(protocol_type,s_date,e_date);
 
 		for (SenHx711Dto senHx711Dto : senHx711DtoList) {
 			List<Long> ss = new ArrayList<Long>();
@@ -174,12 +157,12 @@ public class SenReportController {
 	 */
 	@RequestMapping(value = "/senReport/showCharFireAlm")
 	@ResponseBody
-	public List<List<List<Long>>> showChartFireAlm() {
+	public List<List<List<Long>>> showChartFireAlm(int protocol_type, Date s_date, Date e_date) {
 
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
 		List<List<Long>> twoList = new ArrayList<List<Long>>();
-		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_chart(1);
+		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_chart(protocol_type,s_date,e_date);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		for (SenFireAlmDto senFireAlmDto : senFireAlmDtoList) {

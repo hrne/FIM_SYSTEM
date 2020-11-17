@@ -2,6 +2,7 @@ package com.springmvc.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -119,16 +120,16 @@ public class SenHx711ServiceImpl extends BaseServiceImpl<SenHx711> implements Se
 		return senHx711DtoList;
 	}
 
-	public List<SenHx711Dto> find_show_chart(int modMainId) {
+	public List<SenHx711Dto> find_show_chart(int modMainId, Date startDate, Date endDate) {
 
 		List<SenHx711> senHx711List = new ArrayList<SenHx711>();
 
 		List<SenHx711Dto> senHx711DtoList = new ArrayList<SenHx711Dto>();
 
 		// 查詢感應裝置重量列表，依據更新日期排序
-		senHx711List = senHx711Dao.find_modMainId_desc(modMainId);
+		senHx711List = senHx711Dao.find_modMainId_date_desc(modMainId, startDate, endDate);
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < senHx711List.size(); i++) {
 			if (senHx711List.get(i) != null) {
 				// 將濕度資料map到dto上
 				SenHx711Dto senHx711Dto = ObjectMapperUtils.map(senHx711List.get(i), SenHx711Dto.class);

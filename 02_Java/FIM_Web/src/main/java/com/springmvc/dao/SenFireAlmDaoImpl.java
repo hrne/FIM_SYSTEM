@@ -1,5 +1,6 @@
 package com.springmvc.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -32,5 +33,14 @@ public class SenFireAlmDaoImpl extends BaseDaoImpl<SenFireAlm> implements SenFir
 		Query query = session.createQuery("from SenFireAlm where modMain.id =:modMainId order by updateDate desc");
 		query.setParameter("modMainId", modMainId);
 		return query.list();
+	}
+	
+	public List<SenFireAlm> find_modMainId_date_desc(Integer modMainId, Date startDate, Date endDate){
+		Session session = sessionFactory.openSession();
+		Query query = session.createQuery("from SenFireAlm where modMain.id =:modMainId and updateDate>=:startDate and updateDate<=:endDate order by updateDate desc");
+		query.setParameter("modMainId", modMainId);
+		query.setParameter("startDate", startDate);
+		query.setParameter("endDate", endDate);
+		return query.list();		
 	}
 }

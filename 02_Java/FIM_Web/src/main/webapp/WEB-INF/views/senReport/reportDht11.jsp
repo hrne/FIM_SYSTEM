@@ -18,6 +18,7 @@
 				return prop
 			}
 		}
+
 		var start_date = year + "-" + month + "-" + date + "T" + hour_sub + ":"
 				+ minute;
 
@@ -164,11 +165,8 @@
 								<td class="text-center" >工具機</td>							
 										<td class="text-center" width="%">
 										  <select class="form-control"  id="PROTOCOL_TYPE" name="PROTOCOL_TYPE" >
-                                          <option value="1">裁切機</option>
-                                          <option value="2">沖床機</option>
-                                          <option value="3">壓縮機</option>
-                                          <option value="4">切割機</option>
-
+                                          <option value="1">洗床機A</option>
+                                          <option value="2">裁切機</option>
                                         </select>
 									</td>
 									<td class="text-center" >查詢期間</td>

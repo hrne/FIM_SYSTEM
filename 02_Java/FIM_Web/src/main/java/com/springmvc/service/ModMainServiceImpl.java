@@ -197,26 +197,26 @@ public class ModMainServiceImpl extends BaseServiceImpl<ModMain> implements ModM
 		return obj.toString();
 	}
 
-	public List<ModMainDto> find_chart_init() {
-
-		// 查詢所有啟用感應裝置
-		List<ModMain> modMainList = find_modEnabled();
-
-		List<ModMainDto> modMainDtoList = new ArrayList<ModMainDto>();
-
-		for (ModMain modMain : modMainList) {
-
-			ModMainDto modMainDto = ObjectMapperUtils.map(modMain, ModMainDto.class);
-
-			List<SenDht11Dto> senDht11Dto = senDht11Service.find_show_chart(modMain.getId());
-			
-			//modMainDto.setDht11Json(senDht11Dto);
-
-			modMainDtoList.add(modMainDto);
-
-		}
-		return modMainDtoList;
-
-	}
+//	public List<ModMainDto> find_chart_init() {
+//
+//		// 查詢所有啟用感應裝置
+//		List<ModMain> modMainList = find_modEnabled();
+//
+//		List<ModMainDto> modMainDtoList = new ArrayList<ModMainDto>();
+//
+//		for (ModMain modMain : modMainList) {
+//
+//			ModMainDto modMainDto = ObjectMapperUtils.map(modMain, ModMainDto.class);
+//
+//			List<SenDht11Dto> senDht11Dto = senDht11Service.find_show_chart(modMain.getId());
+//			
+//			//modMainDto.setDht11Json(senDht11Dto);
+//
+//			modMainDtoList.add(modMainDto);
+//
+//		}
+//		return modMainDtoList;
+//
+//	}
 
 }

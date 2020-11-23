@@ -174,10 +174,7 @@
 									<td class="text-center" width="15%">工具機</td>							
 										<td class="text-center" width="%">
 										  <select class="form-control"  id="PROTOCOL_TYPE" name="PROTOCOL_TYPE" >
-                                          <option value="1">裁切機</option>
-                                          <option value="2">沖床機</option>
-                                          <option value="3">壓縮機</option>
-                                          <option value="4">切割機</option>
+                                          <option value="3">烤箱</option>
 
                                         </select>
 										</td>

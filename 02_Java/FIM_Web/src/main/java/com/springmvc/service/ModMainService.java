@@ -33,11 +33,11 @@ public interface ModMainService extends BaseService<ModMain> {
 	 */
 	void scan_MainMod();
 	
-	/**
-	 * 頁面折線圖初始化使用
-	 * 
-	 * @return ModMain List
-	 */
-	List<ModMainDto> find_chart_init();
+//	/**
+//	 * 頁面折線圖初始化使用
+//	 * 
+//	 * @return ModMain List
+//	 */
+//	List<ModMainDto> find_chart_init();
 
 }

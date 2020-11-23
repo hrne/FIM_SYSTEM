@@ -209,16 +209,16 @@ public class SenModController {
 	 * ajax 查詢初始化折線圖用溫度資料
 	 * 
 	 */
-	@RequestMapping(value = "/senMod/showInitChartDht11")
-	public @ResponseBody String showInitChartDht11() {
-
-		String jsonStr = "";
-		List<ModMainDto> modMainDtoList = modMainService.find_chart_init();
-
-		JSONArray fromObject2 = new JSONArray();
-//		fromObject2.fr
-//		System.out.println(jsonStr);
-		return jsonStr;
-	}
+//	@RequestMapping(value = "/senMod/showInitChartDht11")
+//	public @ResponseBody String showInitChartDht11() {
+//
+//		String jsonStr = "";
+//		List<ModMainDto> modMainDtoList = modMainService.find_chart_init();
+//
+//		JSONArray fromObject2 = new JSONArray();
+////		fromObject2.fr
+////		System.out.println(jsonStr);
+//		return jsonStr;
+//	}
 
 }

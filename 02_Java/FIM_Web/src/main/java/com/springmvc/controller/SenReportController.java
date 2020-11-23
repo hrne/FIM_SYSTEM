@@ -52,10 +52,10 @@ public class SenReportController {
 
 	@Autowired
 	private SenDht11Service senDht11Service;
-	
+
 	@Autowired
 	private SenHx711Service senHx711Service;
-	
+
 	@Autowired
 	private SenFireAlmService senFireAlmService;
 
@@ -73,7 +73,7 @@ public class SenReportController {
 		// 導頁至溫濕度報表
 		return "senReport/reportDht11";
 	}
-	
+
 	/**
 	 * 導頁:重量報表
 	 * 
@@ -85,7 +85,7 @@ public class SenReportController {
 		// 導頁至重量報表
 		return "senReport/reportHx711";
 	}
-	
+
 	/**
 	 * 導頁:火災警報報表
 	 * 
@@ -105,11 +105,11 @@ public class SenReportController {
 	@RequestMapping(value = "/senReport/showChartDht11")
 	@ResponseBody
 	public List<List<List<Long>>> showChartDht11(int protocol_type, Date s_date, Date e_date) {
-		
+
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
 		List<List<Long>> twoList = new ArrayList<List<Long>>();
-		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(protocol_type,s_date,e_date);
+		List<SenDht11Dto> senDht11DtoList = senDht11Service.find_show_chart(protocol_type, s_date, e_date);
 
 		for (SenDht11Dto senDht11Dto : senDht11DtoList) {
 			List<Long> ss = new ArrayList<Long>();
@@ -127,7 +127,7 @@ public class SenReportController {
 		resultList.add(twoList);
 		return resultList;
 	}
-	
+
 	/**
 	 * ajax 查詢折線圖用重量資料
 	 * 
@@ -138,7 +138,7 @@ public class SenReportController {
 
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
-		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_chart(protocol_type,s_date,e_date);
+		List<SenHx711Dto> senHx711DtoList = senHx711Service.find_show_chart(protocol_type, s_date, e_date);
 
 		for (SenHx711Dto senHx711Dto : senHx711DtoList) {
 			List<Long> ss = new ArrayList<Long>();
@@ -150,7 +150,7 @@ public class SenReportController {
 
 		return resultList;
 	}
-	
+
 	/**
 	 * ajax 查詢折線圖用火災警報感應資料
 	 * 
@@ -162,13 +162,19 @@ public class SenReportController {
 		List<List<List<Long>>> resultList = new ArrayList<List<List<Long>>>();
 		List<List<Long>> oneList = new ArrayList<List<Long>>();
 		List<List<Long>> twoList = new ArrayList<List<Long>>();
-		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_chart(protocol_type,s_date,e_date);
+		List<SenFireAlmDto> senFireAlmDtoList = senFireAlmService.find_show_chart(protocol_type, s_date, e_date);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		for (SenFireAlmDto senFireAlmDto : senFireAlmDtoList) {
 			List<Long> ss = new ArrayList<Long>();
 			ss.add(senFireAlmDto.getUpdateDate().getTime());
-			ss.add(senFireAlmDto.getFireStatus().longValue());
+			Long a = senFireAlmDto.getFireStatus().longValue();
+			if (a == (long) 1) {
+				a = (long) 0;
+			} else {
+				a = (long) 1;
+			}
+			ss.add(a);
 			oneList.add(ss);
 			System.out.println(sdf.format(senFireAlmDto.getUpdateDate().getTime()));
 		}
@@ -182,8 +188,8 @@ public class SenReportController {
 		resultList.add(twoList);
 		return resultList;
 	}
-	//https://ithelp.ithome.com.tw/questions/10188080?sc=pt
-	//https://blog.csdn.net/bsh_csn/article/details/51700514
-	//https://blog.csdn.net/u011781521/article/details/82284449
+	// https://ithelp.ithome.com.tw/questions/10188080?sc=pt
+	// https://blog.csdn.net/bsh_csn/article/details/51700514
+	// https://blog.csdn.net/u011781521/article/details/82284449
 
 }

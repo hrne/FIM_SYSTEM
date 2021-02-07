@@ -160,6 +160,17 @@ public class SenSwitchServiceImpl extends BaseServiceImpl<SenSwitch> implements 
 				if (respPowerStatus) {
 					// 儲存成功紀錄，00:連線正常
 					modRespLogService.save_modData_modSen(modMain, modSen, "00", "開關:" + state);
+					
+					// 產生資料
+					SenSwitch senSwitch = new SenSwitch();
+					senSwitch.setModMain(modMain);
+					senSwitch.setPowStatus(!state);
+					BigDecimal batteryVolt = new BigDecimal(6);
+					senSwitch.setBatteryVolt(batteryVolt);
+
+					// 將資料寫入DB
+					create(senSwitch);
+					
 				} else {
 					// 回傳資料若其中有一筆空值，則不寫入並儲存錯誤訊息紀錄，01:感應裝置連線失敗
 					modRespLogService.save_modData_modSen(modMain, modSen, "01", String.valueOf(statusCode));

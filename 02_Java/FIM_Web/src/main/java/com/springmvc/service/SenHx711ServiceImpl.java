@@ -50,7 +50,10 @@ public class SenHx711ServiceImpl extends BaseServiceImpl<SenHx711> implements Se
 		try {
 			// 取出重量
 			BigDecimal weight = obj.getBigDecimal("weight");
-
+			BigDecimal t = new BigDecimal(5);
+			if(weight.compareTo(t)<=0) {
+				weight = new BigDecimal(0);
+			}
 			// 產生資料
 			SenHx711 senHx711 = new SenHx711();
 			senHx711.setModMain(modMain);

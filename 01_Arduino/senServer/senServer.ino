@@ -77,12 +77,13 @@ void setup() {
   dht.begin();
 
   //啟動hx711
+  /*
   scale.begin(dtPin, sckPin);
   Serial.println(scale.get_units(5), 0);  //未設定比例參數前的數值
   scale.set_scale(scale_factor);       // 設定比例參數
   scale.tare();               // 歸零
   Serial.println(scale.get_units(5), 0);  //設定比例參數後的數值
-
+  */
   //設定電源開關
   pinMode(relayPin, OUTPUT) ;
   digitalWrite(relayPin, turnon) ;//一開始打開
@@ -92,7 +93,7 @@ void setup() {
   pinMode(mq7Pin, INPUT);
 
   //若要指定IP位址，請自行在此加入WiFi.config()敘述。
-  WiFi.config(IPAddress(192, 168, 43, 101), // IP位址
+  WiFi.config(IPAddress(192, 168, 43, 102), // IP位址
               IPAddress(192, 168, 43, 1),  // 閘道（gateway）位址
               IPAddress(255, 255, 255, 0)); // 網路遮罩（netmask）
 //  WiFi.config(IPAddress(192, 168, 43, 100), // IP位址

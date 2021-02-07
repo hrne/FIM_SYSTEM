@@ -1,11 +1,11 @@
 #include "DHT.h"
-#define dhtPin D8      //讀取DHT11 Data
+#define dhtPin D4      //讀取DHT11 Data
 #define dhtType DHT11 //選用DHT11   
 
 DHT dht(dhtPin, dhtType); // Initialize DHT sensor
 
 void setup() {
-  Serial.begin(9600);//設定鮑率9600
+  Serial.begin(115200);//設定鮑率9600
   dht.begin();//啟動DHT
 }
 
